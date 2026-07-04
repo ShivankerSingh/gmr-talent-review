@@ -750,6 +750,31 @@ body.ceo-mode .hide-in-ceo{display:none!important}
 .exec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .exec-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
 
+/* AI Readiness insight card */
+.ai-strat-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:18px 22px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;
+  border-left:4px solid var(--steel)}
+.ai-strat-card.warn{border-left-color:var(--rn-o)}
+.ai-strat-card.risk{border-left-color:var(--rn-r)}
+.ai-strat-card.good{border-left-color:var(--rn-g)}
+.ai-strat-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--steel),#5EA5E8);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+.ai-strat-card.warn .ai-strat-icon{background:linear-gradient(135deg,var(--rn-o),#E68C4E)}
+.ai-strat-card.risk .ai-strat-icon{background:linear-gradient(135deg,var(--rn-r),#D53E41)}
+.ai-strat-card.good .ai-strat-icon{background:linear-gradient(135deg,var(--rn-g),#4CB090)}
+.ai-strat-body .ais-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;margin-bottom:4px}
+.ai-strat-body .ais-text{font-size:13px;line-height:1.55;color:var(--ink-2)}
+.ai-strat-body .ais-text b{color:var(--ink);font-weight:600}
+.ai-strat-body .ais-text b.warn{color:#B32B2E}
+.ai-strat-body .ais-text b.good{color:#1F7A5C}
+.ai-strat-body .ais-text a{color:var(--steel);cursor:pointer;text-decoration:underline;text-decoration-color:rgba(44,123,229,.35);margin-left:6px}
+.ai-strat-body .ais-text a:hover{text-decoration-color:var(--steel)}
+.ai-strat-stat{text-align:center;padding:0 8px}
+.ai-strat-stat .ass-num{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.ai-strat-stat .ass-lbl{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:4px}
+.ai-strat-stat .ass-num.warn{color:var(--rn-r)}
+.ai-strat-stat .ass-num.good{color:var(--rn-g)}
+
 /* ---------- Full-screen mode for charts ---------- */
 .expand-btn{position:absolute;top:12px;right:12px;background:#fff;
   border:1px solid var(--line);border-radius:4px;padding:5px 10px;font-size:11px;
@@ -1000,6 +1025,7 @@ body.story-mode main{padding-bottom:110px}
       <div id="exec-cap-gaps"></div>
     </div>
   </div>
+  <div id="exec-ai-insight"></div>
 </section>
 
 <!-- =================== GROUP INSIGHTS (renamed Cohort Analysis) =================== -->
@@ -2235,46 +2261,76 @@ function renderExecVerdict(){
   const roles = STATE.roles;
   const rnRoles = roles.filter(r=>(r.slots||[]).some(sl=>sl.readiness===READINESS[0])).length;
   const pct = Math.round(100*rnRoles/roles.length);
-  const target = 66;
-  const statusLabel = pct>=target ? "on target" : pct>=34 ? "below target" : "in critical gap";
-  const statusClass = pct>=target ? "g" : "";
-  const tier1Weak = roles.filter(r=>r.tier===1 && (roleHealth(r)==="r" || roleHealth(r)==="o")).length;
+  // Benchmark-anchored verdict — DDI 2025 global peer benchmark = 20% Ready-Now availability
+  const BENCH = 20;
+  const statusLabel = pct>=2*BENCH ? "strong" : pct>=BENCH ? "healthy" : pct>=BENCH/2 ? "sub-optimal" : "weak";
+  const statusClass = pct>=2*BENCH ? "g" : "";
+  const benchClause = pct>=2*BENCH ? "well above the global benchmark of 20%"
+                     : pct>=BENCH ? "at par with the global benchmark of 20%"
+                     : pct>=BENCH/2 ? "below the global benchmark of 20%"
+                     : "materially below the global benchmark of 20%";
+  // LA-level critical roles (Career Level LA) that are Red or Amber
+  const laCriticalWeak = roles.filter(r=>r.cl==="LA" && (roleHealth(r)==="r" || roleHealth(r)==="o")).length;
   const highRiskCrit = (function(){
     const set = new Set();
     roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
     return STATE.leaders.filter(l=>set.has(l.id) && l.flightRisk==="High").length;
   })();
   c.innerHTML = `
-    <div class="vk-lbl">The pipeline in one line</div>
+    <div class="vk-lbl">Succession Pipeline</div>
     <div class="vk-text">
-      Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b> — <b>${pct}%</b> of critical roles have a Ready-Now successor (target 66%) ·
-      <b>${tier1Weak}</b> Tier-1 role${tier1Weak===1?"":"s"} need${tier1Weak===1?"s":""} immediate attention ·
+      Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b> — <b>${pct}%</b> of critical roles have a Ready-Now successor, ${benchClause} ·
+      <b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action ·
       <b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates.
     </div>
   `;
 }
+function computeBuFamilyStats(){
+  const stats = {};
+  STATE.roles.forEach(r=>{
+    const key = r.bu + "||" + r.family;
+    if(!stats[key]) stats[key] = {bu:r.bu, family:r.family, total:0, weak:0, healthy:0, exposed:0};
+    stats[key].total++;
+    const h = roleHealth(r);
+    if(h==="r"||h==="o") stats[key].weak++;
+    if(h==="g") stats[key].healthy++;
+    if(h==="r") stats[key].exposed++;
+  });
+  return Object.values(stats).filter(s=>s.total>=3);
+}
 function renderExecFocusExec(){
-  // Re-use existing computation, render in the exec-focus-exec container
   const c = document.getElementById("exec-focus-exec"); if(!c) return;
   const ins = computeExecInsights();
   const buShort = bu => (bu||"").replace("GMR ","");
   const concerns = [];
+  // BU with biggest pipeline challenge
   if(ins.weakestBU){
-    concerns.push(`<b>${buShort(ins.weakestBU.bu)}</b> has the weakest pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber. <a onclick="drillBUHealth('${ins.weakestBU.bu}')">Drill in ›</a>`);
+    concerns.push(`<b>${buShort(ins.weakestBU.bu)}</b> has the weakest BU-level pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber. <a onclick="drillBUOnly('${ins.weakestBU.bu.replace(/'/g,"\\'")}')">Drill in ›</a>`);
   }
+  // Job family with biggest pipeline challenge
   if(ins.weakestFam){
-    concerns.push(`<b>${ins.weakestFam.f}</b> is the weakest function — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action`);
+    concerns.push(`<b>${ins.weakestFam.f}</b> is the weakest job family — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action. <a onclick="drillFamilyOnly('${ins.weakestFam.f.replace(/'/g,"\\'")}')">Drill in ›</a>`);
+  }
+  // Tier-1 (LA Critical) roles at risk
+  if(ins.tier1Weak && ins.tier1Weak.length){
+    const names = ins.tier1Weak.slice(0,2).map(r=>r.title).join(", ");
+    const more = ins.tier1Weak.length>2 ? ` +${ins.tier1Weak.length-2} more` : "";
+    concerns.push(`<b>${ins.tier1Weak.length}</b> LA Critical roles are exposed or at-risk — ${names}${more}. <a onclick="drillTier1Weak()">Drill in ›</a>`);
+  }
+  // Retention risk
+  if(ins.highFlightOnSlates && ins.highFlightOnSlates.length){
+    concerns.push(`<b>${ins.highFlightOnSlates.length}</b> high flight-risk leaders sit on critical succession slates. <a onclick="switchView('retention')">Drill in ›</a>`);
   }
   const strengths = [];
   if(ins.strongestBU){
-    strengths.push(`<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy`);
+    strengths.push(`<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy. <a onclick="drillBUOnly('${ins.strongestBU.bu.replace(/'/g,"\\'")}')">Drill in ›</a>`);
   }
   if(ins.strongestFam){
-    strengths.push(`<b class="g">${ins.strongestFam.f}</b> function has the strongest coverage`);
+    strengths.push(`<b class="g">${ins.strongestFam.f}</b> is the strongest job family — depth and readiness are aligned. <a onclick="drillFamilyOnly('${ins.strongestFam.f.replace(/'/g,"\\'")}')">Drill in ›</a>`);
   }
   c.innerHTML = `
     <div class="exec-focus-hd">
-      <h3>Executive Focus · Where to lean in</h3>
+      <h3>Executive Focus</h3>
     </div>
     <div class="exec-focus-grid">
       <div class="exec-focus-col">
@@ -2287,6 +2343,48 @@ function renderExecFocusExec(){
       </div>
     </div>
   `;
+}
+function drillBUOnly(bu){
+  STATE.roleHealthFilter = "all";
+  STATE.roleSearchQuery = bu.replace("GMR ","");
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = true; });
+  switchView("roles");
+  setTimeout(()=>{
+    const s = document.getElementById("rv-search");
+    if(s) s.value = STATE.roleSearchQuery;
+  }, 80);
+}
+// Drill helpers used by Exec Focus links
+function drillBUFamily(bu, family){
+  STATE.roleHealthFilter = "all";
+  STATE.roleSearchQuery = bu.replace("GMR ","");
+  STATE.expandedFamilies = {};
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = false; });
+  STATE.expandedFamilies[family] = true;
+  switchView("roles");
+  setTimeout(()=>{
+    const s = document.getElementById("rv-search");
+    if(s) s.value = STATE.roleSearchQuery;
+  }, 80);
+}
+function drillFamilyOnly(family){
+  STATE.roleHealthFilter = "all";
+  STATE.roleSearchQuery = "";
+  STATE.expandedFamilies = {};
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = false; });
+  STATE.expandedFamilies[family] = true;
+  switchView("roles");
+  setTimeout(()=>{
+    document.querySelectorAll("[data-family]").forEach(el=>{
+      if(el.dataset.family===family) el.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  }, 80);
+}
+function drillTier1Weak(){
+  STATE.roleHealthFilter = "r";
+  STATE.roleSearchQuery = "";
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = true; });
+  switchView("roles");
 }
 function renderExecExposedRoles(){
   const c = document.getElementById("exec-exposed-roles"); if(!c) return;
@@ -2421,6 +2519,59 @@ function renderExecCapability(){
       </div>
     `).join("");
   }
+  renderAiStrategyInsight();
+}
+function renderAiStrategyInsight(){
+  const c = document.getElementById("exec-ai-insight"); if(!c) return;
+  const leaders = STATE.leaders;
+  const total = leaders.length;
+  if(!total){ c.innerHTML = ""; return; }
+  const champions = leaders.filter(l=>l.changeReadiness===3 && l.aiUse===3).length;
+  const atRisk = leaders.filter(l=>l.changeReadiness===1 && l.aiUse===1).length;
+  const engaged = leaders.filter(l=>l.aiUse>=2).length; // Medium or High AI use
+  const championsPct = Math.round(100*champions/total);
+  const atRiskPct = Math.round(100*atRisk/total);
+  const engagedPct = Math.round(100*engaged/total);
+  // Determine tone: strong if >=25% champions, warn if 10-25%, risk if <10%
+  const tone = championsPct>=25 ? "good" : championsPct>=10 ? "warn" : "risk";
+  const readingline = tone==="good"
+    ? `The cohort is well positioned for GMR's AI-enabled agenda — the champion base is broad enough to seed the transformation.`
+    : tone==="warn"
+      ? `The cohort is only partly ready for GMR's AI-enabled agenda — a small champion base carries most of the load, and there's a meaningful at-risk group.`
+      : `The cohort is under-prepared for GMR's AI-enabled agenda — the champion base is thin and the at-risk group is large. Systemic capability build required.`;
+  c.innerHTML = `
+    <div class="ai-strat-card ${tone}">
+      <div class="ai-strat-icon">AI</div>
+      <div class="ai-strat-body">
+        <div class="ais-lbl">AI Readiness · what this means for the digital transformation agenda</div>
+        <div class="ais-text">
+          ${readingline} <b class="good">${championsPct}%</b> are <b>AI champions</b> (change-ready + active AI users) · <b class="warn">${atRiskPct}%</b> are <b>at-risk</b> of falling behind · <b>${engagedPct}%</b> engage with AI tools regularly.
+          <a onclick="drillAiReadiness()">See who ›</a>
+        </div>
+      </div>
+      <div class="ai-strat-stat">
+        <div class="ass-num good">${championsPct}%</div>
+        <div class="ass-lbl">Champions</div>
+      </div>
+      <div class="ai-strat-stat">
+        <div class="ass-num warn">${atRiskPct}%</div>
+        <div class="ass-lbl">At-risk</div>
+      </div>
+    </div>
+  `;
+}
+function drillAiReadiness(){
+  // In CEO mode Cohort Analysis is hidden; still switch to it since AI Readiness matrix lives there
+  // Temporarily reveal the tab if needed
+  if(document.body.classList.contains("ceo-mode")){
+    // Briefly switch to TM mode so user sees the AI Readiness matrix
+    setViewMode("tm");
+  }
+  switchView("group");
+  setTimeout(()=>{
+    const el = document.getElementById("ai33");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  }, 100);
 }
 function updateStatus(){
   const n = applyFilters(STATE.leaders).length;
