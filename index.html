@@ -5108,21 +5108,89 @@ function openUpload(){ document.getElementById("upload-modal").classList.add("op
 function closeUpload(){ document.getElementById("upload-modal").classList.remove("open"); }
 function downloadTemplate(){
   const wb = XLSX.utils.book_new();
-  const cols = ["LeaderID","Name","CurrentRole","BU","Function","Level","Country","Gender","Tenure","Manager",
-    "Performance","NineBox","Readiness","Aspiration","Mobility","OpenToRelocate","FlightRisk",
-    "ChangeReadiness_1to3","AIUse_1to3"];
+
+  // ---------- 1 · Instructions sheet ----------
+  const instr = [
+    ["GMR Talent Review — Data Upload Template"],
+    ["Aon Assessment Solutions · Version 1.0"],
+    [""],
+    ["HOW TO USE THIS TEMPLATE"],
+    [""],
+    ["1. Populate the five data sheets in this workbook:"],
+    ["   • Leaders — one row per leader in your Top-200 (or larger) cohort"],
+    ["   • Roles — one row per critical role in your succession universe"],
+    ["   • Successors — one row per (Role × Leader) mapping with readiness for that specific role"],
+    ["   • (Reference tab shows all allowed values — treat as read-only)"],
+    [""],
+    ["2. Save the workbook and upload it in the tool via the 'Upload data' button."],
+    [""],
+    ["3. The tool will auto-populate every visualisation, KPI, and drill-down from your data."],
+    [""],
+    ["KEY RULES"],
+    [""],
+    ["• LeaderID and RoleID must be unique within each sheet."],
+    ["• LeaderID and RoleID are the join keys — the Successors sheet references both."],
+    ["• GLIDE trait scores are on a 1.0–5.0 scale (one decimal)."],
+    ["• ADEPT-15 personality scores are on a 1.0–9.0 Sten scale (one decimal)."],
+    ["• Business Lever traits (Cultural Synergy · Trust & Loyalty · Energy & Tenacity) have Personality (PN) + Perception (PC) scores only — no Potential (PT), per the GLIDE framework."],
+    ["• Leave any cell blank if data is not available — the tool handles missing data gracefully."],
+    ["• Use the exact strings shown in the Reference sheet for enum fields (NineBox, Readiness, Level, etc.). Values that don't match will fall back to defaults."],
+    [""],
+    ["WHAT THE TOOL COMPUTES AUTOMATICALLY"],
+    [""],
+    ["• 9-box placement — auto-derived from NineBox column"],
+    ["• Age Range (Under 40 · 40–50 · 51–60 · 61–70) — auto-derived from Age"],
+    ["• Tenure Band — auto-derived from Tenure"],
+    ["• Data Quality flag — auto-derived from completeness of trait scores"],
+    ["• Potential / Fit / Personality overall scores — auto-derived as averages"],
+    ["• Pipeline Health per role — auto-derived from successor readiness spread"],
+    ["• Future Leader membership — auto-derived from 9-box position"],
+    ["• AI Champion classification — auto-derived from ChangeReadiness + AIUse"],
+    [""],
+    ["QUESTIONS?"],
+    [""],
+    ["Contact your Aon Assessment Solutions consultant for support with template design, data validation, or field mappings."],
+  ];
+  const wsInstr = XLSX.utils.aoa_to_sheet(instr);
+  wsInstr["!cols"] = [{wch: 120}];
+  // Bold the section headers by using cell styles (basic)
+  ["A1","A4","A15","A25"].forEach(c=>{ if(wsInstr[c]) wsInstr[c].s = {font:{bold:true}}; });
+  XLSX.utils.book_append_sheet(wb, wsInstr, "Instructions");
+
+  // ---------- 2 · Leaders sheet ----------
+  const leaderCols = [
+    // Identifiers & basics
+    "LeaderID","Name","Age","Gender","Country","BU","OriginBU","Function","Level",
+    "CurrentRole","Manager","Tenure","Education",
+    // Assessment
+    "Performance","NineBox","Readiness",
+    // Aspiration & mobility
+    "Aspiration","Mobility","OpenToRelocate",
+    // Risk
+    "FlightRisk",
+    // AI Readiness
+    "ChangeReadiness_1to3","AIUse_1to3"
+  ];
+  // GLIDE 10 traits × 3 lenses (2 for Business Levers)
   TRAITS.forEach(t=>{
     const key = t.replace(/\s+/g,"_").replace(/&/g,"and").replace(/[^a-zA-Z_]/g,"");
-    cols.push(key+"_PN", key+"_PC");
-    if(!BUSINESS_LEVERS.includes(t)) cols.push(key+"_PT");
+    leaderCols.push(key+"_PN", key+"_PC");
+    if(!BUSINESS_LEVERS.includes(t)) leaderCols.push(key+"_PT");
   });
+  // ADEPT-15 personality dimensions
+  ADEPT.forEach(dim=>{ leaderCols.push("ADEPT_"+dim); });
+
   const sample = STATE.leaders.slice(0,3).map(l=>{
     const row = {
-      LeaderID: l.id, Name: l.name, CurrentRole: l.role, BU: l.bu, Function: l.function,
-      Level: l.level, Country: l.country, Gender: l.gender, Tenure: l.tenure, Manager: l.manager,
-      Performance: l.performance, NineBox: l.nineBox, Readiness: l.readiness,
-      Aspiration: l.aspiration, Mobility: l.mobility, OpenToRelocate: l.openRelocate?"Yes":"No",
-      FlightRisk: l.flightRisk, ChangeReadiness_1to3: l.changeReadiness, AIUse_1to3: l.aiUse
+      LeaderID: l.id, Name: l.name, Age: l.age||"", Gender: l.gender||"",
+      Country: l.country||"", BU: l.bu||"", OriginBU: l.originBU||"", Function: l.function||"",
+      Level: l.level||"", CurrentRole: l.role||"", Manager: l.manager||"",
+      Tenure: l.tenure||"", Education: l.education||"",
+      Performance: l.performance||"", NineBox: l.nineBox||"", Readiness: l.readiness||"",
+      Aspiration: l.aspiration||"", Mobility: l.mobility||"",
+      OpenToRelocate: l.openRelocate?"Yes":"No",
+      FlightRisk: l.flightRisk||"",
+      ChangeReadiness_1to3: l.changeReadiness||"", AIUse_1to3: l.aiUse||""
     };
     TRAITS.forEach(t=>{
       const key = t.replace(/\s+/g,"_").replace(/&/g,"and").replace(/[^a-zA-Z_]/g,"");
@@ -5130,20 +5198,94 @@ function downloadTemplate(){
       row[key+"_PC"] = l.traits[t].PC? l.traits[t].PC.toFixed(1) : "";
       if(!BUSINESS_LEVERS.includes(t)) row[key+"_PT"] = l.traits[t].PT? l.traits[t].PT.toFixed(1) : "";
     });
+    ADEPT.forEach(dim=>{
+      row["ADEPT_"+dim] = l.personality && l.personality[dim] ? l.personality[dim].toFixed(1) : "";
+    });
     return row;
   });
-  const ws = XLSX.utils.json_to_sheet(sample, {header: cols});
-  ws["!cols"] = cols.map(c=>({wch: Math.max(12, c.length+2)}));
-  XLSX.utils.book_append_sheet(wb, ws, "Leaders");
-  const rolesCols = ["RoleID","Title","Tier","CL","BU","Incumbent","Successor1","Successor2","Successor3"];
+  const wsLeaders = XLSX.utils.json_to_sheet(sample, {header: leaderCols});
+  wsLeaders["!cols"] = leaderCols.map(c=>({wch: Math.max(14, c.length+1)}));
+  XLSX.utils.book_append_sheet(wb, wsLeaders, "Leaders");
+
+  // ---------- 3 · Roles sheet ----------
+  const rolesCols = ["RoleID","Title","Family","Tier","CL","BU","Incumbent","LastReviewed","BusinessContext"];
   const rSample = STATE.roles.slice(0,5).map(r=>({
-    RoleID: r.id, Title: r.title, Tier: r.tier, CL: r.cl, BU: r.bu, Incumbent: r.incumbent,
-    Successor1: r.successors[0]||"", Successor2: r.successors[1]||"", Successor3: r.successors[2]||""
+    RoleID: r.id, Title: r.title,
+    Family: r.family||"", Tier: r.tier||"", CL: r.cl||"", BU: r.bu||"",
+    Incumbent: r.incumbent||"—",
+    LastReviewed: "",
+    BusinessContext: ""
   }));
-  const rws = XLSX.utils.json_to_sheet(rSample, {header: rolesCols});
-  rws["!cols"] = rolesCols.map(c=>({wch: 22}));
-  XLSX.utils.book_append_sheet(wb, rws, "Roles");
-  XLSX.writeFile(wb, "GMR_TalentReview_Template.xlsx");
+  const wsRoles = XLSX.utils.json_to_sheet(rSample, {header: rolesCols});
+  wsRoles["!cols"] = [
+    {wch:10},{wch:36},{wch:26},{wch:6},{wch:6},{wch:20},{wch:22},{wch:14},{wch:60}
+  ];
+  XLSX.utils.book_append_sheet(wb, wsRoles, "Roles");
+
+  // ---------- 4 · Successors sheet ----------
+  const succCols = ["RoleID","LeaderID","ReadinessForThisRole","SlotOrder"];
+  const succSample = [];
+  STATE.roles.slice(0,5).forEach(r=>{
+    (r.slots||[]).forEach((sl,i)=>{
+      succSample.push({
+        RoleID: r.id, LeaderID: sl.leaderId,
+        ReadinessForThisRole: sl.readiness, SlotOrder: i+1
+      });
+    });
+  });
+  const wsSucc = XLSX.utils.json_to_sheet(succSample, {header: succCols});
+  wsSucc["!cols"] = [{wch:10},{wch:10},{wch:24},{wch:12}];
+  XLSX.utils.book_append_sheet(wb, wsSucc, "Successors");
+
+  // ---------- 5 · Reference sheet (read-only) ----------
+  const reference = [
+    ["Field","Allowed values (use these exact strings)"],
+    ["Level (career level)", "LA · LB · LC · LD"],
+    ["Gender", "M · F"],
+    ["Performance", "Exceeds Expectations · Strong Performance · Meets Expectations · Below Expectations · Underperforms"],
+    ["NineBox", NINEBOX_ZONES.flat().join(" · ")],
+    ["Readiness", READINESS.join(" · ")],
+    ["Mobility", "Willing (India + Global) · Willing (India only) · Willing (Region only) · Limited"],
+    ["OpenToRelocate", "Yes · No"],
+    ["FlightRisk", "Low · Medium · High"],
+    ["Education", "Engineering · MBA (Indian) · MBA (Global) · CA / Finance · Arts / Humanities · Other"],
+    ["ChangeReadiness_1to3", "1 (Low) · 2 (Medium) · 3 (High)"],
+    ["AIUse_1to3", "1 (Low) · 2 (Medium) · 3 (High)"],
+    [""],
+    ["ROLES SHEET FIELDS",""],
+    ["Tier", "1 (Enterprise-critical) · 2 (BU / Function-critical) · 3 (Specialist-critical)"],
+    ["CL (role's career level)", "LA · LB · LC · LD"],
+    ["Family (job family)", FAMILIES.join(" · ")],
+    ["BU", BUs.join(" · ")],
+    ["Function", FUNCTIONS.join(" · ")],
+    ["Country", COUNTRIES.join(" · ")],
+    ["LastReviewed", "Date (YYYY-MM-DD format) — optional; used for review-cadence tracking"],
+    ["BusinessContext", "Free text — one paragraph explaining why this role is critical (max 300 chars)"],
+    [""],
+    ["SCORE SCALES",""],
+    ["GLIDE Trait Score (all PN / PC / PT)", "1.0 – 5.0 (one decimal)"],
+    ["ADEPT-15 Personality Score", "1.0 – 9.0 (Sten scale, one decimal)"],
+    [""],
+    ["TRAIT STRUCTURE","(10 traits total)"],
+    ["Business Levers (PN + PC only)", BUSINESS_LEVERS.join(" · ")],
+    ["DC Traits (PN + PC + PT)", TRAITS.filter(t=>!BUSINESS_LEVERS.includes(t)).join(" · ")],
+    [""],
+    ["ADEPT-15 DIMENSIONS",""],
+    ["All 15 dimensions (each on 1–9 scale)", ADEPT.join(" · ")],
+    [""],
+    ["JOIN KEY MODEL",""],
+    ["Leaders.LeaderID", "unique identifier per leader"],
+    ["Roles.RoleID", "unique identifier per critical role"],
+    ["Successors.RoleID + LeaderID", "many-to-many mapping · each row represents one successor placement on one role"],
+    ["Successors.ReadinessForThisRole", "readiness of THIS leader for THIS role (may differ from leader's overall readiness)"],
+    ["Successors.SlotOrder", "1 = primary successor · 2 = secondary · 3 = tertiary (or more)"]
+  ];
+  const wsRef = XLSX.utils.aoa_to_sheet(reference);
+  wsRef["!cols"] = [{wch:38},{wch:90}];
+  XLSX.utils.book_append_sheet(wb, wsRef, "Reference");
+
+  XLSX.writeFile(wb, "GMR_TalentReview_Data_Template.xlsx");
+  toast("Template downloaded — see the Instructions sheet first");
 }
 function handleFile(file){
   if(!file) return;
@@ -5154,8 +5296,12 @@ function handleFile(file){
       const wb = XLSX.read(data, {type:"array"});
       const leadersSheet = wb.Sheets["Leaders"] || wb.Sheets[wb.SheetNames[0]];
       const rolesSheet = wb.Sheets["Roles"];
+      const successorsSheet = wb.Sheets["Successors"];
       const rows = XLSX.utils.sheet_to_json(leadersSheet);
+
+      // Parse leaders
       const leaders = rows.map(row=>{
+        // GLIDE traits
         const traits = {};
         TRAITS.forEach(t=>{
           const key = t.replace(/\s+/g,"_").replace(/&/g,"and").replace(/[^a-zA-Z_]/g,"");
@@ -5165,44 +5311,121 @@ function handleFile(file){
             PT: BUSINESS_LEVERS.includes(t) ? null : (parseFloat(row[key+"_PT"])||null)
           };
         });
+        // ADEPT-15 personality
+        const personality = {};
+        ADEPT.forEach(dim=>{
+          const v = parseFloat(row["ADEPT_"+dim]);
+          personality[dim] = isNaN(v) ? 5 : v; // default mid-scale if missing
+        });
+        // 9-box position derived from NineBox string
         let nineBoxRow=1, nineBoxCol=1;
         for(let r=0;r<3;r++) for(let c=0;c<3;c++){
           if(NINEBOX_ZONES[r][c]===row.NineBox){nineBoxRow=r;nineBoxCol=c;}
         }
+        // Averages
         let sumPC=0,n=0; TRAITS.forEach(t=>{if(traits[t].PC){sumPC+=traits[t].PC;n++}});
         let sumPT=0,nPT=0; TRAITS.forEach(t=>{if(traits[t].PT){sumPT+=traits[t].PT;nPT++}});
         let sumPN=0,nPN=0; TRAITS.forEach(t=>{if(traits[t].PN){sumPN+=traits[t].PN;nPN++}});
+        // Age & derived buckets
+        const age = parseInt(row.Age) || null;
+        const tenure = parseInt(row.Tenure)||0;
+        // Data-quality signal — count trait-lens completeness
+        const totalLenses = TRAITS.length*3 - BUSINESS_LEVERS.length; // 27
+        const completedLenses = TRAITS.reduce((acc,t)=>{
+          let c = 0;
+          if(traits[t].PN!=null) c++;
+          if(traits[t].PC!=null) c++;
+          if(!BUSINESS_LEVERS.includes(t) && traits[t].PT!=null) c++;
+          return acc + c;
+        }, 0);
+        const dqPct = completedLenses/totalLenses;
+        const dqStatus = dqPct>=0.9 ? "complete" : dqPct>=0.6 ? "partial" : "thin";
+        const dqNote = dqStatus==="complete" ? "Full GLIDE assessment"
+                       : dqStatus==="partial" ? `${completedLenses}/${totalLenses} trait scores present`
+                       : `${completedLenses}/${totalLenses} — assessment incomplete`;
         return {
           id: String(row.LeaderID||""), name: row.Name||"",
           role: row.CurrentRole||"", bu: row.BU||"", function: row.Function||"",
           level: row.Level||"LC", country: row.Country||"India", gender: row.Gender||"M",
-          tenure: parseInt(row.Tenure)||0, manager: row.Manager||"",
+          tenure, manager: row.Manager||"",
           performance: row.Performance||"", nineBox: row.NineBox||"Core employee",
           nineBoxRow, nineBoxCol, readiness: row.Readiness||READINESS[2],
           aspiration: row.Aspiration||"", mobility: row.Mobility||"",
-          openRelocate: (row.OpenToRelocate||"").toLowerCase().startsWith("y"),
+          openRelocate: (String(row.OpenToRelocate||"")).toLowerCase().startsWith("y"),
           flightRisk: row.FlightRisk||"Low",
           changeReadiness: parseInt(row.ChangeReadiness_1to3)||2,
           aiUse: parseInt(row.AIUse_1to3)||2,
-          traits,
-          potentialScore: nPT?sumPT/nPT:0, fitToRole: n?sumPC/n:0, personalityScore: nPN?sumPN/nPN:0
+          traits, personality,
+          potentialScore: nPT?sumPT/nPT:0, fitToRole: n?sumPC/n:0, personalityScore: nPN?sumPN/nPN:0,
+          // Diversity fields
+          age,
+          generation: age ? (age>=60?"Boomer":age>=45?"Gen X":age>=29?"Millennial":"Gen Z") : "Unknown",
+          originBU: row.OriginBU || row.BU || "",
+          education: row.Education || "Other",
+          tenureBand: tenure<3?"<3 yrs":tenure<7?"3–7 yrs":tenure<12?"7–12 yrs":"12+ yrs",
+          dataQuality: {status: dqStatus, note: dqNote}
         };
       });
+
+      // Parse roles
       let roles;
       if(rolesSheet){
         const rr = XLSX.utils.sheet_to_json(rolesSheet);
         roles = rr.map(r=>({
-          id: String(r.RoleID||""), title: r.Title||"", tier: parseInt(r.Tier)||1,
+          id: String(r.RoleID||""), title: r.Title||"",
+          family: r.Family||"Enterprise Executive",
+          tier: parseInt(r.Tier)||1,
           cl: String(r.CL||"LB"), bu: r.BU||"", incumbent: r.Incumbent||"—",
-          successors: [r.Successor1, r.Successor2, r.Successor3].filter(Boolean).map(String)
+          lastReviewed: r.LastReviewed||"",
+          businessContext: r.BusinessContext||"",
+          successors: [],
+          slots: []
         }));
       } else { roles = STATE.roles; }
+
+      // Parse Successors sheet — the many-to-many mapping
+      if(successorsSheet){
+        const srows = XLSX.utils.sheet_to_json(successorsSheet);
+        srows.forEach(sr=>{
+          const rid = String(sr.RoleID||"");
+          const lid = String(sr.LeaderID||"");
+          const readiness = sr.ReadinessForThisRole || READINESS[2];
+          const slotOrder = parseInt(sr.SlotOrder)||1;
+          const role = roles.find(r=>r.id===rid);
+          if(!role) return;
+          role.slots[slotOrder-1] = {leaderId: lid, readiness};
+        });
+        // Compact and rebuild successors list
+        roles.forEach(r=>{
+          r.slots = (r.slots||[]).filter(Boolean);
+          r.successors = r.slots.map(s=>s.leaderId);
+        });
+      } else if(rolesSheet){
+        // Backward compat: old templates had Successor1/2/3 columns on Roles
+        const rr = XLSX.utils.sheet_to_json(rolesSheet);
+        rr.forEach(r=>{
+          const role = roles.find(x=>x.id===String(r.RoleID||""));
+          if(!role) return;
+          const succs = [r.Successor1, r.Successor2, r.Successor3].filter(Boolean).map(String);
+          role.slots = succs.map(sid=>{
+            const l = leaders.find(x=>x.id===sid);
+            return {leaderId: sid, readiness: l?l.readiness:READINESS[2]};
+          });
+          role.successors = succs;
+        });
+      }
+
       STATE.leaders = leaders; STATE.roles = roles;
       STATE.demo = false;
       STATE.currentRole = null; STATE.currentLeader = null;
-      closeUpload(); renderAll(); switchView("group");
-      alert("Loaded "+leaders.length+" leaders and "+roles.length+" roles.");
-    } catch(err){ alert("Could not read the file: "+err.message); console.error(err); }
+      closeUpload();
+      renderAll(); renderExecutive();
+      switchView("executive");
+      toast(`Loaded ${leaders.length} leaders and ${roles.length} roles`);
+    } catch(err){
+      toast("Could not read the file: "+err.message, "error");
+      console.error(err);
+    }
   };
   reader.readAsArrayBuffer(file);
 }
