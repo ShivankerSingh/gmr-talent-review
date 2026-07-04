@@ -1104,7 +1104,7 @@ body.story-mode main{padding-bottom:110px}
   <div class="section">
     <div class="exec-grid-2">
       <div>
-        <h2 class="exec-section-hd" style="margin-top:0">Top potential <span class="exec-sub">Where to invest sponsor time</span></h2>
+        <h2 class="exec-section-hd" style="margin-top:0">Future Leaders <span class="exec-sub">High Performance × High Potential · the names to know</span></h2>
         <div id="exec-hipos-potential"></div>
       </div>
       <div>
@@ -1117,7 +1117,7 @@ body.story-mode main{padding-bottom:110px}
   <h2 class="exec-section-hd">Retention conversations you should be having <span class="exec-sub">High flight risk on critical succession slates</span></h2>
   <div id="exec-flight-risk"></div>
 
-  <h2 class="exec-section-hd">Pipeline composition <span class="exec-sub">Diversity of the successor pool — generation, gender, background</span></h2>
+  <h2 class="exec-section-hd">Future Leader composition <span class="exec-sub">Demographic profile of the HiPo cohort — the pool that shapes leadership in 5–10 years</span></h2>
   <div id="exec-diversity"></div>
 
   <h2 class="exec-section-hd">Can this leadership deliver the strategy? <span class="exec-sub">Cohort capability tied to GMR's strategic priorities</span></h2>
@@ -2453,15 +2453,12 @@ function renderExecutive(){
   renderExecDiversity();
   renderExecCapability();
 }
-// Diversity composition of the successor pool
+// Composition of the Future Leader pool (9-box top-right — High Perf × High Pot)
 function renderExecDiversity(){
   const c = document.getElementById("exec-diversity"); if(!c) return;
-  // Successor pool = leaders on any Tier 1-2 slate
-  const set = new Set();
-  STATE.roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
-  const pool = STATE.leaders.filter(l=>set.has(l.id));
+  const pool = getFutureLeaders();
   const total = pool.length;
-  if(!total){ c.innerHTML = emptyState("No successor pool yet — assign successors to see the pipeline composition."); return; }
+  if(!total){ c.innerHTML = emptyState("No Future Leaders identified yet — the 9-box top-right cohort is empty. This is a red-flag for future leadership."); return; }
   const countBy = (key) => {
     const map = {};
     pool.forEach(l=>{ const v = l[key]||"Unknown"; map[v] = (map[v]||0)+1; });
@@ -2500,28 +2497,39 @@ function renderExecDiversity(){
   const ageColor = {"Under 40":"#6BC9A6","40–50":"#2C7BE5","51–60":"#0A3661","61–70":"#8B4B8F"};
   const gendColor = {"Female":"#EB0017","Male":"#3E3E3E"};
   const buColor = (bu)=> FAMILY_COLORS[bu] || "#0A3661";
-  // Insight: age skew — check if pool is heavy in older age brackets
+  // Insight: age skew — check if the Future Leader cohort is heavy in older brackets
   const under50 = (ageRangeCounts["Under 40"]||0) + (ageRangeCounts["40–50"]||0);
   const under50Pct = Math.round(100*under50/total);
   const over60 = ageRangeCounts["61–70"]||0;
   const over60Pct = Math.round(100*over60/total);
   const ageWarn = under50Pct<40
-    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${under50Pct}%</b>&nbsp;of the successor pool is under 50 — the bench is ageing. Common concern for family-led Indian conglomerates; consider next-gen leadership development.</div>`
+    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${under50Pct}%</b>&nbsp;of Future Leaders are under 50 — the HiPo bench is ageing. If this doesn't shift, leadership in 5–10 years will look like leadership today.</div>`
     : over60Pct>15
-    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${over60Pct}%</b>&nbsp;of the successor pool is 61–70 — near-term retirement risk. Prioritise identification of the next cohort within 12 months.</div>`
+    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${over60Pct}%</b>&nbsp;of Future Leaders are 61–70 — near-term retirement risk within the HiPo pool itself. Identify the next-generation cohort in the next 12 months.</div>`
     : "";
   const femalePct = Math.round(100*(pool.filter(l=>l.gender==="F").length)/total);
   const genWarn = femalePct<25
-    ? `<div class="div-warn">${icon("warn")}Female representation in the pool is <b style="margin-left:4px">${femalePct}%</b>&nbsp;— below the 25% target commonly used for Indian conglomerate boards. Sponsor 5–8 senior women for stretch assignments this cycle.</div>`
+    ? `<div class="div-warn">${icon("warn")}Female representation among Future Leaders is <b style="margin-left:4px">${femalePct}%</b>&nbsp;— below the 25% target commonly used for Indian conglomerate boards. This shapes what leadership will look like in 5–10 years — sponsor stretch assignments for senior women this cycle.</div>`
+    : "";
+  // Origin BU concentration — if >50% come from a single BU, flag it
+  const originCounts = {};
+  pool.forEach(l=>{ originCounts[l.originBU] = (originCounts[l.originBU]||0)+1; });
+  const topOrigin = Object.entries(originCounts).sort((a,b)=>b[1]-a[1])[0];
+  const originConcentration = topOrigin ? Math.round(100*topOrigin[1]/total) : 0;
+  const originWarn = originConcentration>50
+    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${originConcentration}%</b>&nbsp;of Future Leaders built their career at <b>${topOrigin[0].replace("GMR ","")}</b> — a single-source cohort risks group-think and limits cross-BU perspective. Actively sponsor talent from other units into stretch roles.</div>`
     : "";
   c.innerHTML = `<div class="div-panel">
+    <div style="margin-bottom:14px;font-size:12px;color:var(--ink-3)">
+      Based on <b style="color:var(--ink)">${total} Future Leader${total===1?"":"s"}</b> — leaders in the 9-box top-right (High Performance × High Potential). This is the pool that will shape GMR's leadership in 5–10 years.
+    </div>
     <div class="div-grid">
       ${block("By Age Range", ageRanges, (n)=>ageColor[n]||"#6E6E6E")}
       ${block("By Gender", genders, (n)=>gendColor[n]||"#6E6E6E")}
       ${block("By Origin BU (career built at)", origins, buColor)}
       ${block("By Education Background", edu, ()=>"#8B4B8F")}
     </div>
-    ${ageWarn}${genWarn}
+    ${ageWarn}${genWarn}${originWarn}
   </div>`;
 }
 // ---------- Board pack export ----------
@@ -2531,7 +2539,7 @@ function generateBoardPack(){
   const rnRoles = roles.filter(r=>(r.slots||[]).some(sl=>sl.readiness===READINESS[0])).length;
   const pct = Math.round(100*rnRoles/roles.length);
   const ins = computeExecInsights();
-  const topP = [...leaders].sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
+  const topP = getFutureLeaders().sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
   const rnMap = new Map();
   roles.filter(r=>r.tier===1).forEach(r=>{(r.slots||[]).forEach(sl=>{if(sl.readiness===READINESS[0]&&!rnMap.has(sl.leaderId))rnMap.set(sl.leaderId,r.title);});});
   const rnLeaders = [...rnMap.keys()].map(id=>({l:leaders.find(x=>x.id===id),t:rnMap.get(id)})).filter(x=>x.l);
@@ -2613,9 +2621,9 @@ function generateBoardPack(){
       }).join("")}
     </tbody></table>
 
-    <h2>Top potential — where to invest sponsor time</h2>
-    <table><thead><tr><th>Name</th><th>Level</th><th>BU · Function</th><th>Potential</th></tr></thead><tbody>
-      ${topP.map(l=>`<tr><td><b>${l.name}</b></td><td>${l.level}</td><td>${l.bu.replace("GMR ","")} · ${l.function}</td><td><b>${l.potentialScore.toFixed(1)}</b></td></tr>`).join("")}
+    <h2>Future Leaders — High Performance × High Potential</h2>
+    <table><thead><tr><th>Name</th><th>Level</th><th>BU · Function</th><th>Age</th><th>Potential</th></tr></thead><tbody>
+      ${topP.length?topP.map(l=>`<tr><td><b>${l.name}</b></td><td>${l.level}</td><td>${l.bu.replace("GMR ","")} · ${l.function}</td><td>${l.age||"—"}</td><td><b>${l.potentialScore.toFixed(1)}</b></td></tr>`).join(""):`<tr><td colspan="5" style="text-align:center;color:#A0A0A0;font-style:italic">No Future Leaders identified in the current 9-box distribution — urgent action needed.</td></tr>`}
     </tbody></table>
 
     <h2>Ready-Now successors for LA (Tier-1) roles</h2>
@@ -2839,23 +2847,31 @@ function renderExecExposedRoles(){
     }).join("")}
   </div>`;
 }
+// Future Leaders = top-right of the 9-box (High Performance × High Potential)
+function getFutureLeaders(){
+  return STATE.leaders.filter(l=>l.nineBoxRow===0 && l.nineBoxCol===2);
+}
 function renderExecHiPos(){
-  // Left: Top 10 by Potential score
-  const topP = [...STATE.leaders].sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
+  // Left: Future Leaders — 9-box top-right, sorted by combined Potential score
+  const futureLeaders = getFutureLeaders().sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
   const p = document.getElementById("exec-hipos-potential");
   if(p){
-    p.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px">
-      ${topP.map(l=>`
-        <div class="named-leader" onclick="openLeader('${l.id}')">
-          <div class="avatar">${initials(l.name)}</div>
-          <div style="flex:1;min-width:0">
-            <div class="nl-name">${l.name}</div>
-            <div class="nl-meta">${l.level} · ${l.bu.replace('GMR ','')} · ${l.function}</div>
+    if(!futureLeaders.length){
+      p.innerHTML = emptyState("No Future Leaders identified in the current 9-box distribution — urgent action needed to identify and develop the next generation.");
+    } else {
+      p.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px">
+        ${futureLeaders.map(l=>`
+          <div class="named-leader" onclick="openLeader('${l.id}')">
+            <div class="avatar" style="background:linear-gradient(135deg,#1F7A5C,#4CB090)">${initials(l.name)}</div>
+            <div style="flex:1;min-width:0">
+              <div class="nl-name">${l.name}</div>
+              <div class="nl-meta">${l.level} · ${l.bu.replace('GMR ','')} · ${l.function}</div>
+            </div>
+            <div class="nl-score">${l.potentialScore.toFixed(1)}</div>
           </div>
-          <div class="nl-score">${l.potentialScore.toFixed(1)}</div>
-        </div>
-      `).join("")}
-    </div>`;
+        `).join("")}
+      </div>`;
+    }
   }
   // Right: Ready-Now for Tier-1 roles
   const rnMap = new Map(); // leaderId -> role title
