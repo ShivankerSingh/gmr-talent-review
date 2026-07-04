@@ -19,10 +19,14 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;
-  font-family:Helvetica,"Helvetica Neue",Arial,sans-serif;
-  color:var(--ink);background:var(--bg);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5{margin:0;font-weight:600;letter-spacing:-.01em;
-  font-family:Helvetica,"Helvetica Neue",Arial,sans-serif}
+  font-family:"Helvetica Now Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color:var(--ink);background:var(--bg);font-size:13px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;
+  font-feature-settings:"kern","liga","calt"}
+h1,h2,h3,h4,h5{margin:0;font-weight:600;letter-spacing:-.015em;
+  font-family:"Helvetica Now Text","Helvetica Neue",Helvetica,Arial,sans-serif}
+p{margin:0 0 8px}
+p:last-child{margin-bottom:0}
 button,input,select,textarea{font-family:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none;font-size:13px}
 
@@ -58,9 +62,9 @@ button{cursor:pointer;border:none;background:none;font-size:13px}
 /* ---------- Layout ---------- */
 main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 .view{display:none}.view.active{display:block}
-.page-hd{margin-bottom:20px}
-.page-hd h1{font-size:24px;font-weight:600}
-.page-hd .sub{color:var(--ink-3);font-size:13px;margin-top:2px}
+.page-hd{margin-bottom:22px}
+.page-hd h1{font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.page-hd .sub{color:var(--ink-3);font-size:13px;margin-top:4px;letter-spacing:-.005em}
 
 /* ---------- Filter bar ---------- */
 .filter-bar{display:flex;gap:6px;align-items:center;padding:10px 12px;
@@ -387,7 +391,7 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 
 /* Executive Focus band */
 .exec-focus{background:linear-gradient(135deg,var(--navy) 0%,#0F2A4D 50%,var(--navy) 100%);
-  color:#fff;border-radius:8px;padding:22px 26px;margin-bottom:20px;position:relative;overflow:hidden}
+  color:#fff;border-radius:10px;padding:24px 28px;margin-bottom:8px;position:relative;overflow:hidden}
 .exec-focus::before{content:"";position:absolute;top:-40%;right:-8%;width:280px;height:280px;
   background:radial-gradient(circle,rgba(43,123,229,.22) 0%,transparent 60%)}
 .exec-focus-hd{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
@@ -700,18 +704,25 @@ body.ceo-mode .hide-in-ceo{display:none!important}
 
 /* ---------- Executive Summary ---------- */
 .exec-verdict-card{background:linear-gradient(135deg,var(--navy) 0%,#0F2A4D 50%,var(--navy) 100%);
-  color:#fff;border-radius:10px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+  color:#fff;border-radius:10px;padding:32px 36px;margin-bottom:16px;position:relative;overflow:hidden}
 .exec-verdict-card::before{content:"";position:absolute;top:-40%;right:-8%;width:340px;height:340px;
   background:radial-gradient(circle,rgba(43,123,229,.22) 0%,transparent 60%)}
 .exec-verdict-card .vk-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
-  color:rgba(255,255,255,.6);font-weight:600;margin-bottom:10px;position:relative;z-index:1}
-.exec-verdict-card .vk-text{font-size:22px;line-height:1.4;font-weight:500;color:#fff;
-  letter-spacing:-.01em;position:relative;z-index:1}
-.exec-verdict-card .vk-text b{color:#F5CE3E;font-weight:700}
-.exec-verdict-card .vk-text b.g{color:#8FE8C4}
+  color:rgba(255,255,255,.55);font-weight:600;margin-bottom:12px;position:relative;z-index:1}
+.exec-verdict-card .vk-headline{font-size:30px;line-height:1.15;font-weight:600;color:#fff;
+  letter-spacing:-.02em;position:relative;z-index:1;margin-bottom:20px}
+.exec-verdict-card .vk-headline b{color:#F5CE3E;font-weight:700}
+.exec-verdict-card .vk-headline b.g{color:#8FE8C4}
+.exec-verdict-card .vk-bullets{list-style:none;margin:0;padding:0;position:relative;z-index:1}
+.exec-verdict-card .vk-bullets li{font-size:14px;line-height:1.55;color:rgba(255,255,255,.9);
+  padding:5px 0 5px 22px;position:relative}
+.exec-verdict-card .vk-bullets li::before{content:"—";position:absolute;left:0;
+  color:rgba(255,255,255,.35);font-weight:600}
+.exec-verdict-card .vk-bullets li b{color:#F5CE3E;font-weight:700}
+.exec-verdict-card .vk-bench{color:rgba(255,255,255,.5);font-size:.82em;margin-left:6px;font-weight:400}
 
-.exec-section-hd{margin:32px 0 14px;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
-.exec-section-hd .exec-sub{color:var(--ink-3);font-weight:400;font-size:13px;margin-left:12px}
+.exec-section-hd{margin:36px 0 14px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.25}
+.exec-section-hd .exec-sub{color:var(--ink-3);font-weight:400;font-size:13px;margin-left:12px;letter-spacing:-.005em}
 
 /* Named leader card */
 .named-leader{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;
@@ -749,6 +760,89 @@ body.ceo-mode .hide-in-ceo{display:none!important}
 
 .exec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .exec-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
+/* ---------- SVG icons — inline system (16px, currentColor stroke) ---------- */
+.ico{display:inline-block;vertical-align:-2px;width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ico-sm{width:12px;height:12px;stroke-width:2;vertical-align:-1px}
+.ico-lg{width:20px;height:20px;vertical-align:-4px}
+
+/* ---------- Drill-in pill (replaces plain-text "Drill in ›") ---------- */
+.drill-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 10px;border-radius:99px;
+  background:rgba(255,255,255,.08);color:inherit;font-size:11px;font-weight:600;text-decoration:none;
+  cursor:pointer;transition:all .15s;border:1px solid rgba(255,255,255,.15);margin-left:6px;line-height:1.4}
+.drill-pill:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.25);transform:translateX(2px)}
+.drill-pill .ico{width:11px;height:11px;stroke-width:2.2}
+/* Light-background variant */
+.drill-pill.on-light{background:var(--bg-3);color:var(--ink);border-color:var(--line)}
+.drill-pill.on-light:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- Toast system ---------- */
+#toast-stack{position:fixed;top:80px;right:24px;z-index:10001;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:10px 16px 10px 12px;border-radius:6px;font-size:12px;
+  font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.15);opacity:0;transform:translateX(20px);
+  transition:all .22s cubic-bezier(.2,.9,.3,1);display:flex;align-items:center;gap:8px;min-width:200px;
+  pointer-events:auto}
+.toast.show{opacity:1;transform:translateX(0)}
+.toast .ico{stroke:#fff;stroke-width:2}
+.toast-success{background:#1F7A5C}
+.toast-warn{background:#8A6B00}
+.toast-error{background:#B32B2E}
+
+/* ---------- Empty state ---------- */
+.empty-state{padding:32px 24px;text-align:center;background:var(--bg-2);border-radius:6px;
+  border:1px dashed var(--line);color:var(--ink-3);font-size:12px;font-style:italic;
+  display:flex;flex-direction:column;align-items:center;gap:10px}
+.empty-state .ico{width:24px;height:24px;stroke:var(--ink-4);stroke-width:1.5}
+.empty-state.compact{padding:16px;gap:6px;font-size:11px}
+
+/* ---------- Home icon on Executive Summary tab ---------- */
+.tab .tab-icon{margin-right:6px;stroke-width:2;width:14px;height:14px;vertical-align:-2px}
+
+/* ---------- Card row banding for dense tables ---------- */
+.sh-table tbody tr:nth-child(even) td,
+.crt-table tbody tr:nth-child(even) td,
+.ret-table tbody tr:nth-child(even) td{background:#FCFCFC}
+.sh-table tbody tr:nth-child(even):hover td,
+.crt-table tbody tr:nth-child(even):hover td,
+.ret-table tbody tr:nth-child(even):hover td{background:var(--bg-2)}
+
+/* Improved card hover — universal */
+.card-clickable{cursor:pointer;transition:transform .15s ease-out, box-shadow .15s ease-out}
+.card-clickable:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+
+/* ---------- Governance / action status pills ---------- */
+.status-pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:99px;
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+  background:var(--bg-3);color:var(--ink-3)}
+.status-pill.committed{background:#E4EEF9;color:#1E5A9F}
+.status-pill.progress{background:var(--rn-y-tint);color:#8A6B00}
+.status-pill.done{background:var(--rn-g-tint);color:#1F7A5C}
+.status-pill.overdue{background:var(--rn-r-tint);color:#B32B2E}
+.status-pill .st-dot{width:5px;height:5px;border-radius:50%}
+.status-pill.committed .st-dot{background:#1E5A9F}
+.status-pill.progress .st-dot{background:#8A6B00}
+.status-pill.done .st-dot{background:#1F7A5C}
+.status-pill.overdue .st-dot{background:#B32B2E}
+
+/* Recommended move callout (on Exec Focus concerns) */
+.rec-move{display:flex;align-items:flex-start;gap:8px;margin-top:8px;padding:8px 12px;
+  background:rgba(255,255,255,.06);border-radius:6px;font-size:12px;color:rgba(255,255,255,.85);
+  border-left:2px solid #F5CE3E;line-height:1.5}
+.rec-move .rm-lbl{color:#F5CE3E;font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;flex-shrink:0}
+
+/* Diversity composition panel */
+.div-panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin-top:12px}
+.div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.div-block{padding:0 12px;border-right:1px solid var(--line-2)}
+.div-block:last-child{border-right:none}
+.div-block .d-lbl{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:10px}
+.div-block .d-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px}
+.div-block .d-row .d-name{flex:1;color:var(--ink-2)}
+.div-block .d-row .d-bar{width:60px;height:5px;background:var(--bg-3);border-radius:99px;overflow:hidden}
+.div-block .d-row .d-fill{height:100%;background:var(--steel);border-radius:99px}
+.div-block .d-row .d-pct{color:var(--ink);font-weight:600;min-width:32px;text-align:right;font-size:11px}
+.div-warn{background:var(--rn-y-tint);color:#8A6B00;padding:10px 14px;border-radius:6px;margin-top:14px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:8px}
+.div-warn .ico{stroke:#8A6B00}
 
 /* AI Readiness insight card */
 .ai-strat-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:8px;
@@ -968,7 +1062,7 @@ body.story-mode main{padding-bottom:110px}
 </div>
 
 <div class="subnav">
-  <button class="tab active" data-view="executive" onclick="switchView('executive')">Executive Summary</button>
+  <button class="tab active" data-view="executive" onclick="switchView('executive')"><svg class="ico tab-icon" viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-5h-2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Executive Summary</button>
   <button class="tab" data-view="succession" onclick="switchView('succession')">Pipeline</button>
   <button class="tab" data-view="roles" onclick="switchView('roles')">Critical Roles</button>
   <button class="tab" data-view="leaders" onclick="switchView('leaders')">Leaders</button>
@@ -986,9 +1080,12 @@ body.story-mode main{padding-bottom:110px}
 
 <!-- =================== EXECUTIVE SUMMARY (CEO landing view) =================== -->
 <section class="view active" id="view-executive">
-  <div class="page-hd">
-    <h1>Executive Summary</h1>
-    <div class="sub">For the CEO · updated live from current pipeline data · click any name to drill in</div>
+  <div class="page-hd" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+    <div>
+      <h1>Executive Summary</h1>
+      <div class="sub">For the CEO · updated live from current pipeline data · click any name to drill in</div>
+    </div>
+    <button class="btn" onclick="generateBoardPack()" title="Generate a Nomination Committee-ready summary PDF">Generate NomCo pack</button>
   </div>
 
   <div class="exec-verdict-card" id="exec-verdict-card"></div>
@@ -1013,6 +1110,9 @@ body.story-mode main{padding-bottom:110px}
 
   <h2 class="exec-section-hd">Retention conversations you should be having <span class="exec-sub">High flight risk on critical succession slates</span></h2>
   <div id="exec-flight-risk"></div>
+
+  <h2 class="exec-section-hd">Pipeline composition <span class="exec-sub">Diversity of the successor pool — generation, gender, background</span></h2>
+  <div id="exec-diversity"></div>
 
   <h2 class="exec-section-hd">Can this leadership deliver the strategy? <span class="exec-sub">Cohort capability tied to GMR's strategic priorities</span></h2>
   <div class="strat-cap-panel">
@@ -1687,6 +1787,79 @@ const TRAIT_STRATEGIC_ANCHOR = {
 };
 
 function seeded(n){ let x = Math.sin(n) * 10000; return x - Math.floor(x); }
+
+// ---------- SVG Icons — inline system, currentColor stroke ----------
+const ICONS = {
+  chevron: '<svg class="ico" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
+  chevronDown: '<svg class="ico" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>',
+  drillIn: '<svg class="ico" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
+  external: '<svg class="ico" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>',
+  home: '<svg class="ico" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-5h-2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  check: '<svg class="ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+  x: '<svg class="ico" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  warn: '<svg class="ico" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  info: '<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+  expand: '<svg class="ico" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
+  collapse: '<svg class="ico" viewBox="0 0 24 24"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
+  search: '<svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  filter: '<svg class="ico" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>',
+  users: '<svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  target: '<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  alert: '<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  download: '<svg class="ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  fileText: '<svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+  play: '<svg class="ico" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+  clock: '<svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+};
+function icon(name, extraClass){ return (ICONS[name]||"").replace('class="ico"', 'class="ico '+(extraClass||"")+'"'); }
+
+// ---------- Toast notification ----------
+function toast(message, type){
+  type = type || "success";
+  let stack = document.getElementById("toast-stack");
+  if(!stack){
+    stack = document.createElement("div"); stack.id = "toast-stack"; document.body.appendChild(stack);
+  }
+  const el = document.createElement("div");
+  el.className = "toast toast-"+type;
+  const ic = type==="success"?"check":type==="warn"?"warn":"alert";
+  el.innerHTML = icon(ic) + "<span>"+message+"</span>";
+  stack.appendChild(el);
+  setTimeout(()=>el.classList.add("show"), 10);
+  setTimeout(()=>{
+    el.classList.remove("show");
+    setTimeout(()=>el.remove(), 260);
+  }, 2500);
+}
+
+// ---------- Empty state helper ----------
+function emptyState(message, compact){
+  return `<div class="empty-state ${compact?"compact":""}">${icon("info")}<span>${message}</span></div>`;
+}
+
+// ---------- Chart.js unified theme ----------
+const CHART_THEME = {
+  font: {family:"Helvetica Now Text", size:11},
+  gridColor: "#F1F2F3",
+  tickColor: "#6E6E6E",
+  labelColor: "#3E3E3E",
+  border: "#E8E9EA"
+};
+function applyChartDefaults(){
+  if(typeof Chart==="undefined") return;
+  Chart.defaults.font.family = CHART_THEME.font.family;
+  Chart.defaults.font.size = CHART_THEME.font.size;
+  Chart.defaults.color = CHART_THEME.tickColor;
+  Chart.defaults.borderColor = CHART_THEME.border;
+  Chart.defaults.plugins.legend.labels.font = {family:CHART_THEME.font.family, size:11};
+  Chart.defaults.plugins.legend.labels.boxWidth = 12;
+  Chart.defaults.plugins.legend.labels.padding = 12;
+  Chart.defaults.plugins.tooltip.padding = 10;
+  Chart.defaults.plugins.tooltip.titleFont = {family:CHART_THEME.font.family, size:12, weight:"600"};
+  Chart.defaults.plugins.tooltip.bodyFont = {family:CHART_THEME.font.family, size:11};
+  Chart.defaults.plugins.tooltip.backgroundColor = "rgba(11,11,11,.9)";
+  Chart.defaults.plugins.tooltip.cornerRadius = 4;
+}
 function initials(name){ return name.split(" ").map(w=>w[0]).slice(0,2).join(""); }
 
 function generateDemo(){
@@ -1747,6 +1920,21 @@ function generateDemo(){
       const indDelta = (indBase - 3.4) * 0.5;
       personality[d] = clamp(centre + indDelta + (seeded(seed*17 + di*7) - .5) * 1.6, 1, 9);
     });
+    // Generational & background diversity — added for TM value
+    const ageRoll = seeded(seed+70);
+    // Age distribution weighted to reflect Indian conglomerate leadership demographic
+    // ~55% Gen X, ~40% Millennial, ~5% Gen Z, plus a few Boomers at very senior levels
+    const age = level==="LA" ? Math.floor(48 + seeded(seed+71)*14)
+              : level==="LB" ? Math.floor(42 + seeded(seed+71)*12)
+              : level==="LC" ? Math.floor(36 + seeded(seed+71)*10)
+              : Math.floor(30 + seeded(seed+71)*8);
+    const generation = age>=60 ? "Boomer" : age>=45 ? "Gen X" : age>=29 ? "Millennial" : "Gen Z";
+    const originBU = buDist[(i*7) % buDist.length]; // Where they built their career
+    const education = ["Engineering","MBA (Indian)","MBA (Global)","CA / Finance","Arts / Humanities","Other"][Math.floor(seeded(seed+72)*6)];
+    const tenureBand = (function(){
+      const t = Math.floor(seeded(seed+43)*15)+2;
+      return t<3 ? "<3 yrs" : t<7 ? "3–7 yrs" : t<12 ? "7–12 yrs" : "12+ yrs";
+    })();
     leaders.push({
       id: "L"+String(i+1).padStart(3,"0"),
       name,
@@ -1761,6 +1949,7 @@ function generateDemo(){
       flightRisk, changeReadiness, aiUse, traits,
       potentialScore, fitToRole, personalityScore,
       personality,
+      age, generation, originBU, education, tenureBand,
       // Data quality — most leaders complete; some deliberately partial
       dataQuality: (function(){
         const roll = seeded(seed+60);
@@ -1894,6 +2083,7 @@ let STATE = {
 };
 
 function init(){
+  applyChartDefaults();
   const demo = generateDemo();
   STATE.leaders = demo.leaders; STATE.roles = demo.roles;
   loadState();
@@ -2254,7 +2444,188 @@ function renderExecutive(){
   renderExecExposedRoles();
   renderExecHiPos();
   renderExecFlightRisk();
+  renderExecDiversity();
   renderExecCapability();
+}
+// Diversity composition of the successor pool
+function renderExecDiversity(){
+  const c = document.getElementById("exec-diversity"); if(!c) return;
+  // Successor pool = leaders on any Tier 1-2 slate
+  const set = new Set();
+  STATE.roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
+  const pool = STATE.leaders.filter(l=>set.has(l.id));
+  const total = pool.length;
+  if(!total){ c.innerHTML = emptyState("No successor pool yet — assign successors to see the pipeline composition."); return; }
+  const countBy = (key) => {
+    const map = {};
+    pool.forEach(l=>{ const v = l[key]||"Unknown"; map[v] = (map[v]||0)+1; });
+    return Object.entries(map).sort((a,b)=>b[1]-a[1]);
+  };
+  const block = (label, rows, colorFn) => `
+    <div class="div-block">
+      <div class="d-lbl">${label}</div>
+      ${rows.map(([name, n])=>{
+        const pct = Math.round(100*n/total);
+        return `<div class="d-row">
+          <div class="d-name">${name}</div>
+          <div class="d-bar"><div class="d-fill" style="width:${pct}%;background:${colorFn(name)}"></div></div>
+          <div class="d-pct">${pct}%</div>
+        </div>`;
+      }).join("")}
+    </div>`;
+  const genOrder = {"Gen Z":0,"Millennial":1,"Gen X":2,"Boomer":3};
+  const generations = countBy("generation").sort((a,b)=>(genOrder[a[0]]??9)-(genOrder[b[0]]??9));
+  const genders = countBy("gender").map(([g,n])=>[g==="F"?"Female":"Male",n]);
+  const origins = countBy("originBU").slice(0,5).map(([bu,n])=>[bu.replace("GMR ",""),n]);
+  const edu = countBy("education").slice(0,5);
+  const genColor = {"Gen Z":"#6BC9A6","Millennial":"#2C7BE5","Gen X":"#0A3661","Boomer":"#8B4B8F"};
+  const gendColor = {"Female":"#EB0017","Male":"#3E3E3E"};
+  const buColor = (bu)=> FAMILY_COLORS[bu] || "#0A3661";
+  // Insight: check if generational balance skews old
+  const genX = generations.find(g=>g[0]==="Gen X"); const boom = generations.find(g=>g[0]==="Boomer");
+  const millennial = generations.find(g=>g[0]==="Millennial");
+  const nextGenPct = Math.round(100*((millennial?millennial[1]:0)+(generations.find(g=>g[0]==="Gen Z")?.[1]||0))/total);
+  const warn = nextGenPct<40
+    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${nextGenPct}%</b>&nbsp;of the successor pool is Millennial or younger — a common concern for family-led Indian conglomerates. Consider next-gen leadership development.</div>`
+    : "";
+  const femalePct = Math.round(100*(pool.filter(l=>l.gender==="F").length)/total);
+  const genWarn = femalePct<25
+    ? `<div class="div-warn">${icon("warn")}Female representation in the pool is <b style="margin-left:4px">${femalePct}%</b>&nbsp;— below the 25% target commonly used for Indian conglomerate boards. Sponsor 5–8 senior women for stretch assignments this cycle.</div>`
+    : "";
+  c.innerHTML = `<div class="div-panel">
+    <div class="div-grid">
+      ${block("By Generation", generations, (n)=>genColor[n]||"#6E6E6E")}
+      ${block("By Gender", genders, (n)=>gendColor[n]||"#6E6E6E")}
+      ${block("By Origin BU (career built at)", origins, buColor)}
+      ${block("By Education Background", edu, ()=>"#8B4B8F")}
+    </div>
+    ${warn}${genWarn}
+  </div>`;
+}
+// ---------- Board pack export ----------
+function generateBoardPack(){
+  // Snapshot the CEO view content, format for print
+  const roles = STATE.roles; const leaders = STATE.leaders;
+  const rnRoles = roles.filter(r=>(r.slots||[]).some(sl=>sl.readiness===READINESS[0])).length;
+  const pct = Math.round(100*rnRoles/roles.length);
+  const ins = computeExecInsights();
+  const topP = [...leaders].sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
+  const rnMap = new Map();
+  roles.filter(r=>r.tier===1).forEach(r=>{(r.slots||[]).forEach(sl=>{if(sl.readiness===READINESS[0]&&!rnMap.has(sl.leaderId))rnMap.set(sl.leaderId,r.title);});});
+  const rnLeaders = [...rnMap.keys()].map(id=>({l:leaders.find(x=>x.id===id),t:rnMap.get(id)})).filter(x=>x.l);
+  const critSet = new Set();
+  roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>critSet.add(sl.leaderId));});
+  const flightRisk = leaders.filter(l=>critSet.has(l.id) && l.flightRisk==="High").slice(0,6);
+  const exposed = roles.filter(r=>roleHealth(r)==="r").sort((a,b)=>a.tier-b.tier).slice(0,6);
+  const traits = TRAITS.filter(t=>!BUSINESS_LEVERS.includes(t));
+  const traitScored = traits.map(t=>({trait:t, avg:leaders.map(l=>l.traits[t].PT).filter(v=>v!=null).reduce((a,b)=>a+b,0)/leaders.filter(l=>l.traits[t].PT!=null).length})).sort((a,b)=>b.avg-a.avg);
+  const w = window.open("", "_blank", "width=900,height=1100");
+  if(!w){ toast("Pop-up blocked — allow pop-ups to generate the pack","warn"); return; }
+  const style = `<style>
+    body{font-family:"Helvetica Now Text","Helvetica Neue",Helvetica,Arial,sans-serif;color:#0B0B0B;margin:0;padding:40px 48px;font-size:12px;line-height:1.55}
+    h1{font-size:28px;margin:0 0 6px;letter-spacing:-.02em;font-weight:700}
+    h2{font-size:16px;margin:28px 0 10px;letter-spacing:-.01em;color:#0B0B0B;font-weight:700;border-bottom:1px solid #E5E7E8;padding-bottom:6px}
+    h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6E6E6E;margin:16px 0 8px;font-weight:600}
+    .sub{color:#6E6E6E;font-size:12px;margin-bottom:24px}
+    .verdict{background:#001F3D;color:#fff;padding:24px 28px;border-radius:8px;margin-bottom:24px}
+    .verdict .vl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:8px}
+    .verdict .vh{font-size:22px;font-weight:600;margin-bottom:14px}
+    .verdict .vh b{color:#F5CE3E}
+    .verdict ul{list-style:none;padding:0;margin:0}
+    .verdict li{padding:4px 0 4px 20px;position:relative;font-size:13px;color:rgba(255,255,255,.9)}
+    .verdict li::before{content:"—";position:absolute;left:0;color:rgba(255,255,255,.4)}
+    .verdict li b{color:#F5CE3E}
+    table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
+    th{text-align:left;padding:8px 10px;background:#F4F5F6;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#6E6E6E;font-weight:600;border-bottom:1px solid #E5E7E8}
+    td{padding:8px 10px;border-bottom:1px solid #F1F2F3;vertical-align:top}
+    .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600}
+    .p-r{background:#FDE4E4;color:#B32B2E}
+    .p-y{background:#FDF7DB;color:#8A6B00}
+    .p-g{background:#EAF7F1;color:#1F7A5C}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .foot{color:#A0A0A0;font-size:10px;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #E5E7E8}
+    @media print{ body{padding:24px 32px} h2{page-break-before:auto} }
+  </style>`;
+  const readinessCls = r => r===READINESS[0]?"p-g":r===READINESS[1]?"p-y":"p-r";
+  const html = `<!DOCTYPE html><html><head><title>GMR Talent Review — NomCo Pack</title>${style}</head><body>
+    <h1>GMR Group · Talent Review</h1>
+    <div class="sub">Nomination Committee Pack · ${new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})}</div>
+
+    <div class="verdict">
+      <div class="vl">Succession Pipeline</div>
+      <div class="vh">Pipeline is <b>${pct>=40?"strong":pct>=20?"healthy":pct>=10?"sub-optimal":"weak"}</b></div>
+      <ul>
+        <li><b>${pct}%</b> of critical roles have a Ready-Now successor</li>
+        <li><b>${roles.filter(r=>r.cl==="LA"&&(roleHealth(r)==="r"||roleHealth(r)==="o")).length}</b> LA Critical roles need immediate action</li>
+        <li><b>${flightRisk.length}</b> high flight-risk leaders on critical succession slates</li>
+      </ul>
+    </div>
+
+    <h2>Executive Focus</h2>
+    <div class="two">
+      <div>
+        <h3>Top concerns</h3>
+        <ul>
+          ${ins.weakestBU?`<li><b>${ins.weakestBU.bu.replace("GMR ","")}</b> — ${Math.round(100*ins.weakestBU.ratio)}% of ${ins.weakestBU.total} roles Red/Amber</li>`:""}
+          ${ins.weakestFam?`<li><b>${ins.weakestFam.f}</b> — ${ins.weakestFam.weak}/${ins.weakestFam.total} roles need action</li>`:""}
+          ${ins.tier1Weak&&ins.tier1Weak.length?`<li><b>${ins.tier1Weak.length}</b> LA Critical roles at risk</li>`:""}
+          <li><b>${flightRisk.length}</b> flight-risk on critical slates</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Where we're strong</h3>
+        <ul>
+          ${ins.strongestBU?`<li><b>${ins.strongestBU.bu.replace("GMR ","")}</b> — ${ins.strongestBU.healthy}/${ins.strongestBU.total} roles Healthy</li>`:""}
+          ${ins.strongestFam?`<li><b>${ins.strongestFam.f}</b> — strongest function</li>`:""}
+        </ul>
+      </div>
+    </div>
+
+    <h2>Roles that need immediate attention</h2>
+    <table><thead><tr><th>Role</th><th>Family</th><th>Tier</th><th>Best readiness</th><th>Recommended action</th></tr></thead><tbody>
+      ${exposed.map(r=>{
+        const best = r.slots&&r.slots.length ? r.slots.map(s=>READINESS.indexOf(s.readiness)).reduce((a,b)=>Math.min(a,b),3) : 3;
+        const bestLabel = r.slots&&r.slots.length ? READINESS[best] : "No successor named";
+        const action = !r.slots||!r.slots.length ? "Named-successor identification urgent" : best>=3 ? "External map + long-term IDPs" : "Structured development + cross-BU stretch";
+        return `<tr><td><b>${r.title}</b></td><td>${r.family}</td><td>Tier ${r.tier}</td><td><span class="pill ${readinessCls(bestLabel)}">${bestLabel}</span></td><td>${action}</td></tr>`;
+      }).join("")}
+    </tbody></table>
+
+    <h2>Top potential — where to invest sponsor time</h2>
+    <table><thead><tr><th>Name</th><th>Level</th><th>BU · Function</th><th>Potential</th></tr></thead><tbody>
+      ${topP.map(l=>`<tr><td><b>${l.name}</b></td><td>${l.level}</td><td>${l.bu.replace("GMR ","")} · ${l.function}</td><td><b>${l.potentialScore.toFixed(1)}</b></td></tr>`).join("")}
+    </tbody></table>
+
+    <h2>Ready-Now successors for LA (Tier-1) roles</h2>
+    <table><thead><tr><th>Name</th><th>Target role</th><th>BU · Function</th></tr></thead><tbody>
+      ${rnLeaders.length?rnLeaders.map(x=>`<tr><td><b>${x.l.name}</b></td><td>${x.t}</td><td>${x.l.bu.replace("GMR ","")} · ${x.l.function}</td></tr>`).join(""):`<tr><td colspan="3" style="text-align:center;color:#A0A0A0;font-style:italic">No Ready-Now successors identified for Tier-1 roles.</td></tr>`}
+    </tbody></table>
+
+    <h2>Retention conversations to have</h2>
+    <table><thead><tr><th>Name</th><th>Level · BU</th><th>Slated for</th><th>Action</th></tr></thead><tbody>
+      ${flightRisk.length?flightRisk.map(l=>{
+        const rr = roles.filter(r=>r.tier<=2 && (r.slots||[]).some(sl=>sl.leaderId===l.id)).map(r=>r.title).slice(0,2).join(", ");
+        return `<tr><td><b>${l.name}</b></td><td>${l.level} · ${l.bu.replace("GMR ","")}</td><td>${rr}</td><td><span class="pill p-r">Talk now</span></td></tr>`;
+      }).join(""):`<tr><td colspan="4" style="text-align:center;color:#A0A0A0;font-style:italic">No high flight-risk leaders on critical slates.</td></tr>`}
+    </tbody></table>
+
+    <h2>Strategic capability read-out</h2>
+    <div class="two">
+      <div>
+        <h3>Strong on</h3>
+        <ul>${traitScored.slice(0,3).map(t=>`<li><b>${t.trait} · ${t.avg.toFixed(1)}</b> — ${TRAIT_STRATEGIC_ANCHOR[t.trait]||""}</li>`).join("")}</ul>
+      </div>
+      <div>
+        <h3>At risk on</h3>
+        <ul>${traitScored.slice(-3).reverse().map(t=>`<li><b>${t.trait} · ${t.avg.toFixed(1)}</b> — ${TRAIT_STRATEGIC_ANCHOR[t.trait]||""}</li>`).join("")}</ul>
+      </div>
+    </div>
+
+    <div class="foot">GMR Group · Talent Review · Confidential · Prepared by Aon Assessment Solutions</div>
+    <script>window.onload=()=>setTimeout(()=>window.print(),400);<\/script>
+  </body></html>`;
+  w.document.write(html); w.document.close();
+  toast("Board pack generated — check the new tab");
 }
 function renderExecVerdict(){
   const c = document.getElementById("exec-verdict-card"); if(!c) return;
@@ -2265,10 +2636,10 @@ function renderExecVerdict(){
   const BENCH = 20;
   const statusLabel = pct>=2*BENCH ? "strong" : pct>=BENCH ? "healthy" : pct>=BENCH/2 ? "sub-optimal" : "weak";
   const statusClass = pct>=2*BENCH ? "g" : "";
-  const benchClause = pct>=2*BENCH ? "well above the global benchmark of 20%"
-                     : pct>=BENCH ? "at par with the global benchmark of 20%"
-                     : pct>=BENCH/2 ? "below the global benchmark of 20%"
-                     : "materially below the global benchmark of 20%";
+  const benchClause = pct>=2*BENCH ? "vs global benchmark of 20%"
+                     : pct>=BENCH ? "at global benchmark of 20%"
+                     : pct>=BENCH/2 ? "below global benchmark of 20%"
+                     : "well below global benchmark of 20%";
   // LA-level critical roles (Career Level LA) that are Red or Amber
   const laCriticalWeak = roles.filter(r=>r.cl==="LA" && (roleHealth(r)==="r" || roleHealth(r)==="o")).length;
   const highRiskCrit = (function(){
@@ -2278,11 +2649,12 @@ function renderExecVerdict(){
   })();
   c.innerHTML = `
     <div class="vk-lbl">Succession Pipeline</div>
-    <div class="vk-text">
-      Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b> — <b>${pct}%</b> of critical roles have a Ready-Now successor, ${benchClause} ·
-      <b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action ·
-      <b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates.
-    </div>
+    <div class="vk-headline">Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b></div>
+    <ul class="vk-bullets">
+      <li><b>${pct}%</b> of critical roles have a Ready-Now successor <span class="vk-bench">${benchClause}</span></li>
+      <li><b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action</li>
+      <li><b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates</li>
+    </ul>
   `;
 }
 function computeBuFamilyStats(){
@@ -2302,31 +2674,52 @@ function renderExecFocusExec(){
   const c = document.getElementById("exec-focus-exec"); if(!c) return;
   const ins = computeExecInsights();
   const buShort = bu => (bu||"").replace("GMR ","");
+  const drillPill = (label, onclick) => `<button class="drill-pill" onclick="${onclick}">${label}${icon("chevron")}</button>`;
+  const recMove = (text) => `<div class="rec-move"><span class="rm-lbl">Move</span><span>${text}</span></div>`;
   const concerns = [];
-  // BU with biggest pipeline challenge
   if(ins.weakestBU){
-    concerns.push(`<b>${buShort(ins.weakestBU.bu)}</b> has the weakest BU-level pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber. <a onclick="drillBUOnly('${ins.weakestBU.bu.replace(/'/g,"\\'")}')">Drill in ›</a>`);
+    const buN = buShort(ins.weakestBU.bu);
+    concerns.push({
+      text: `<b>${buN}</b> has the weakest BU-level pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber.`,
+      pill: drillPill("Drill in", `drillBUOnly('${ins.weakestBU.bu.replace(/'/g,"\\'")}')`),
+      move: `Diagnostic review with ${buN} CEO and CHRO in Q1 · targeted external hiring pipeline for the 2 weakest seats.`
+    });
   }
-  // Job family with biggest pipeline challenge
   if(ins.weakestFam){
-    concerns.push(`<b>${ins.weakestFam.f}</b> is the weakest job family — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action. <a onclick="drillFamilyOnly('${ins.weakestFam.f.replace(/'/g,"\\'")}')">Drill in ›</a>`);
+    concerns.push({
+      text: `<b>${ins.weakestFam.f}</b> is the weakest job family — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action.`,
+      pill: drillPill("Drill in", `drillFamilyOnly('${ins.weakestFam.f.replace(/'/g,"\\'")}')`),
+      move: `Cross-BU capability build + Aon functional development cohort for ${ins.weakestFam.f}.`
+    });
   }
-  // Tier-1 (LA Critical) roles at risk
   if(ins.tier1Weak && ins.tier1Weak.length){
     const names = ins.tier1Weak.slice(0,2).map(r=>r.title).join(", ");
     const more = ins.tier1Weak.length>2 ? ` +${ins.tier1Weak.length-2} more` : "";
-    concerns.push(`<b>${ins.tier1Weak.length}</b> LA Critical roles are exposed or at-risk — ${names}${more}. <a onclick="drillTier1Weak()">Drill in ›</a>`);
+    concerns.push({
+      text: `<b>${ins.tier1Weak.length}</b> LA Critical roles are exposed or at-risk — ${names}${more}.`,
+      pill: drillPill("Drill in", "drillTier1Weak()"),
+      move: `Immediate ExCo review of these seats · external candidate mapping via Aon within 45 days.`
+    });
   }
-  // Retention risk
   if(ins.highFlightOnSlates && ins.highFlightOnSlates.length){
-    concerns.push(`<b>${ins.highFlightOnSlates.length}</b> high flight-risk leaders sit on critical succession slates. <a onclick="switchView('retention')">Drill in ›</a>`);
+    concerns.push({
+      text: `<b>${ins.highFlightOnSlates.length}</b> high flight-risk leaders sit on critical succession slates.`,
+      pill: drillPill("Drill in", "switchView('retention')"),
+      move: `Confidential retention conversations led by Group CEO within 30 days · comp positioning review.`
+    });
   }
   const strengths = [];
   if(ins.strongestBU){
-    strengths.push(`<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy. <a onclick="drillBUOnly('${ins.strongestBU.bu.replace(/'/g,"\\'")}')">Drill in ›</a>`);
+    strengths.push({
+      text: `<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy.`,
+      pill: drillPill("Drill in", `drillBUOnly('${ins.strongestBU.bu.replace(/'/g,"\\'")}')`)
+    });
   }
   if(ins.strongestFam){
-    strengths.push(`<b class="g">${ins.strongestFam.f}</b> is the strongest job family — depth and readiness are aligned. <a onclick="drillFamilyOnly('${ins.strongestFam.f.replace(/'/g,"\\'")}')">Drill in ›</a>`);
+    strengths.push({
+      text: `<b class="g">${ins.strongestFam.f}</b> is the strongest job family — depth and readiness are aligned.`,
+      pill: drillPill("Drill in", `drillFamilyOnly('${ins.strongestFam.f.replace(/'/g,"\\'")}')`)
+    });
   }
   c.innerHTML = `
     <div class="exec-focus-hd">
@@ -2335,11 +2728,11 @@ function renderExecFocusExec(){
     <div class="exec-focus-grid">
       <div class="exec-focus-col">
         <h4><span class="ef-dot" style="background:var(--rn-r)"></span>Top concerns</h4>
-        <ul>${concerns.map(c=>`<li>${c}</li>`).join("")}</ul>
+        <ul>${concerns.map(x=>`<li>${x.text} ${x.pill}${recMove(x.move)}</li>`).join("")}</ul>
       </div>
       <div class="exec-focus-col">
         <h4><span class="ef-dot" style="background:var(--rn-g)"></span>Where we're strong</h4>
-        <ul>${strengths.map(c=>`<li>${c}</li>`).join("")}</ul>
+        <ul>${strengths.map(x=>`<li>${x.text} ${x.pill}</li>`).join("")}</ul>
       </div>
     </div>
   `;
@@ -2728,9 +3121,9 @@ function renderPersonality(){
     type:"radar",
     data:{labels: ADEPT, datasets},
     options:{
-      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica"}, boxWidth:14}}},
-      scales:{r:{min:0, max:9, ticks:{stepSize:1, backdropColor:"transparent",font:{size:10,family:"Helvetica"}},
-        pointLabels:{font:{size:11,family:"Helvetica",weight:"500"}, color:"#3E3E3E"},
+      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica Now Text"}, boxWidth:14}}},
+      scales:{r:{min:0, max:9, ticks:{stepSize:1, backdropColor:"transparent",font:{size:10,family:"Helvetica Now Text"}},
+        pointLabels:{font:{size:11,family:"Helvetica Now Text",weight:"500"}, color:"#3E3E3E"},
         grid:{color:"#E8E9EA"}, angleLines:{color:"#E8E9EA"}}},
       maintainAspectRatio:false, responsive:true
     }
@@ -2759,10 +3152,10 @@ function renderPnByLevel(){
     type:"bar",
     data:{labels: TRAITS, datasets},
     options:{
-      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica"}, boxWidth:14}}},
+      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica Now Text"}, boxWidth:14}}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}, autoSkip:false, maxRotation:35, minRotation:35}},
-        y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}}, beginAtZero:true, max:5}
+        x:{grid:{display:false}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}, autoSkip:false, maxRotation:35, minRotation:35}},
+        y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}}, beginAtZero:true, max:5}
       },
       maintainAspectRatio:false, responsive:true
     }
@@ -2782,10 +3175,10 @@ function renderPnByBU(){
     type:"bar",
     data:{labels: TRAITS, datasets},
     options:{
-      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica"}, boxWidth:14}}},
+      plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica Now Text"}, boxWidth:14}}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}, autoSkip:false, maxRotation:35, minRotation:35}},
-        y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}}, beginAtZero:true, max:5}
+        x:{grid:{display:false}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}, autoSkip:false, maxRotation:35, minRotation:35}},
+        y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}}, beginAtZero:true, max:5}
       },
       maintainAspectRatio:false, responsive:true
     }
@@ -2994,11 +3387,11 @@ function renderTraitTrends(){
     STATE.charts["chart-tt-by-level"] = new Chart(ctxL, {
       type:"bar", data:{labels: traits, datasets},
       options:{
-        plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica"}, boxWidth:14}},
+        plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica Now Text"}, boxWidth:14}},
           tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(2)}`}}},
         scales:{
-          x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica"}, autoSkip:false, maxRotation:35, minRotation:35}},
-          y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}}, beginAtZero:true, max:5}
+          x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica Now Text"}, autoSkip:false, maxRotation:35, minRotation:35}},
+          y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}}, beginAtZero:true, max:5}
         },
         maintainAspectRatio:false, responsive:true
       }
@@ -3027,11 +3420,11 @@ function renderTraitTrends(){
     STATE.charts["chart-tt-by-bu"] = new Chart(ctxB, {
       type:"bar", data:{labels: traits, datasets},
       options:{
-        plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica"}, boxWidth:14}},
+        plugins:{legend:{position:"top", labels:{font:{size:11,family:"Helvetica Now Text"}, boxWidth:14}},
           tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(2)}`}}},
         scales:{
-          x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica"}, autoSkip:false, maxRotation:35, minRotation:35}},
-          y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}}, beginAtZero:true, max:5}
+          x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica Now Text"}, autoSkip:false, maxRotation:35, minRotation:35}},
+          y:{grid:{color:"#F1F2F3"}, ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}}, beginAtZero:true, max:5}
         },
         maintainAspectRatio:false, responsive:true
       }
@@ -3107,8 +3500,8 @@ function makeBarChart(id, labels, data, colors){
     options:{
       plugins:{legend:{display:false}, tooltip:{padding:8}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica"}}},
-        y:{grid:{color:"#F1F2F3"},ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica"}, precision:0}, beginAtZero:true}
+        x:{grid:{display:false}, ticks:{color:"#3E3E3E",font:{size:10,family:"Helvetica Now Text"}}},
+        y:{grid:{color:"#F1F2F3"},ticks:{color:"#6E6E6E",font:{size:10,family:"Helvetica Now Text"}, precision:0}, beginAtZero:true}
       },
       maintainAspectRatio:false, responsive:true
     }
@@ -3499,7 +3892,7 @@ function renderDiversityChart(){
   STATE.charts["chart-diversity"] = new Chart(ctx,{
     type:"doughnut",
     data:{labels, datasets:[{data, backgroundColor:["#0A3661","#EB0017","#F5A45A","#6BC9A6","#2C7BE5","#F5CE3E","#8AB4EE","#6E6E6E"]}]},
-    options:{plugins:{legend:{position:"right", labels:{boxWidth:10, font:{size:11,family:"Helvetica"}}}}, maintainAspectRatio:false, responsive:true, cutout:"55%"}
+    options:{plugins:{legend:{position:"right", labels:{boxWidth:10, font:{size:11,family:"Helvetica Now Text"}}}}, maintainAspectRatio:false, responsive:true, cutout:"55%"}
   });
 }
 
@@ -3731,10 +4124,11 @@ function renderRoleDetail(rid){
   `;
 }
 function addRoleNote(rid){
-  const txt = document.getElementById("role-note-text").value.trim(); if(!txt) return;
+  const txt = document.getElementById("role-note-text").value.trim(); if(!txt){ toast("Add some note text first","warn"); return; }
   STATE.roleNotes[rid] = STATE.roleNotes[rid] || [];
   STATE.roleNotes[rid].unshift({text:txt, ts: nowFmt()});
   saveState(); renderRoleDetail(rid);
+  toast("Role note added");
 }
 
 // ---------- Leader View ----------
@@ -3870,6 +4264,9 @@ function renderLeaderProfile(lid){
         <div class="lp-snap-item"><div class="k">Manager</div><div class="v">${l.manager}</div></div>
         <div class="lp-snap-item"><div class="k">Tenure</div><div class="v">${l.tenure} years</div></div>
         <div class="lp-snap-item"><div class="k">Performance (last cycle)</div><div class="v">${l.performance}</div></div>
+        <div class="lp-snap-item"><div class="k">Generation</div><div class="v">${l.generation||"—"} · Age ${l.age||"—"}</div></div>
+        <div class="lp-snap-item"><div class="k">Origin BU (career built at)</div><div class="v">${(l.originBU||"").replace("GMR ","")||"—"}</div></div>
+        <div class="lp-snap-item"><div class="k">Education</div><div class="v">${l.education||"—"}</div></div>
       </div>
 
       <div class="scores-grid">
@@ -3944,9 +4341,17 @@ function renderLeaderProfile(lid){
                              neitherLens ? '<span class="tag lens-none">⚠ Needs review</span>' :
                              (a.businessLens ? '<span class="tag lens-b">✓ Business</span>' : '') +
                              (a.growthLens ? '<span class="tag lens-g">✓ Growth</span>' : '');
+            const status = a.status || "committed";
+            const statusPill = `<select class="status-pill ${status}" style="border:none;cursor:pointer" onchange="updateActionStatus('${lid}','${a.ts}',this.value)">
+              <option value="committed" ${status==="committed"?"selected":""}>● Committed</option>
+              <option value="progress" ${status==="progress"?"selected":""}>● In Progress</option>
+              <option value="done" ${status==="done"?"selected":""}>● Done</option>
+              <option value="overdue" ${status==="overdue"?"selected":""}>● Overdue</option>
+            </select>`;
             return `<div class="comment">
               <div class="ch"><span class="tag ${a.type==='Training'?'training':a.type==='JobChange'?'move':a.type==='Retention'?'retain':a.type==='Coaching'?'coach':''}">${a.type}</span>
                 ${lensTags}
+                ${statusPill}
                 <span>${a.ts}</span> · Sponsor: ${a.sponsor||'—'}</div>
               <div>${a.action}</div>
             </div>`;
@@ -4001,10 +4406,11 @@ function generateExecSummary(l){
   <p>${perfLine} With the right sponsor, a well-scoped stretch assignment on the ${TRAIT_STRATEGIC_ANCHOR[bottom]?.split('—')[0]?.toLowerCase()||'gap area'} axis, and structured coaching on <b>${botAdept.toLowerCase()}</b>, we would expect readiness for the next role to firm up within 12–18 months.</p>`;
 }
 function addNote(lid){
-  const txt = document.getElementById("note-text-"+lid).value.trim(); if(!txt) return;
+  const txt = document.getElementById("note-text-"+lid).value.trim(); if(!txt){ toast("Add some note text first","warn"); return; }
   STATE.notes[lid] = STATE.notes[lid] || [];
   STATE.notes[lid].unshift({text:txt, ts: nowFmt()});
   saveState(); renderLeaderProfile(lid);
+  toast("Note added");
 }
 function addAction(lid){
   const action = document.getElementById("act-text-"+lid).value.trim();
@@ -4012,10 +4418,20 @@ function addAction(lid){
   const sponsor = document.getElementById("act-sponsor-"+lid).value.trim();
   const businessLens = document.getElementById("lens-business-"+lid).checked;
   const growthLens = document.getElementById("lens-growth-"+lid).checked;
-  if(!action) return;
+  if(!action){ toast("Describe the action first","warn"); return; }
   STATE.actions[lid] = STATE.actions[lid] || [];
-  STATE.actions[lid].unshift({action, type, sponsor, businessLens, growthLens, ts: nowFmt()});
+  STATE.actions[lid].unshift({action, type, sponsor, businessLens, growthLens, status:"committed", ts: nowFmt()});
   saveState(); renderLeaderProfile(lid);
+  toast("Action captured");
+}
+function updateActionStatus(lid, ts, newStatus){
+  const arr = STATE.actions[lid] || [];
+  const a = arr.find(x=>x.ts===ts);
+  if(!a) return;
+  a.status = newStatus;
+  saveState();
+  renderLeaderProfile(lid);
+  toast("Status updated");
 }
 
 // ---------- Actions consolidated ----------
@@ -4040,7 +4456,21 @@ function renderActionsView(){
   allActions.sort((a,b)=>b.ts.localeCompare(a.ts));
   const needsLensReview = allActions.filter(a=>!a.businessLens && !a.growthLens).length;
   document.getElementById("action-count").textContent = allActions.length + " items" + (needsLensReview>0? ` · ${needsLensReview} need two-lens review`:"");
-  ac.innerHTML = allActions.length ? allActions.map(a=>{
+  // Ownership summary: count open actions by sponsor
+  const openBySponsor = {};
+  allActions.forEach(a=>{
+    if(a.status==="done") return;
+    const sp = a.sponsor||"— unassigned";
+    openBySponsor[sp] = (openBySponsor[sp]||0)+1;
+  });
+  const spEntries = Object.entries(openBySponsor).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const ownSummary = spEntries.length
+    ? `<div style="background:var(--bg-2);padding:12px 14px;border-radius:6px;margin-bottom:12px;font-size:12px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;margin-bottom:8px">Open actions by sponsor</div>
+        ${spEntries.map(([sp,n])=>`<div style="display:flex;justify-content:space-between;padding:3px 0"><span>${sp}</span><b>${n} open</b></div>`).join("")}
+      </div>`
+    : "";
+  ac.innerHTML = ownSummary + (allActions.length ? allActions.map(a=>{
     const l = STATE.leaders.find(x=>x.id===a.lid);
     const bothLens = a.businessLens && a.growthLens;
     const neitherLens = !a.businessLens && !a.growthLens;
@@ -4048,13 +4478,15 @@ function renderActionsView(){
                      neitherLens ? '<span class="tag lens-none" style="margin-left:4px">⚠ Needs review</span>' :
                      (a.businessLens ? '<span class="tag lens-b" style="margin-left:4px">✓ Business</span>' : '') +
                      (a.growthLens ? '<span class="tag lens-g" style="margin-left:4px">✓ Growth</span>' : '');
+    const status = a.status || "committed";
+    const statusPill = `<span class="status-pill ${status}" style="margin-left:6px"><span class="st-dot"></span>${status.charAt(0).toUpperCase()+status.slice(1)}</span>`;
     return `<div class="actions-item">
-      <div class="ah"><span class="an">${l?.name||"—"} <span class="tag ${a.type==='Training'?'training':a.type==='JobChange'?'move':a.type==='Retention'?'retain':a.type==='Coaching'?'coach':''}" style="margin-left:6px">${a.type}</span>${lensTags}</span>
+      <div class="ah"><span class="an">${l?.name||"—"} <span class="tag ${a.type==='Training'?'training':a.type==='JobChange'?'move':a.type==='Retention'?'retain':a.type==='Coaching'?'coach':''}" style="margin-left:6px">${a.type}</span>${lensTags}${statusPill}</span>
         <span class="am">${a.ts}</span></div>
       <div>${a.action}</div>
       <div class="am" style="margin-top:2px">Sponsor: ${a.sponsor||"—"}</div>
     </div>`;
-  }).join("") : `<div class="muted">No actions captured yet.</div>`;
+  }).join("") : emptyState("No actions captured yet — add development moves from any leader profile."));
 }
 
 // ---------- Retention view ----------
@@ -4126,9 +4558,11 @@ function renderRetention(){
   wrap.innerHTML = html;
 }
 function setRetentionAction(lid, field, value){
+  const first = !STATE.retentionActions[lid] || !STATE.retentionActions[lid].action;
   STATE.retentionActions[lid] = STATE.retentionActions[lid] || {};
   STATE.retentionActions[lid][field] = value;
   saveState();
+  if(field==="action" && value && first){ toast("Retention action saved"); }
   // Update the summary tiles live (debounced would be better; simple call is fine)
   if(field==="action"){
     // Update just the summary card
