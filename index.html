@@ -385,6 +385,32 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 .rv-fam-toggle button:hover{border-color:var(--ink-4)}
 .rv-fam-toggle button.expand-all,.rv-fam-toggle button.collapse-all{background:var(--bg-2);font-weight:600}
 
+/* Executive Focus band */
+.exec-focus{background:linear-gradient(135deg,var(--navy) 0%,#0F2A4D 50%,var(--navy) 100%);
+  color:#fff;border-radius:8px;padding:22px 26px;margin-bottom:20px;position:relative;overflow:hidden}
+.exec-focus::before{content:"";position:absolute;top:-40%;right:-8%;width:280px;height:280px;
+  background:radial-gradient(circle,rgba(43,123,229,.22) 0%,transparent 60%)}
+.exec-focus-hd{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.exec-focus-hd h3{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7)}
+.exec-focus-hd .sub{font-size:11px;color:rgba(255,255,255,.5)}
+.exec-focus-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;position:relative;z-index:1}
+.exec-focus-col h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.6);
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;font-weight:600}
+.exec-focus-col h4 .ef-dot{width:8px;height:8px;border-radius:50%}
+.exec-focus-col ul{margin:0;padding:0;list-style:none}
+.exec-focus-col li{font-size:13px;line-height:1.55;color:rgba(255,255,255,.92);margin-bottom:8px;padding-left:18px;position:relative}
+.exec-focus-col li:last-child{margin-bottom:0}
+.exec-focus-col li::before{content:"—";position:absolute;left:0;color:rgba(255,255,255,.35);font-weight:600}
+.exec-focus-col li b{color:#F5CE3E;font-weight:600}
+.exec-focus-col li b.g{color:#8FE8C4}
+.exec-focus-col li a{color:#8AB4EE;text-decoration:underline;cursor:pointer;text-decoration-color:rgba(138,180,238,.4)}
+.exec-focus-col li a:hover{text-decoration-color:#8AB4EE}
+
+/* Dimension toggle */
+.dim-toggle{display:flex;gap:2px;background:var(--bg-2);padding:2px;border-radius:99px;border:1px solid var(--line)}
+.dim-toggle button{padding:5px 12px;border-radius:99px;font-size:11px;background:transparent;color:var(--ink-2);border:none;font-weight:500;cursor:pointer}
+.dim-toggle button.active{background:var(--ink);color:#fff}
+
 /* Health by Family matrix on Succession Health */
 .hf-card{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:24px}
 .hf-card .hf-hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
@@ -662,6 +688,68 @@ textarea{min-height:60px;resize:vertical}
 
 .muted{color:var(--ink-3);font-size:12px}
 
+/* ---------- View mode toggle & CEO mode ---------- */
+.view-mode-toggle{display:flex;gap:2px;background:var(--bg-2);border:1px solid var(--line);
+  border-radius:99px;padding:2px}
+.vm-btn{padding:5px 12px;border-radius:99px;font-size:11px;background:transparent;
+  color:var(--ink-2);border:none;font-weight:500;cursor:pointer;line-height:1;transition:all .12s}
+.vm-btn.active{background:var(--ink);color:#fff}
+body.ceo-mode .tab[data-view="group"],
+body.ceo-mode .tab[data-view="actions"]{display:none}
+body.ceo-mode .hide-in-ceo{display:none!important}
+
+/* ---------- Executive Summary ---------- */
+.exec-verdict-card{background:linear-gradient(135deg,var(--navy) 0%,#0F2A4D 50%,var(--navy) 100%);
+  color:#fff;border-radius:10px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.exec-verdict-card::before{content:"";position:absolute;top:-40%;right:-8%;width:340px;height:340px;
+  background:radial-gradient(circle,rgba(43,123,229,.22) 0%,transparent 60%)}
+.exec-verdict-card .vk-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.6);font-weight:600;margin-bottom:10px;position:relative;z-index:1}
+.exec-verdict-card .vk-text{font-size:22px;line-height:1.4;font-weight:500;color:#fff;
+  letter-spacing:-.01em;position:relative;z-index:1}
+.exec-verdict-card .vk-text b{color:#F5CE3E;font-weight:700}
+.exec-verdict-card .vk-text b.g{color:#8FE8C4}
+
+.exec-section-hd{margin:32px 0 14px;font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.exec-section-hd .exec-sub{color:var(--ink-3);font-weight:400;font-size:13px;margin-left:12px}
+
+/* Named leader card */
+.named-leader{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;
+  border:1px solid var(--line);border-radius:6px;cursor:pointer;transition:all .12s}
+.named-leader:hover{border-color:var(--ink);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.named-leader .avatar{width:40px;height:40px;font-size:13px}
+.named-leader .nl-name{font-weight:600;font-size:13px;color:var(--ink);letter-spacing:-.01em}
+.named-leader .nl-meta{font-size:11px;color:var(--ink-3);margin-top:2px}
+.named-leader .nl-score{font-size:17px;font-weight:700;color:var(--ink);margin-left:auto;letter-spacing:-.02em}
+.named-leader.risk{border-left:3px solid var(--rn-r)}
+.named-leader.risk .avatar{background:var(--rn-r)}
+.named-leader.risk .nl-score{color:var(--rn-r);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+
+/* Exposed role card */
+.exposed-role-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px 18px;
+  border-left:3px solid var(--rn-r);cursor:pointer;transition:all .12s}
+.exposed-role-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08);border-color:var(--rn-r)}
+.exposed-role-card .er-meta{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.exposed-role-card .er-title{font-weight:600;font-size:14px;color:var(--ink);margin-top:4px;letter-spacing:-.01em}
+.exposed-role-card .er-body{font-size:12px;color:var(--ink-2);margin-top:8px;line-height:1.5}
+.exposed-role-card .er-body b{color:var(--ink);font-weight:600}
+
+/* Strategic capability panels */
+.strat-cap-panel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.strat-cap-block{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.strat-cap-block .sc-hd{padding:12px 20px;font-weight:600;font-size:12px;color:#fff;
+  text-transform:uppercase;letter-spacing:.08em}
+.strat-cap-block.strengths .sc-hd{background:linear-gradient(135deg,var(--rn-g),#4CB090)}
+.strat-cap-block.gaps .sc-hd{background:linear-gradient(135deg,var(--rn-r),#D53E41)}
+.strat-cap-block .sc-item{padding:14px 20px;border-bottom:1px solid var(--line-2)}
+.strat-cap-block .sc-item:last-child{border-bottom:none}
+.strat-cap-block .sc-trait{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:4px}
+.strat-cap-block .sc-trait .sc-score{margin-left:6px;font-size:14px;font-weight:700}
+.strat-cap-block .sc-anchor{font-size:11px;color:var(--ink-3);line-height:1.55}
+
+.exec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.exec-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
 /* ---------- Full-screen mode for charts ---------- */
 .expand-btn{position:absolute;top:12px;right:12px;background:#fff;
   border:1px solid var(--line);border-radius:4px;padding:5px 10px;font-size:11px;
@@ -842,6 +930,10 @@ body.story-mode main{padding-bottom:110px}
   </div>
   <div class="spacer"></div>
   <div class="top-actions">
+    <div class="view-mode-toggle" style="margin-right:8px">
+      <button class="vm-btn active" data-mode="ceo" onclick="setViewMode('ceo')">CEO view</button>
+      <button class="vm-btn" data-mode="tm" onclick="setViewMode('tm')">TM view</button>
+    </div>
     <button class="btn btn-ghost" onclick="downloadTemplate()">Download template</button>
     <button class="btn" onclick="openUpload()">Upload data</button>
     <button class="btn" onclick="startStoryMode()" title="Guided walk-through"><span style="margin-right:4px">▶</span>Story mode</button>
@@ -851,12 +943,13 @@ body.story-mode main{padding-bottom:110px}
 </div>
 
 <div class="subnav">
-  <button class="tab active" data-view="group" onclick="switchView('group')">Group Insights</button>
-  <button class="tab" data-view="succession" onclick="switchView('succession')">Succession Health</button>
-  <button class="tab" data-view="roles" onclick="switchView('roles')">Critical Role View</button>
-  <button class="tab" data-view="leaders" onclick="switchView('leaders')">Leader View</button>
-  <button class="tab" data-view="retention" onclick="switchView('retention')">Retention</button>
+  <button class="tab active" data-view="executive" onclick="switchView('executive')">Executive Summary</button>
+  <button class="tab" data-view="succession" onclick="switchView('succession')">Pipeline</button>
+  <button class="tab" data-view="roles" onclick="switchView('roles')">Critical Roles</button>
+  <button class="tab" data-view="leaders" onclick="switchView('leaders')">Leaders</button>
+  <button class="tab" data-view="retention" onclick="switchView('retention')">Retention Watch</button>
   <button class="tab" data-view="compare" onclick="switchView('compare')">Compare</button>
+  <button class="tab" data-view="group" onclick="switchView('group')">Cohort Analysis</button>
   <button class="tab" data-view="actions" onclick="switchView('actions')">Notes & Actions</button>
   <div class="subnav-status">
     <span class="dot" id="statusDot"></span>
@@ -866,8 +959,51 @@ body.story-mode main{padding-bottom:110px}
 
 <main>
 
-<!-- =================== GROUP INSIGHTS =================== -->
-<section class="view active" id="view-group">
+<!-- =================== EXECUTIVE SUMMARY (CEO landing view) =================== -->
+<section class="view active" id="view-executive">
+  <div class="page-hd">
+    <h1>Executive Summary</h1>
+    <div class="sub">For the CEO · updated live from current pipeline data · click any name to drill in</div>
+  </div>
+
+  <div class="exec-verdict-card" id="exec-verdict-card"></div>
+
+  <div class="exec-focus" id="exec-focus-exec"></div>
+
+  <h2 class="exec-section-hd">Roles that need your attention <span class="exec-sub">Named roles without adequate Ready-Now coverage</span></h2>
+  <div id="exec-exposed-roles"></div>
+
+  <div class="section">
+    <div class="exec-grid-2">
+      <div>
+        <h2 class="exec-section-hd" style="margin-top:0">Top potential <span class="exec-sub">Where to invest sponsor time</span></h2>
+        <div id="exec-hipos-potential"></div>
+      </div>
+      <div>
+        <h2 class="exec-section-hd" style="margin-top:0">Ready-Now for Tier-1 <span class="exec-sub">Succession front-runners</span></h2>
+        <div id="exec-hipos-ready"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="exec-section-hd">Retention conversations you should be having <span class="exec-sub">High flight risk on critical succession slates</span></h2>
+  <div id="exec-flight-risk"></div>
+
+  <h2 class="exec-section-hd">Can this leadership deliver the strategy? <span class="exec-sub">Cohort capability tied to GMR's strategic priorities</span></h2>
+  <div class="strat-cap-panel">
+    <div class="strat-cap-block strengths">
+      <div class="sc-hd">Strong on</div>
+      <div id="exec-cap-strengths"></div>
+    </div>
+    <div class="strat-cap-block gaps">
+      <div class="sc-hd">At risk on</div>
+      <div id="exec-cap-gaps"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== GROUP INSIGHTS (renamed Cohort Analysis) =================== -->
+<section class="view" id="view-group">
   <div class="page-hd">
     <h1>Group Insights</h1>
     <div class="sub">Cohort-level view of the GMR Top-200. Filter, then read the shape of the leadership.</div>
@@ -1018,6 +1154,8 @@ body.story-mode main{padding-bottom:110px}
     <div class="sub">Org-level view — pipeline, readiness, coverage. Level filter applies to the readiness matrix.</div>
   </div>
 
+  <div class="exec-focus" id="exec-focus"></div>
+
   <div class="kpi-row" id="succ-kpi-row"></div>
 
   <div class="sh-layout section">
@@ -1076,8 +1214,12 @@ body.story-mode main{padding-bottom:110px}
     <div class="hf-card">
       <div class="hf-hd">
         <div>
-          <h3>Health by Job Family</h3>
-          <div class="muted">Click a cell to drill into that family × health combination</div>
+          <h3 id="hf-heading">Pipeline Health by Job Family</h3>
+          <div class="muted">Click a cell to drill into that group × health combination</div>
+        </div>
+        <div class="dim-toggle">
+          <button class="active" data-dim="family" onclick="setHealthDim('family')">Job Family</button>
+          <button data-dim="bu" onclick="setHealthDim('bu')">Business Unit</button>
         </div>
       </div>
       <div style="overflow-x:auto"><table class="hf-matrix" id="hf-matrix-table"></table></div>
@@ -1717,6 +1859,8 @@ let STATE = {
   roleFamilyFilter: [], // empty = all families
   roleSearchQuery: "",
   succFamilyFilter: [],
+  hfDimension: "family",
+  viewMode: "ceo",
   roleSort: "health", roleHealthFilter: "all",
   currentRole: null, currentLeader: null,
   notes: {}, actions: {}, roleNotes: {},
@@ -1728,7 +1872,10 @@ function init(){
   STATE.leaders = demo.leaders; STATE.roles = demo.roles;
   loadState();
   buildFilters();
+  // Default to CEO mode and Executive Summary
+  document.body.classList.add("ceo-mode");
   renderAll();
+  renderExecutive();
   updateStatus();
   document.addEventListener("click", (e)=>{
     document.querySelectorAll(".f-menu.open").forEach(m=>{ if(!m.parentElement.contains(e.target)) m.classList.remove("open"); });
@@ -2037,6 +2184,7 @@ function applyFilters(leaders){
 function switchView(view){
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active", b.dataset.view===view));
   document.querySelectorAll(".view").forEach(s=>s.classList.toggle("active", s.id==="view-"+view));
+  if(view==="executive") renderExecutive();
   if(view==="succession") renderSuccession();
   if(view==="roles") renderRoles();
   if(view==="leaders") renderLeaderList();
@@ -2053,7 +2201,226 @@ function renderAll(){
   renderAi33();
   renderTraitTrends();
   renderDistributions(filtered);
+  renderExecutive();
   updateStatus(); saveState();
+}
+
+// ---------- View mode toggle ----------
+function setViewMode(mode){
+  STATE.viewMode = mode;
+  document.body.classList.toggle("ceo-mode", mode==="ceo");
+  document.body.classList.toggle("tm-mode", mode==="tm");
+  document.querySelectorAll(".vm-btn").forEach(b=>b.classList.toggle("active", b.dataset.mode===mode));
+  saveState();
+  // If we're currently on a CEO-hidden tab, bounce to Executive Summary
+  if(mode==="ceo"){
+    const cur = document.querySelector(".tab.active");
+    if(cur && (cur.dataset.view==="group" || cur.dataset.view==="actions")){
+      switchView("executive");
+    }
+  }
+}
+
+// ---------- Executive Summary render ----------
+function renderExecutive(){
+  renderExecVerdict();
+  renderExecFocusExec();
+  renderExecExposedRoles();
+  renderExecHiPos();
+  renderExecFlightRisk();
+  renderExecCapability();
+}
+function renderExecVerdict(){
+  const c = document.getElementById("exec-verdict-card"); if(!c) return;
+  const roles = STATE.roles;
+  const rnRoles = roles.filter(r=>(r.slots||[]).some(sl=>sl.readiness===READINESS[0])).length;
+  const pct = Math.round(100*rnRoles/roles.length);
+  const target = 66;
+  const statusLabel = pct>=target ? "on target" : pct>=34 ? "below target" : "in critical gap";
+  const statusClass = pct>=target ? "g" : "";
+  const tier1Weak = roles.filter(r=>r.tier===1 && (roleHealth(r)==="r" || roleHealth(r)==="o")).length;
+  const highRiskCrit = (function(){
+    const set = new Set();
+    roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
+    return STATE.leaders.filter(l=>set.has(l.id) && l.flightRisk==="High").length;
+  })();
+  c.innerHTML = `
+    <div class="vk-lbl">The pipeline in one line</div>
+    <div class="vk-text">
+      Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b> — <b>${pct}%</b> of critical roles have a Ready-Now successor (target 66%) ·
+      <b>${tier1Weak}</b> Tier-1 role${tier1Weak===1?"":"s"} need${tier1Weak===1?"s":""} immediate attention ·
+      <b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates.
+    </div>
+  `;
+}
+function renderExecFocusExec(){
+  // Re-use existing computation, render in the exec-focus-exec container
+  const c = document.getElementById("exec-focus-exec"); if(!c) return;
+  const ins = computeExecInsights();
+  const buShort = bu => (bu||"").replace("GMR ","");
+  const concerns = [];
+  if(ins.weakestBU){
+    concerns.push(`<b>${buShort(ins.weakestBU.bu)}</b> has the weakest pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber. <a onclick="drillBUHealth('${ins.weakestBU.bu}')">Drill in ›</a>`);
+  }
+  if(ins.weakestFam){
+    concerns.push(`<b>${ins.weakestFam.f}</b> is the weakest function — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action`);
+  }
+  const strengths = [];
+  if(ins.strongestBU){
+    strengths.push(`<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy`);
+  }
+  if(ins.strongestFam){
+    strengths.push(`<b class="g">${ins.strongestFam.f}</b> function has the strongest coverage`);
+  }
+  c.innerHTML = `
+    <div class="exec-focus-hd">
+      <h3>Executive Focus · Where to lean in</h3>
+    </div>
+    <div class="exec-focus-grid">
+      <div class="exec-focus-col">
+        <h4><span class="ef-dot" style="background:var(--rn-r)"></span>Top concerns</h4>
+        <ul>${concerns.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>
+      <div class="exec-focus-col">
+        <h4><span class="ef-dot" style="background:var(--rn-g)"></span>Where we're strong</h4>
+        <ul>${strengths.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>
+    </div>
+  `;
+}
+function renderExecExposedRoles(){
+  const c = document.getElementById("exec-exposed-roles"); if(!c) return;
+  // Rank exposed roles: Tier 1 first, then Tier 2
+  const exposed = STATE.roles
+    .filter(r=>roleHealth(r)==="r")
+    .sort((a,b)=>a.tier-b.tier)
+    .slice(0,6);
+  if(!exposed.length){
+    c.innerHTML = `<div class="muted" style="padding:24px;text-align:center;background:var(--bg-2);border-radius:6px">✓ No critical roles fully exposed — pipeline is holding.</div>`;
+    return;
+  }
+  c.innerHTML = `<div class="exec-cards-grid">
+    ${exposed.map(r=>{
+      const slots = r.slots || [];
+      const depth = slots.length;
+      const bestReadiness = slots.length ? slots.map(s=>READINESS.indexOf(s.readiness)).reduce((a,b)=>Math.min(a,b), 3) : -1;
+      const bestLabel = bestReadiness>=0 ? READINESS[bestReadiness] : "No named successor";
+      const action = depth===0
+        ? "Named-successor identification urgent — engage HR + BU head this quarter"
+        : bestReadiness>=3
+          ? "Bench 4+ years away — external map + long-term IDPs required"
+          : "Structured development plan and cross-BU stretch needed";
+      return `<div class="exposed-role-card" onclick="switchView('roles');setTimeout(()=>selectRole('${r.id}'),50)">
+        <div class="er-meta">Tier ${r.tier} · ${r.family}</div>
+        <div class="er-title">${r.title}</div>
+        <div class="er-body">Best successor: <b>${bestLabel}</b> · ${action}</div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+function renderExecHiPos(){
+  // Left: Top 10 by Potential score
+  const topP = [...STATE.leaders].sort((a,b)=>b.potentialScore-a.potentialScore).slice(0,10);
+  const p = document.getElementById("exec-hipos-potential");
+  if(p){
+    p.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px">
+      ${topP.map(l=>`
+        <div class="named-leader" onclick="openLeader('${l.id}')">
+          <div class="avatar">${initials(l.name)}</div>
+          <div style="flex:1;min-width:0">
+            <div class="nl-name">${l.name}</div>
+            <div class="nl-meta">${l.level} · ${l.bu.replace('GMR ','')} · ${l.function}</div>
+          </div>
+          <div class="nl-score">${l.potentialScore.toFixed(1)}</div>
+        </div>
+      `).join("")}
+    </div>`;
+  }
+  // Right: Ready-Now for Tier-1 roles
+  const rnMap = new Map(); // leaderId -> role title
+  STATE.roles.filter(r=>r.tier===1).forEach(r=>{
+    (r.slots||[]).forEach(sl=>{
+      if(sl.readiness===READINESS[0]){
+        if(!rnMap.has(sl.leaderId)) rnMap.set(sl.leaderId, r.title);
+      }
+    });
+  });
+  const rnLeaders = [...rnMap.keys()].map(id=>({leader: STATE.leaders.find(l=>l.id===id), target: rnMap.get(id)})).filter(x=>x.leader);
+  const r = document.getElementById("exec-hipos-ready");
+  if(r){
+    if(!rnLeaders.length){
+      r.innerHTML = `<div class="muted" style="padding:24px;text-align:center;background:var(--bg-2);border-radius:6px">⚠ No Ready-Now successors identified for Tier-1 roles — urgent action needed.</div>`;
+    } else {
+      r.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px">
+        ${rnLeaders.map(({leader, target})=>`
+          <div class="named-leader" onclick="openLeader('${leader.id}')">
+            <div class="avatar" style="background:var(--rn-g);color:#fff">${initials(leader.name)}</div>
+            <div style="flex:1;min-width:0">
+              <div class="nl-name">${leader.name}</div>
+              <div class="nl-meta">For: ${target}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>`;
+    }
+  }
+}
+function renderExecFlightRisk(){
+  const c = document.getElementById("exec-flight-risk"); if(!c) return;
+  const critSet = new Set();
+  STATE.roles.filter(r=>r.tier<=2).forEach(r=>{
+    (r.slots||[]).forEach(sl=>critSet.add(sl.leaderId));
+  });
+  const flightRisk = STATE.leaders
+    .filter(l=>critSet.has(l.id) && l.flightRisk==="High")
+    .slice(0,6);
+  if(!flightRisk.length){
+    c.innerHTML = `<div class="muted" style="padding:24px;text-align:center;background:var(--bg-2);border-radius:6px">✓ No high flight-risk on critical succession slates — retention is holding.</div>`;
+    return;
+  }
+  c.innerHTML = `<div class="exec-cards-grid">
+    ${flightRisk.map(l=>{
+      const targetRoles = STATE.roles.filter(r=>r.tier<=2 && (r.slots||[]).some(sl=>sl.leaderId===l.id));
+      const rolesList = targetRoles.slice(0,2).map(r=>r.title).join(", ");
+      const more = targetRoles.length>2 ? ` +${targetRoles.length-2} more` : "";
+      return `<div class="named-leader risk" onclick="openLeader('${l.id}')">
+        <div class="avatar">${initials(l.name)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="nl-name">${l.name}</div>
+          <div class="nl-meta">${l.level} · ${l.bu.replace('GMR ','')} · Slated for: ${rolesList}${more}</div>
+        </div>
+        <div class="nl-score">Talk now</div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+function renderExecCapability(){
+  const traits = TRAITS.filter(t=>!BUSINESS_LEVERS.includes(t));
+  const scored = traits.map(t=>{
+    const scores = STATE.leaders.map(l=>l.traits[t].PT).filter(v=>v!=null);
+    const avg = scores.length ? scores.reduce((a,b)=>a+b,0)/scores.length : 0;
+    return {trait:t, avg};
+  }).sort((a,b)=>b.avg-a.avg);
+  const strengths = scored.slice(0,3);
+  const gaps = scored.slice(-3).reverse();
+  const s = document.getElementById("exec-cap-strengths");
+  if(s){
+    s.innerHTML = strengths.map(x=>`
+      <div class="sc-item">
+        <div class="sc-trait">${x.trait} <span class="sc-score" style="color:#1F7A5C">${x.avg.toFixed(1)}</span></div>
+        <div class="sc-anchor">${TRAIT_STRATEGIC_ANCHOR[x.trait]||""}</div>
+      </div>
+    `).join("");
+  }
+  const g = document.getElementById("exec-cap-gaps");
+  if(g){
+    g.innerHTML = gaps.map(x=>`
+      <div class="sc-item">
+        <div class="sc-trait">${x.trait} <span class="sc-score" style="color:#B32B2E">${x.avg.toFixed(1)}</span></div>
+        <div class="sc-anchor">${TRAIT_STRATEGIC_ANCHOR[x.trait]||""}</div>
+      </div>
+    `).join("");
+  }
 }
 function updateStatus(){
   const n = applyFilters(STATE.leaders).length;
@@ -2649,23 +3016,139 @@ function renderSuccession(){
   document.getElementById("stat-mobility").textContent = Math.round(100*openReloc/pool.length)+"%";
   document.getElementById("stat-gender").textContent = Math.round(100*women/pool.length)+"%";
 
+  renderExecFocus();
   renderSuccRoleTable();
-  renderHealthByFamily();
+  renderHealthByDim();
   renderReadinessMatrix();
   renderCoverageChart();
   renderDiversityChart();
 }
-function renderHealthByFamily(){
+// ---------- Executive Focus band ----------
+function computeExecInsights(){
+  const roles = STATE.roles;
+  const leaders = STATE.leaders;
+  const health = r => roleHealth(r);
+  // By BU
+  const buStats = {};
+  roles.forEach(r=>{
+    if(!buStats[r.bu]) buStats[r.bu] = {total:0, weak:0, healthy:0, exposed:0};
+    buStats[r.bu].total++;
+    const h = health(r);
+    if(h==="r" || h==="o") buStats[r.bu].weak++;
+    if(h==="g") buStats[r.bu].healthy++;
+    if(h==="r") buStats[r.bu].exposed++;
+  });
+  const buList = Object.entries(buStats)
+    .filter(([_,s])=>s.total>=3) // only consider BUs with a meaningful role count
+    .map(([bu,s])=>({bu, ratio:s.weak/s.total, ...s}));
+  buList.sort((a,b)=>b.ratio-a.ratio);
+  const weakestBU = buList[0];
+  const strongestBU = buList[buList.length-1];
+  // By family
+  const famStats = {};
+  roles.forEach(r=>{
+    if(!famStats[r.family]) famStats[r.family] = {total:0, weak:0, healthy:0};
+    famStats[r.family].total++;
+    const h = health(r);
+    if(h==="r" || h==="o") famStats[r.family].weak++;
+    if(h==="g") famStats[r.family].healthy++;
+  });
+  const famList = Object.entries(famStats)
+    .filter(([_,s])=>s.total>=3)
+    .map(([f,s])=>({f, ratio:s.weak/s.total, ...s}));
+  famList.sort((a,b)=>b.ratio-a.ratio);
+  const weakestFam = famList[0];
+  const strongestFam = famList[famList.length-1];
+  // Tier-1 exposed roles (Red only for headline; still very relevant)
+  const tier1Exposed = roles.filter(r=>r.tier===1 && health(r)==="r");
+  const tier1Weak = roles.filter(r=>r.tier===1 && (health(r)==="r" || health(r)==="o"));
+  // High flight risk on Tier 1-2 slates
+  const critSuccSet = new Set();
+  roles.filter(r=>r.tier<=2).forEach(r=>{
+    (r.slots||[]).forEach(sl=>critSuccSet.add(sl.leaderId));
+  });
+  const highFlightOnSlates = leaders.filter(l=>critSuccSet.has(l.id) && l.flightRisk==="High");
+  return {weakestBU, strongestBU, weakestFam, strongestFam, tier1Exposed, tier1Weak, highFlightOnSlates};
+}
+function renderExecFocus(){
+  const c = document.getElementById("exec-focus"); if(!c) return;
+  const ins = computeExecInsights();
+  const buShort = bu => (bu||"").replace("GMR ","");
+  const concerns = [];
+  if(ins.weakestBU){
+    concerns.push(`<b>${buShort(ins.weakestBU.bu)}</b> has the weakest pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber. <a onclick="drillBUHealth('${ins.weakestBU.bu}')">Drill in ›</a>`);
+  }
+  if(ins.weakestFam){
+    concerns.push(`<b>${ins.weakestFam.f}</b> is the weakest function — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action`);
+  }
+  if(ins.tier1Weak.length){
+    const names = ins.tier1Weak.slice(0,2).map(r=>r.title).join(", ");
+    const more = ins.tier1Weak.length>2 ? ` +${ins.tier1Weak.length-2} more` : "";
+    concerns.push(`<b>${ins.tier1Weak.length}</b> Tier-1 roles are exposed or at-risk — ${names}${more}`);
+  }
+  if(ins.highFlightOnSlates.length){
+    concerns.push(`<b>${ins.highFlightOnSlates.length}</b> High flight-risk leaders sit on critical (Tier 1–2) succession slates`);
+  }
+  const strengths = [];
+  if(ins.strongestBU){
+    strengths.push(`<b class="g">${buShort(ins.strongestBU.bu)}</b> is the strongest BU — <b class="g">${ins.strongestBU.healthy}</b> of ${ins.strongestBU.total} critical roles Healthy`);
+  }
+  if(ins.strongestFam){
+    strengths.push(`<b class="g">${ins.strongestFam.f}</b> function has the strongest coverage — depth and readiness are aligned`);
+  }
+  c.innerHTML = `
+    <div class="exec-focus-hd">
+      <h3>Executive Focus · Where to lean in</h3>
+      <div class="sub">Computed from current pipeline health</div>
+    </div>
+    <div class="exec-focus-grid">
+      <div class="exec-focus-col">
+        <h4><span class="ef-dot" style="background:var(--rn-r)"></span>Top concerns</h4>
+        <ul>${concerns.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>
+      <div class="exec-focus-col">
+        <h4><span class="ef-dot" style="background:var(--rn-g)"></span>Where we're strong</h4>
+        <ul>${strengths.map(c=>`<li>${c}</li>`).join("")}</ul>
+      </div>
+    </div>
+  `;
+}
+function drillBUHealth(bu){
+  // Set search to the BU name for quick filter
+  STATE.roleSearchQuery = bu.replace("GMR ","");
+  STATE.roleHealthFilter = "all";
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = true; });
+  switchView("roles");
+  setTimeout(()=>{
+    const s = document.getElementById("rv-search");
+    if(s) s.value = STATE.roleSearchQuery;
+  },80);
+}
+// ---------- Dimension toggle for health matrix ----------
+function setHealthDim(dim){
+  STATE.hfDimension = dim;
+  document.querySelectorAll(".dim-toggle button").forEach(b=>b.classList.toggle("active", b.dataset.dim===dim));
+  document.getElementById("hf-heading").textContent = "Pipeline Health by " + (dim==="family"?"Job Family":"Business Unit");
+  renderHealthByDim();
+}
+function renderHealthByDim(){
   const t = document.getElementById("hf-matrix-table"); if(!t) return;
-  const totalByFam = {}; const cellCounts = {};
-  FAMILIES.forEach(f=>{ totalByFam[f]=0; cellCounts[f]={g:0,a:0,o:0,r:0}; });
+  const dim = STATE.hfDimension;
+  const groups = dim==="family" ? FAMILIES : BUs;
+  const keyOf = r => dim==="family" ? r.family : r.bu;
+  const colorOf = g => dim==="family" ? (FAMILY_COLORS[g]||"#6E6E6E") : "#0A3661";
+  const labelOf = g => dim==="family" ? g : g.replace("GMR ","");
+  const dimLabel = dim==="family" ? "Job family" : "Business unit";
+  const totalByGroup = {}; const cellCounts = {};
+  groups.forEach(g=>{ totalByGroup[g]=0; cellCounts[g]={g:0,a:0,o:0,r:0}; });
   STATE.roles.forEach(r=>{
-    if(!totalByFam[r.family] && totalByFam[r.family]!==0) return;
-    totalByFam[r.family]++;
-    cellCounts[r.family][roleHealth(r)]++;
+    const k = keyOf(r);
+    if(totalByGroup[k]===undefined) return;
+    totalByGroup[k]++;
+    cellCounts[k][roleHealth(r)]++;
   });
   let html = `<thead><tr>
-    <th style="width:32%">Job family</th>
+    <th style="width:32%">${dimLabel}</th>
     <th class="center" style="width:14%">Healthy</th>
     <th class="center" style="width:14%">Watch</th>
     <th class="center" style="width:14%">At risk</th>
@@ -2673,18 +3156,13 @@ function renderHealthByFamily(){
     <th class="center" style="width:12%">Total</th>
   </tr></thead><tbody>`;
   let tG=0,tA=0,tO=0,tR=0,tTot=0;
-  FAMILIES.forEach(fam=>{
-    const c = cellCounts[fam];
-    const tot = totalByFam[fam];
-    if(tot===0) return;
+  groups.forEach(grp=>{
+    const c = cellCounts[grp]; const tot = totalByGroup[grp]; if(tot===0) return;
     tG+=c.g; tA+=c.a; tO+=c.o; tR+=c.r; tTot+=tot;
-    const cellHtml = (val, tone) => `<td class="cell ${val>0?tone:'zero'}" onclick="drillFamilyHealth('${fam.replace(/'/g,"\\'")}','${tone}')">${val}</td>`;
+    const cellHtml = (val, tone) => `<td class="cell ${val>0?tone:'zero'}" onclick="drillDimHealth('${grp.replace(/'/g,"\\'")}','${tone}')">${val}</td>`;
     html += `<tr>
-      <td><span class="fam-badge" style="background:${FAMILY_COLORS[fam]||'#6E6E6E'}"></span><b>${fam}</b></td>
-      ${cellHtml(c.g,"g")}
-      ${cellHtml(c.a,"a")}
-      ${cellHtml(c.o,"o")}
-      ${cellHtml(c.r,"r")}
+      <td><span class="fam-badge" style="background:${colorOf(grp)}"></span><b>${labelOf(grp)}</b></td>
+      ${cellHtml(c.g,"g")}${cellHtml(c.a,"a")}${cellHtml(c.o,"o")}${cellHtml(c.r,"r")}
       <td class="center">${tot}</td>
     </tr>`;
   });
@@ -2698,21 +3176,30 @@ function renderHealthByFamily(){
   </tr></tbody>`;
   t.innerHTML = html;
 }
-function drillFamilyHealth(family, health){
-  // Set filters and switch view
+function drillDimHealth(group, health){
   STATE.roleHealthFilter = health;
-  STATE.expandedFamilies = {};
-  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = false; });
-  STATE.expandedFamilies[family] = true;
-  STATE.roleSearchQuery = "";
+  if(STATE.hfDimension==="family"){
+    STATE.expandedFamilies = {};
+    FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = false; });
+    STATE.expandedFamilies[group] = true;
+    STATE.roleSearchQuery = "";
+  } else {
+    // Drill by BU — use search filter
+    STATE.roleSearchQuery = group.replace("GMR ","");
+    FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = true; });
+  }
   switchView("roles");
   setTimeout(()=>{
-    // Scroll to family group
-    document.querySelectorAll("[data-family]").forEach(el=>{
-      if(el.dataset.family===family) el.scrollIntoView({behavior:"smooth", block:"start"});
-    });
+    const s = document.getElementById("rv-search");
+    if(s && STATE.roleSearchQuery) s.value = STATE.roleSearchQuery;
+    if(STATE.hfDimension==="family"){
+      document.querySelectorAll("[data-family]").forEach(el=>{
+        if(el.dataset.family===group) el.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+    }
   }, 80);
 }
+// (renderHealthByFamily / drillFamilyHealth superseded by renderHealthByDim / drillDimHealth)
 function renderPipelineGauge(pct){
   const svg = document.getElementById("pipeline-gauge");
   const angle = (pct/100)*180;
@@ -2729,7 +3216,7 @@ function renderPipelineGauge(pct){
   svg.innerHTML = bg + fg;
   document.getElementById("pipeline-num").textContent = pct+"%";
   const lbl = document.getElementById("pipeline-label");
-  lbl.textContent = pct<34?"At risk": pct<66?"Watch":"Healthy";
+  lbl.textContent = pct<34?"Critical gap": pct<66?"Below target":"On target";
   lbl.className = "gauge-label "+(pct<34?"r": pct<66?"a":"g");
 }
 function setPipeSort(k){
@@ -3671,6 +4158,11 @@ function whatIfReadiness(roleId, slotIdx, newReadiness){
 
 // ---------- Story mode ----------
 const STORY_STEPS = [
+  {view:"executive", title:"Executive summary — the verdict", desc:"Start with the one-line verdict: is the pipeline healthy? Which roles need attention? Who are the future leaders?"},
+  {view:"executive", title:"Named exposed roles", desc:"Walk through the specific critical roles that don't have adequate Ready-Now coverage — these are where the CEO needs to invest personal sponsor time."},
+  {view:"executive", title:"Top potential + succession front-runners", desc:"The names to know — leaders with the highest Potential, and those Ready-Now for Tier-1 roles."},
+  {view:"executive", title:"Retention conversations to have", desc:"High flight-risk leaders on critical succession slates — losing any of them meaningfully weakens the pipeline."},
+  {view:"executive", title:"Can this leadership deliver the strategy?", desc:"The cohort's strongest and weakest traits, tied to GMR's strategic priorities — where do we deliver, where are we exposed?"},
   {view:"group", title:"Cohort headlines", desc:"Start with the topline: how many leaders in the Top-200, what proportion Ready-Now, what's the flight risk profile."},
   {view:"group", title:"Potential — Development Centre scores", desc:"Which traits does the cohort demonstrate strongest / weakest? Anchor everything else against this shape."},
   {view:"group", title:"Personality (ADEPT-15)", desc:"How the cohort is wired vs GMR benchmark. Where the group's natural strengths and risks lie."},
