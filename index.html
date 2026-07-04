@@ -715,10 +715,16 @@ body.ceo-mode .hide-in-ceo{display:none!important}
 .exec-verdict-card .vk-headline b.g{color:#8FE8C4}
 .exec-verdict-card .vk-bullets{list-style:none;margin:0;padding:0;position:relative;z-index:1}
 .exec-verdict-card .vk-bullets li{font-size:14px;line-height:1.55;color:rgba(255,255,255,.9);
-  padding:5px 0 5px 22px;position:relative}
-.exec-verdict-card .vk-bullets li::before{content:"—";position:absolute;left:0;
-  color:rgba(255,255,255,.35);font-weight:600}
+  padding:7px 12px 7px 26px;position:relative;border-radius:6px;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:6px}
+.exec-verdict-card .vk-bullets li:hover{background:rgba(255,255,255,.06);color:#fff;padding-left:30px}
+.exec-verdict-card .vk-bullets li::before{content:"—";position:absolute;left:6px;
+  color:rgba(255,255,255,.35);font-weight:600;transition:color .15s}
+.exec-verdict-card .vk-bullets li:hover::before{color:#F5CE3E}
 .exec-verdict-card .vk-bullets li b{color:#F5CE3E;font-weight:700}
+.exec-verdict-card .vk-bullets li .vk-chev{margin-left:auto;opacity:0;transform:translateX(-4px);
+  transition:all .15s;stroke:rgba(255,255,255,.7);width:14px;height:14px}
+.exec-verdict-card .vk-bullets li:hover .vk-chev{opacity:1;transform:translateX(0)}
 .exec-verdict-card .vk-bench{color:rgba(255,255,255,.5);font-size:.82em;margin-left:6px;font-weight:400}
 
 .exec-section-hd{margin:36px 0 14px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.25}
@@ -844,30 +850,30 @@ body.ceo-mode .hide-in-ceo{display:none!important}
 .div-warn{background:var(--rn-y-tint);color:#8A6B00;padding:10px 14px;border-radius:6px;margin-top:14px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:8px}
 .div-warn .ico{stroke:#8A6B00}
 
-/* AI Readiness insight card */
-.ai-strat-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:8px;
-  padding:18px 22px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;
-  border-left:4px solid var(--steel)}
+/* AI Readiness insight card — restructured layout */
+.ai-strat-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:24px 28px;display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;
+  border-left:4px solid var(--steel);position:relative;overflow:hidden}
 .ai-strat-card.warn{border-left-color:var(--rn-o)}
 .ai-strat-card.risk{border-left-color:var(--rn-r)}
 .ai-strat-card.good{border-left-color:var(--rn-g)}
-.ai-strat-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--steel),#5EA5E8);
-  color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
-.ai-strat-card.warn .ai-strat-icon{background:linear-gradient(135deg,var(--rn-o),#E68C4E)}
-.ai-strat-card.risk .ai-strat-icon{background:linear-gradient(135deg,var(--rn-r),#D53E41)}
-.ai-strat-card.good .ai-strat-icon{background:linear-gradient(135deg,var(--rn-g),#4CB090)}
-.ai-strat-body .ais-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;margin-bottom:4px}
-.ai-strat-body .ais-text{font-size:13px;line-height:1.55;color:var(--ink-2)}
+.ai-strat-stats{display:flex;flex-direction:column;gap:20px;padding-right:24px;border-right:1px solid var(--line-2)}
+.ai-strat-big{display:flex;align-items:baseline;gap:10px}
+.ai-strat-big .num{font-size:52px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.ai-strat-big .num.good{color:#1F7A5C}
+.ai-strat-big .num.warn{color:var(--rn-r)}
+.ai-strat-big .desc{display:flex;flex-direction:column;gap:2px}
+.ai-strat-big .desc .lbl{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.ai-strat-big .desc .sub{font-size:11px;color:var(--ink-3);line-height:1.35}
+.ai-strat-body .ais-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ai-strat-body .ais-lbl .ai-badge{background:var(--steel);color:#fff;padding:2px 8px;border-radius:99px;font-size:9px;font-weight:700;letter-spacing:.06em}
+.ai-strat-body .ais-text{font-size:14px;line-height:1.6;color:var(--ink-2)}
 .ai-strat-body .ais-text b{color:var(--ink);font-weight:600}
-.ai-strat-body .ais-text b.warn{color:#B32B2E}
-.ai-strat-body .ais-text b.good{color:#1F7A5C}
-.ai-strat-body .ais-text a{color:var(--steel);cursor:pointer;text-decoration:underline;text-decoration-color:rgba(44,123,229,.35);margin-left:6px}
-.ai-strat-body .ais-text a:hover{text-decoration-color:var(--steel)}
-.ai-strat-stat{text-align:center;padding:0 8px}
-.ai-strat-stat .ass-num{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1}
-.ai-strat-stat .ass-lbl{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:4px}
-.ai-strat-stat .ass-num.warn{color:var(--rn-r)}
-.ai-strat-stat .ass-num.good{color:var(--rn-g)}
+.ai-strat-body .ais-text .lead{color:var(--ink);font-weight:500;display:block;margin-bottom:8px;font-size:14px;line-height:1.5}
+.ai-strat-body .ais-text .stats-line{font-size:12px;color:var(--ink-3);margin-top:4px}
+.ai-strat-body .ais-text a{color:var(--steel);cursor:pointer;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:3px;margin-top:10px;padding:5px 10px;background:#E4EEF9;border-radius:99px;font-size:12px}
+.ai-strat-body .ais-text a:hover{background:var(--steel);color:#fff}
+.ai-strat-body .ais-text a .ico{width:12px;height:12px;stroke-width:2.2}
 
 /* ---------- Full-screen mode for charts ---------- */
 .expand-btn{position:absolute;top:12px;right:12px;background:#fff;
@@ -2461,6 +2467,21 @@ function renderExecDiversity(){
     pool.forEach(l=>{ const v = l[key]||"Unknown"; map[v] = (map[v]||0)+1; });
     return Object.entries(map).sort((a,b)=>b[1]-a[1]);
   };
+  // Age range bucketing — replaces generational labels
+  const ageRangeOf = age => {
+    if(age==null) return "Unknown";
+    if(age<40) return "Under 40";
+    if(age<=50) return "40–50";
+    if(age<=60) return "51–60";
+    return "61–70";
+  };
+  const ageRangeCounts = {};
+  pool.forEach(l=>{
+    const r = ageRangeOf(l.age);
+    ageRangeCounts[r] = (ageRangeCounts[r]||0)+1;
+  });
+  const ageOrder = ["Under 40","40–50","51–60","61–70"];
+  const ageRanges = ageOrder.filter(r=>ageRangeCounts[r]>0).map(r=>[r, ageRangeCounts[r]]);
   const block = (label, rows, colorFn) => `
     <div class="div-block">
       <div class="d-lbl">${label}</div>
@@ -2473,20 +2494,21 @@ function renderExecDiversity(){
         </div>`;
       }).join("")}
     </div>`;
-  const genOrder = {"Gen Z":0,"Millennial":1,"Gen X":2,"Boomer":3};
-  const generations = countBy("generation").sort((a,b)=>(genOrder[a[0]]??9)-(genOrder[b[0]]??9));
   const genders = countBy("gender").map(([g,n])=>[g==="F"?"Female":"Male",n]);
   const origins = countBy("originBU").slice(0,5).map(([bu,n])=>[bu.replace("GMR ",""),n]);
   const edu = countBy("education").slice(0,5);
-  const genColor = {"Gen Z":"#6BC9A6","Millennial":"#2C7BE5","Gen X":"#0A3661","Boomer":"#8B4B8F"};
+  const ageColor = {"Under 40":"#6BC9A6","40–50":"#2C7BE5","51–60":"#0A3661","61–70":"#8B4B8F"};
   const gendColor = {"Female":"#EB0017","Male":"#3E3E3E"};
   const buColor = (bu)=> FAMILY_COLORS[bu] || "#0A3661";
-  // Insight: check if generational balance skews old
-  const genX = generations.find(g=>g[0]==="Gen X"); const boom = generations.find(g=>g[0]==="Boomer");
-  const millennial = generations.find(g=>g[0]==="Millennial");
-  const nextGenPct = Math.round(100*((millennial?millennial[1]:0)+(generations.find(g=>g[0]==="Gen Z")?.[1]||0))/total);
-  const warn = nextGenPct<40
-    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${nextGenPct}%</b>&nbsp;of the successor pool is Millennial or younger — a common concern for family-led Indian conglomerates. Consider next-gen leadership development.</div>`
+  // Insight: age skew — check if pool is heavy in older age brackets
+  const under50 = (ageRangeCounts["Under 40"]||0) + (ageRangeCounts["40–50"]||0);
+  const under50Pct = Math.round(100*under50/total);
+  const over60 = ageRangeCounts["61–70"]||0;
+  const over60Pct = Math.round(100*over60/total);
+  const ageWarn = under50Pct<40
+    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${under50Pct}%</b>&nbsp;of the successor pool is under 50 — the bench is ageing. Common concern for family-led Indian conglomerates; consider next-gen leadership development.</div>`
+    : over60Pct>15
+    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${over60Pct}%</b>&nbsp;of the successor pool is 61–70 — near-term retirement risk. Prioritise identification of the next cohort within 12 months.</div>`
     : "";
   const femalePct = Math.round(100*(pool.filter(l=>l.gender==="F").length)/total);
   const genWarn = femalePct<25
@@ -2494,12 +2516,12 @@ function renderExecDiversity(){
     : "";
   c.innerHTML = `<div class="div-panel">
     <div class="div-grid">
-      ${block("By Generation", generations, (n)=>genColor[n]||"#6E6E6E")}
+      ${block("By Age Range", ageRanges, (n)=>ageColor[n]||"#6E6E6E")}
       ${block("By Gender", genders, (n)=>gendColor[n]||"#6E6E6E")}
       ${block("By Origin BU (career built at)", origins, buColor)}
       ${block("By Education Background", edu, ()=>"#8B4B8F")}
     </div>
-    ${warn}${genWarn}
+    ${ageWarn}${genWarn}
   </div>`;
 }
 // ---------- Board pack export ----------
@@ -2647,15 +2669,28 @@ function renderExecVerdict(){
     roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
     return STATE.leaders.filter(l=>set.has(l.id) && l.flightRisk==="High").length;
   })();
+  const chev = icon("chevron","vk-chev");
   c.innerHTML = `
     <div class="vk-lbl">Succession Pipeline</div>
     <div class="vk-headline">Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b></div>
     <ul class="vk-bullets">
-      <li><b>${pct}%</b> of critical roles have a Ready-Now successor <span class="vk-bench">${benchClause}</span></li>
-      <li><b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action</li>
-      <li><b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates</li>
+      <li onclick="switchView('succession')" title="Go to Pipeline"><span><b>${pct}%</b> of critical roles have a Ready-Now successor <span class="vk-bench">${benchClause}</span></span>${chev}</li>
+      <li onclick="drillLaCritical()" title="See the LA Critical roles at risk"><span><b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action</span>${chev}</li>
+      <li onclick="switchView('retention')" title="Go to Retention Watch"><span><b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates</span>${chev}</li>
     </ul>
   `;
+}
+// LA Critical drill — roles at Career Level LA with Red or Amber pipeline
+function drillLaCritical(){
+  STATE.roleHealthFilter = "all";
+  STATE.roleSearchQuery = "";
+  FAMILIES.forEach(f=>{ STATE.expandedFamilies[f] = true; });
+  switchView("roles");
+  setTimeout(()=>{
+    // Highlight LA-level roles that need action — scroll to first weak LA role
+    const weakLA = STATE.roles.find(r=>r.cl==="LA" && (roleHealth(r)==="r" || roleHealth(r)==="o"));
+    if(weakLA){ selectRole(weakLA.id); }
+  }, 100);
 }
 function computeBuFamilyStats(){
   const stats = {};
@@ -2675,21 +2710,18 @@ function renderExecFocusExec(){
   const ins = computeExecInsights();
   const buShort = bu => (bu||"").replace("GMR ","");
   const drillPill = (label, onclick) => `<button class="drill-pill" onclick="${onclick}">${label}${icon("chevron")}</button>`;
-  const recMove = (text) => `<div class="rec-move"><span class="rm-lbl">Move</span><span>${text}</span></div>`;
   const concerns = [];
   if(ins.weakestBU){
     const buN = buShort(ins.weakestBU.bu);
     concerns.push({
       text: `<b>${buN}</b> has the weakest BU-level pipeline — <b>${Math.round(100*ins.weakestBU.ratio)}%</b> of its ${ins.weakestBU.total} critical roles are Red or Amber.`,
-      pill: drillPill("Drill in", `drillBUOnly('${ins.weakestBU.bu.replace(/'/g,"\\'")}')`),
-      move: `Diagnostic review with ${buN} CEO and CHRO in Q1 · targeted external hiring pipeline for the 2 weakest seats.`
+      pill: drillPill("Drill in", `drillBUOnly('${ins.weakestBU.bu.replace(/'/g,"\\'")}')`)
     });
   }
   if(ins.weakestFam){
     concerns.push({
       text: `<b>${ins.weakestFam.f}</b> is the weakest job family — ${ins.weakestFam.weak} of ${ins.weakestFam.total} roles need action.`,
-      pill: drillPill("Drill in", `drillFamilyOnly('${ins.weakestFam.f.replace(/'/g,"\\'")}')`),
-      move: `Cross-BU capability build + Aon functional development cohort for ${ins.weakestFam.f}.`
+      pill: drillPill("Drill in", `drillFamilyOnly('${ins.weakestFam.f.replace(/'/g,"\\'")}')`)
     });
   }
   if(ins.tier1Weak && ins.tier1Weak.length){
@@ -2697,15 +2729,13 @@ function renderExecFocusExec(){
     const more = ins.tier1Weak.length>2 ? ` +${ins.tier1Weak.length-2} more` : "";
     concerns.push({
       text: `<b>${ins.tier1Weak.length}</b> LA Critical roles are exposed or at-risk — ${names}${more}.`,
-      pill: drillPill("Drill in", "drillTier1Weak()"),
-      move: `Immediate ExCo review of these seats · external candidate mapping via Aon within 45 days.`
+      pill: drillPill("Drill in", "drillTier1Weak()")
     });
   }
   if(ins.highFlightOnSlates && ins.highFlightOnSlates.length){
     concerns.push({
       text: `<b>${ins.highFlightOnSlates.length}</b> high flight-risk leaders sit on critical succession slates.`,
-      pill: drillPill("Drill in", "switchView('retention')"),
-      move: `Confidential retention conversations led by Group CEO within 30 days · comp positioning review.`
+      pill: drillPill("Drill in", "switchView('retention')")
     });
   }
   const strengths = [];
@@ -2728,7 +2758,7 @@ function renderExecFocusExec(){
     <div class="exec-focus-grid">
       <div class="exec-focus-col">
         <h4><span class="ef-dot" style="background:var(--rn-r)"></span>Top concerns</h4>
-        <ul>${concerns.map(x=>`<li>${x.text} ${x.pill}${recMove(x.move)}</li>`).join("")}</ul>
+        <ul>${concerns.map(x=>`<li>${x.text} ${x.pill}</li>`).join("")}</ul>
       </div>
       <div class="exec-focus-col">
         <h4><span class="ef-dot" style="background:var(--rn-g)"></span>Where we're strong</h4>
@@ -2934,21 +2964,29 @@ function renderAiStrategyInsight(){
       : `The cohort is under-prepared for GMR's AI-enabled agenda — the champion base is thin and the at-risk group is large. Systemic capability build required.`;
   c.innerHTML = `
     <div class="ai-strat-card ${tone}">
-      <div class="ai-strat-icon">AI</div>
-      <div class="ai-strat-body">
-        <div class="ais-lbl">AI Readiness · what this means for the digital transformation agenda</div>
-        <div class="ais-text">
-          ${readingline} <b class="good">${championsPct}%</b> are <b>AI champions</b> (change-ready + active AI users) · <b class="warn">${atRiskPct}%</b> are <b>at-risk</b> of falling behind · <b>${engagedPct}%</b> engage with AI tools regularly.
-          <a onclick="drillAiReadiness()">See who ›</a>
+      <div class="ai-strat-stats">
+        <div class="ai-strat-big">
+          <div class="num good">${championsPct}%</div>
+          <div class="desc">
+            <div class="lbl">AI Champions</div>
+            <div class="sub">Change-ready + active AI users</div>
+          </div>
+        </div>
+        <div class="ai-strat-big">
+          <div class="num warn">${atRiskPct}%</div>
+          <div class="desc">
+            <div class="lbl">At-risk</div>
+            <div class="sub">Low change readiness + low AI use</div>
+          </div>
         </div>
       </div>
-      <div class="ai-strat-stat">
-        <div class="ass-num good">${championsPct}%</div>
-        <div class="ass-lbl">Champions</div>
-      </div>
-      <div class="ai-strat-stat">
-        <div class="ass-num warn">${atRiskPct}%</div>
-        <div class="ass-lbl">At-risk</div>
+      <div class="ai-strat-body">
+        <div class="ais-lbl"><span class="ai-badge">AI Readiness</span> for the digital agenda</div>
+        <div class="ais-text">
+          <span class="lead">${readingline}</span>
+          <div class="stats-line"><b>${engagedPct}%</b> of the cohort engages with AI tools regularly.</div>
+          <a onclick="drillAiReadiness()">See who they are ${icon("chevron")}</a>
+        </div>
       </div>
     </div>
   `;
@@ -4264,7 +4302,7 @@ function renderLeaderProfile(lid){
         <div class="lp-snap-item"><div class="k">Manager</div><div class="v">${l.manager}</div></div>
         <div class="lp-snap-item"><div class="k">Tenure</div><div class="v">${l.tenure} years</div></div>
         <div class="lp-snap-item"><div class="k">Performance (last cycle)</div><div class="v">${l.performance}</div></div>
-        <div class="lp-snap-item"><div class="k">Generation</div><div class="v">${l.generation||"—"} · Age ${l.age||"—"}</div></div>
+        <div class="lp-snap-item"><div class="k">Age</div><div class="v">${l.age||"—"} yrs${l.age?` <span style="color:var(--ink-3);font-weight:500;font-size:11px">· ${l.age<40?"Under 40":l.age<=50?"40–50":l.age<=60?"51–60":"61–70"}</span>`:""}</div></div>
         <div class="lp-snap-item"><div class="k">Origin BU (career built at)</div><div class="v">${(l.originBU||"").replace("GMR ","")||"—"}</div></div>
         <div class="lp-snap-item"><div class="k">Education</div><div class="v">${l.education||"—"}</div></div>
       </div>
