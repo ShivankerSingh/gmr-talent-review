@@ -836,6 +836,48 @@ body.ceo-mode .hide-in-ceo{display:none!important}
   border-left:2px solid #F5CE3E;line-height:1.5}
 .rec-move .rm-lbl{color:#F5CE3E;font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.06em;flex-shrink:0}
 
+/* ---------- Frameworks reference tab ---------- */
+.tab.tab-ref{color:var(--ink-3)}
+.tab.tab-ref.active{color:var(--ink);border-bottom-color:var(--ink)}
+.fw-section-hd{margin:32px 0 16px;font-size:18px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.fw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px}
+.fw-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 24px;
+  display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.fw-icon{width:44px;height:44px;border-radius:10px;color:#fff;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:700;letter-spacing:-.02em;flex-shrink:0}
+.fw-title{font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.3}
+.fw-body{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+.fw-body p{margin:0 0 10px}
+.fw-body p:last-child{margin-bottom:0}
+.fw-body b{color:var(--ink);font-weight:600}
+.fw-body i{color:var(--ink-2);font-style:italic;font-weight:500}
+.fw-list{margin:0 0 10px;padding-left:18px}
+.fw-list li{margin-bottom:4px}
+.fw-gmr{background:linear-gradient(135deg,rgba(235,0,23,.06),rgba(245,206,62,.06));
+  border-left:3px solid var(--rn-y);padding:10px 14px;border-radius:6px;margin-top:8px;
+  font-size:12px;line-height:1.55;color:var(--ink-2)}
+.fw-gmr-lbl{display:inline-block;background:var(--navy);color:#fff;padding:2px 8px;border-radius:99px;
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-right:8px}
+
+/* Terms grid */
+.fw-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.fw-term{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 18px}
+.fw-term .ft-name{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin-bottom:5px}
+.fw-term .ft-def{font-size:12px;color:var(--ink-2);line-height:1.55}
+.fw-term .ft-def b{color:var(--ink);font-weight:600}
+
+/* Context why-matters section */
+.fw-context{display:flex;flex-direction:column;gap:14px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px 26px}
+.fw-ctx-row{display:grid;grid-template-columns:36px 1fr;gap:16px;align-items:flex-start}
+.fw-ctx-icon{width:36px;height:36px;border-radius:8px;color:#fff;display:flex;align-items:center;
+  justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
+.fw-ctx-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em}
+.fw-ctx-body{font-size:12.5px;line-height:1.6;color:var(--ink-2)}
+
+/* Deck reference footer */
+.fw-deck-ref{margin-top:24px;padding:18px 22px;background:linear-gradient(135deg,#F7F8F9 0%,#FFFFFF 100%);
+  border:1px solid var(--line);border-radius:8px;border-left:3px solid var(--navy)}
+
 /* Diversity composition panel */
 .div-panel{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin-top:12px}
 .div-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -1076,6 +1118,7 @@ body.story-mode main{padding-bottom:110px}
   <button class="tab" data-view="compare" onclick="switchView('compare')">Compare</button>
   <button class="tab" data-view="group" onclick="switchView('group')">Cohort Analysis</button>
   <button class="tab" data-view="actions" onclick="switchView('actions')">Notes & Actions</button>
+  <button class="tab tab-ref" data-view="frameworks" onclick="switchView('frameworks')" style="margin-left:auto"><svg class="ico tab-icon" viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Frameworks</button>
   <div class="subnav-status">
     <span class="dot" id="statusDot"></span>
     <span id="statusText">Live · 0 leaders</span>
@@ -1117,7 +1160,17 @@ body.story-mode main{padding-bottom:110px}
   <h2 class="exec-section-hd">Retention conversations you should be having <span class="exec-sub">High flight risk on critical succession slates</span></h2>
   <div id="exec-flight-risk"></div>
 
-  <h2 class="exec-section-hd">Future Leader composition <span class="exec-sub">Demographic profile of the HiPo cohort — the pool that shapes leadership in 5–10 years</span></h2>
+  <h2 class="exec-section-hd">
+    <span id="exec-comp-title">Future Leader composition</span>
+    <span class="exec-sub" id="exec-comp-sub">Demographic profile of the HiPo cohort — the pool that shapes leadership in 5–10 years</span>
+  </h2>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <span style="font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600">Showing</span>
+    <div class="dim-toggle" id="comp-pool-toggle">
+      <button class="active" data-pool="future" onclick="setCompositionPool('future')">Future Leaders</button>
+      <button data-pool="successors" onclick="setCompositionPool('successors')">Top Successors (Tier 1–2)</button>
+    </div>
+  </div>
   <div id="exec-diversity"></div>
 
   <h2 class="exec-section-hd">Can this leadership deliver the strategy? <span class="exec-sub">Cohort capability tied to GMR's strategic priorities</span></h2>
@@ -1491,6 +1544,149 @@ body.story-mode main{padding-bottom:110px}
 </section>
 
 </main>
+
+<!-- =================== FRAMEWORKS / REFERENCE =================== -->
+<section class="view" id="view-frameworks">
+  <div class="page-hd">
+    <h1>Frameworks & Definitions</h1>
+    <div class="sub">Reference for the frameworks used across this dashboard · what they mean, how we use them, why they matter for GMR</div>
+  </div>
+
+  <!-- Core frameworks -->
+  <h2 class="fw-section-hd">Core frameworks</h2>
+  <div class="fw-grid">
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#0A3661,#2C7BE5)">9</div>
+      <div class="fw-title">The 9-box · Performance × Potential</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> A 3×3 grid that plots each leader's current performance against their future potential. The classic talent-segmentation tool used by every serious talent review globally.</p>
+        <p><b>How we use it:</b> Every leader in the Top-200 sits in one of nine zones — <i>Future Leader</i>, <i>Growth employee</i>, <i>Enigma</i>, <i>High impact</i>, <i>Core employee</i>, <i>Dilemma</i>, <i>Trusted professional</i>, <i>Effective</i>, <i>Underperformer</i>. Each zone implies a distinct action.</p>
+        <p><b>What to look for:</b> The distribution across zones — a healthy Top-200 typically has 8–15% <i>Future Leaders</i> (top-right) and less than 5% <i>Underperformers</i> (bottom-left).</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Given GMR's execution-intensive infrastructure business, the <i>Trusted Professional</i> zone (high performance, plateaued potential) is deep — these are your delivery backbone. The concern is whether the <i>Future Leader</i> and <i>Growth employee</i> zones have enough density to fuel the growth agenda.</div>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#EB0017,#F5A45A)">AI</div>
+      <div class="fw-title">AI Readiness · Change × Use</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> A 3×3 grid mapping <b>Change Readiness</b> (Learning + Agile + Growth Mindset from personality data) against <b>AI Use</b> (training completion + tool usage + application in work).</p>
+        <p><b>How we use it:</b> Identifies who to invest in for GMR's digital agenda. <i>AI Champions</i> (top-right) become internal advocates. <i>At-risk</i> (bottom-left) need targeted intervention.</p>
+        <p><b>What to look for:</b> The champion base — anything under 10% is a concern for a group with an ambitious digital agenda.</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Directly ties to GMR's stated AI transformation ambition in the strategic plan. Currently a novel framework globally — first-mover advantage in taking it seriously.</div>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#6BC9A6,#4CB090)">FR</div>
+      <div class="fw-title">Fit × Potential Readiness Matrix</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> A 3×3 grid plotting successors by their <b>Fit</b> for a specific target role and their overall <b>Potential</b>. Cells map directly to readiness horizons.</p>
+        <p><b>How we use it:</b> The cell a successor lands in determines whether they're Ready Now, Ready in 1 year, 2–3 years, or 4+ years for the target role.</p>
+        <p><b>What to look for:</b> Concentration in the top-right (Ready-Now candidates); over-concentration in the top-left (Ready-in-2-3 years) suggests a bench that will need long-runway development.</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Populated from GMR's GLIDE assessment scores. For roles like CEO of a BU, high Fit alone isn't enough — high Potential is what allows the leader to scale as the BU grows.</div>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#8B4B8F,#B369B8)">6P</div>
+      <div class="fw-title">Leadership Pipeline · 6 Passages</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> Ram Charan's framework identifying six passages of leadership growth: Manage Self → Manage Others → Manage Managers → Function Manager → Business Manager → Enterprise Manager.</p>
+        <p><b>How we use it:</b> Every succession move is a "passage" — a Function Manager stepping into a BU CEO role is fundamentally different from a BU CEO stepping into a Group role. The tool tags each successor slot with the passage it involves.</p>
+        <p><b>What to look for:</b> Passages that involve two skips (e.g. Function Manager → Enterprise) are the highest-risk succession moves.</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Cross-BU moves are particularly critical for GMR given the decentralised BU structure — leaders coming up through Airports need explicit exposure to other passages before Group-level roles.</div>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#001F3D,#0F2A4D)">GL</div>
+      <div class="fw-title">GLIDE Framework · Aon's 3-lens view</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> Aon's proprietary framework combining three lenses on a leader:</p>
+        <ul class="fw-list">
+          <li><b>Personality</b> — what they're naturally inclined to do (ADEPT-15 assessment)</li>
+          <li><b>Perception</b> — how others see them (360° feedback)</li>
+          <li><b>Potential</b> — what they can grow into (Development Centre observations)</li>
+        </ul>
+        <p><b>How we use it:</b> Triangulation across all three lenses is more robust than any single source. Divergence between lenses is itself informative (e.g. high Personality but low Perception on a trait = self-awareness gap).</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> All 200 leaders in the assessment programme have full GLIDE data. This is a genuine Aon-methodology-led differentiator vs standard competency-only assessments.</div>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#F5A45A,#E68C4E)">A15</div>
+      <div class="fw-title">ADEPT-15 · Personality dimensions</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> Aon's 15-dimension personality assessment measuring stable behavioural preferences across three domains — Adjustment (how you handle emotion), Ambition (how you drive), and Sociability (how you engage others).</p>
+        <p><b>How we use it:</b> Anchors the "Personality" lens of GLIDE. Cohort profile shows on the radar chart (Cohort Analysis tab).</p>
+        <p><b>What to look for:</b> Cohort-level tilts on specific dimensions (e.g. low Composure across the group signals a culture that struggles under pressure).</p>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Cohort profile is what shapes the culture. If ADEPT dimensions cluster narrowly, the group risks group-think in strategic decisions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key terms -->
+  <h2 class="fw-section-hd">Key terms</h2>
+  <div class="fw-terms">
+    <div class="fw-term"><div class="ft-name">Future Leader</div><div class="ft-def">Top-right of the 9-box · High Performance × High Potential · the highest-value talent segment</div></div>
+    <div class="fw-term"><div class="ft-name">Top Successor</div><div class="ft-def">A leader named on a Tier 1 or Tier 2 succession slate — answers "who is stepping up in 12–24 months?"</div></div>
+    <div class="fw-term"><div class="ft-name">Ready Now</div><div class="ft-def">Successor can step into the target role in under 6 months with only light development</div></div>
+    <div class="fw-term"><div class="ft-name">Ready in 1 year</div><div class="ft-def">Needs 6–18 months of targeted development or a specific stretch experience</div></div>
+    <div class="fw-term"><div class="ft-name">Ready in 2–3 years</div><div class="ft-def">Requires structured development plus a significant role or scope change</div></div>
+    <div class="fw-term"><div class="ft-name">Ready in 4+ years</div><div class="ft-def">Long-runway development — new mental model or multiple passage changes needed</div></div>
+    <div class="fw-term"><div class="ft-name">Tier 1 / 2 / 3</div><div class="ft-def">Role criticality — Tier 1 = enterprise-critical (Group CEO, CFO, BU CEOs), Tier 2 = BU/function-critical, Tier 3 = specialist-critical</div></div>
+    <div class="fw-term"><div class="ft-name">LA / LB / LC / LD</div><div class="ft-def">GMR's career levels — LA = C-suite (Group CEO, BU CEOs), LB = SVP, LC = VP, LD = Senior Manager</div></div>
+    <div class="fw-term"><div class="ft-name">Healthy Pipeline</div><div class="ft-def">Named Ready-Now successor <b>and</b> depth of at least 2 named successors</div></div>
+    <div class="fw-term"><div class="ft-name">Watch Pipeline</div><div class="ft-def">Has a Ready-Now successor but only 1 name, or best successor is Ready-in-1-year</div></div>
+    <div class="fw-term"><div class="ft-name">At Risk Pipeline</div><div class="ft-def">Best successor is Ready-in-2-3-years — no near-term coverage</div></div>
+    <div class="fw-term"><div class="ft-name">Exposed Pipeline</div><div class="ft-def">No named successor, or only 4+ year readiness — role is materially vulnerable</div></div>
+    <div class="fw-term"><div class="ft-name">Flight Risk</div><div class="ft-def">Likelihood of leader leaving GMR — Low / Medium / High, based on tenure, engagement signals, external market activity</div></div>
+    <div class="fw-term"><div class="ft-name">Two-lens rule</div><div class="ft-def">Every development action must be justified on <b>both</b> business need <b>and</b> individual growth — actions justified on only one need review</div></div>
+    <div class="fw-term"><div class="ft-name">AI Champion</div><div class="ft-def">Leaders with High Change Readiness <b>and</b> High AI Use — the internal advocates for digital transformation</div></div>
+    <div class="fw-term"><div class="ft-name">Business Lever traits</div><div class="ft-def">Trust & Loyalty, Cultural Synergy, Energy & Tenacity — assessed via Personality + 360° only (not Development Centre observation)</div></div>
+  </div>
+
+  <!-- Why these matter -->
+  <h2 class="fw-section-hd">Why these frameworks matter for GMR specifically</h2>
+  <div class="fw-context">
+    <div class="fw-ctx-row">
+      <div class="fw-ctx-icon" style="background:#0A3661">1</div>
+      <div>
+        <div class="fw-ctx-title">Family-led conglomerate structure</div>
+        <div class="fw-ctx-body">Cross-BU visibility is often limited by BU-level talent decisions. The 9-box gives ExCo a group-wide view; the Origin BU dimension surfaces single-source cohort risks; the Compare view enables informed decisions on cross-BU moves.</div>
+      </div>
+    </div>
+    <div class="fw-ctx-row">
+      <div class="fw-ctx-icon" style="background:#2C7BE5">2</div>
+      <div>
+        <div class="fw-ctx-title">Infrastructure sector — long-gestation projects</div>
+        <div class="fw-ctx-body">Airport concessions, energy plants and highway assets run for decades. Succession planning cannot be reactive — the readiness horizon framework (Ready Now → 4+ years) is a discipline for long-arc planning, not a short-term ranking.</div>
+      </div>
+    </div>
+    <div class="fw-ctx-row">
+      <div class="fw-ctx-icon" style="background:#EB0017">3</div>
+      <div>
+        <div class="fw-ctx-title">Explicit AI / digital transformation agenda</div>
+        <div class="fw-ctx-body">GMR's strategic plan calls out AI-driven operational efficiency across airports, energy grid management, and predictive maintenance. The AI Readiness framework converts that ambition into a specific talent lens — who can actually lead the transition.</div>
+      </div>
+    </div>
+    <div class="fw-ctx-row">
+      <div class="fw-ctx-icon" style="background:#6BC9A6">4</div>
+      <div>
+        <div class="fw-ctx-title">Decentralised BU structure with matrix moments</div>
+        <div class="fw-ctx-body">Most decisions live within BUs, but Group-level moves (cross-BU rotations, Group-role successions) require different capabilities. The Leadership Pipeline passages framework distinguishes between "manages a bigger version of what they did" and "manages a fundamentally different thing" — critical for identifying stretch vs safe promotions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fw-deck-ref">
+    <div style="font-weight:600;font-size:13px;color:var(--ink);margin-bottom:6px">${icon("fileText","")} Deeper reading</div>
+    <div style="font-size:12px;color:var(--ink-3);line-height:1.6">
+      For the full narrative behind these frameworks — including best-practice benchmarks, cited sources, and the deck materials used in the workshop with GMR ExCo — refer to the <b>GMR Talent Review Workshop Deck</b> (Aon Assessment Solutions, July 2026, 65 slides). Sections most relevant: <i>Foundations</i>, <i>Frameworks & Analytical Tools</i>, and <i>Cohort-Level Analysis & AI Readiness</i>.
+    </div>
+  </div>
+</section>
 
 <!-- Upload modal -->
 <div class="modal-back" id="upload-modal">
@@ -2082,6 +2278,7 @@ let STATE = {
   succFamilyFilter: [],
   hfDimension: "family",
   viewMode: "ceo",
+  compositionPool: "future",
   roleSort: "health", roleHealthFilter: "all",
   currentRole: null, currentLeader: null,
   notes: {}, actions: {}, roleNotes: {},
@@ -2453,12 +2650,44 @@ function renderExecutive(){
   renderExecDiversity();
   renderExecCapability();
 }
-// Composition of the Future Leader pool (9-box top-right — High Perf × High Pot)
+// Top Successors = leaders named on any Tier 1-2 slate
+function getTopSuccessors(){
+  const set = new Set();
+  STATE.roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
+  return STATE.leaders.filter(l=>set.has(l.id));
+}
+function setCompositionPool(pool){
+  STATE.compositionPool = pool;
+  document.querySelectorAll("#comp-pool-toggle button").forEach(b=>b.classList.toggle("active", b.dataset.pool===pool));
+  // Update heading and sub
+  const t = document.getElementById("exec-comp-title");
+  const s = document.getElementById("exec-comp-sub");
+  if(t && s){
+    if(pool==="future"){
+      t.textContent = "Future Leader composition";
+      s.textContent = "Demographic profile of the HiPo cohort — the pool that shapes leadership in 5–10 years";
+    } else {
+      t.textContent = "Top Successor composition";
+      s.textContent = "Demographic profile of the leaders named as successors on Tier 1–2 critical roles";
+    }
+  }
+  renderExecDiversity();
+}
+// Composition of the selected pool — Future Leaders or Top Successors
 function renderExecDiversity(){
   const c = document.getElementById("exec-diversity"); if(!c) return;
-  const pool = getFutureLeaders();
+  const poolMode = STATE.compositionPool || "future";
+  const pool = poolMode==="successors" ? getTopSuccessors() : getFutureLeaders();
+  const poolLabel = poolMode==="successors" ? "Top Successors" : "Future Leaders";
+  const poolDescriptor = poolMode==="successors" ? "leaders named on a Tier 1–2 succession slate" : "leaders in the 9-box top-right (High Performance × High Potential)";
+  const shapesTail = poolMode==="successors" ? "This is who steps into leadership over the next 12–24 months." : "This is the pool that will shape GMR's leadership in 5–10 years.";
   const total = pool.length;
-  if(!total){ c.innerHTML = emptyState("No Future Leaders identified yet — the 9-box top-right cohort is empty. This is a red-flag for future leadership."); return; }
+  if(!total){
+    c.innerHTML = emptyState(poolMode==="future"
+      ? "No Future Leaders identified yet — the 9-box top-right cohort is empty. This is a red-flag for future leadership."
+      : "No Top Successors yet — assign successors to Tier 1–2 roles to see the composition.");
+    return;
+  }
   const countBy = (key) => {
     const map = {};
     pool.forEach(l=>{ const v = l[key]||"Unknown"; map[v] = (map[v]||0)+1; });
@@ -2497,31 +2726,31 @@ function renderExecDiversity(){
   const ageColor = {"Under 40":"#6BC9A6","40–50":"#2C7BE5","51–60":"#0A3661","61–70":"#8B4B8F"};
   const gendColor = {"Female":"#EB0017","Male":"#3E3E3E"};
   const buColor = (bu)=> FAMILY_COLORS[bu] || "#0A3661";
-  // Insight: age skew — check if the Future Leader cohort is heavy in older brackets
+  // Insights adapt to the selected pool label
   const under50 = (ageRangeCounts["Under 40"]||0) + (ageRangeCounts["40–50"]||0);
   const under50Pct = Math.round(100*under50/total);
   const over60 = ageRangeCounts["61–70"]||0;
   const over60Pct = Math.round(100*over60/total);
+  const horizonPhrase = poolMode==="successors" ? "over the next 12–24 months" : "in 5–10 years";
   const ageWarn = under50Pct<40
-    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${under50Pct}%</b>&nbsp;of Future Leaders are under 50 — the HiPo bench is ageing. If this doesn't shift, leadership in 5–10 years will look like leadership today.</div>`
+    ? `<div class="div-warn">${icon("warn")}Only <b style="margin-left:4px">${under50Pct}%</b>&nbsp;of ${poolLabel} are under 50 — the bench is ageing. If this doesn't shift, leadership ${horizonPhrase} will look like leadership today.</div>`
     : over60Pct>15
-    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${over60Pct}%</b>&nbsp;of Future Leaders are 61–70 — near-term retirement risk within the HiPo pool itself. Identify the next-generation cohort in the next 12 months.</div>`
+    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${over60Pct}%</b>&nbsp;of ${poolLabel} are 61–70 — near-term retirement risk within this cohort. Identify the next-generation successors in the next 12 months.</div>`
     : "";
   const femalePct = Math.round(100*(pool.filter(l=>l.gender==="F").length)/total);
   const genWarn = femalePct<25
-    ? `<div class="div-warn">${icon("warn")}Female representation among Future Leaders is <b style="margin-left:4px">${femalePct}%</b>&nbsp;— below the 25% target commonly used for Indian conglomerate boards. This shapes what leadership will look like in 5–10 years — sponsor stretch assignments for senior women this cycle.</div>`
+    ? `<div class="div-warn">${icon("warn")}Female representation among ${poolLabel} is <b style="margin-left:4px">${femalePct}%</b>&nbsp;— below the 25% target commonly used for Indian conglomerate boards. This shapes what leadership will look like ${horizonPhrase} — sponsor stretch assignments for senior women this cycle.</div>`
     : "";
-  // Origin BU concentration — if >50% come from a single BU, flag it
   const originCounts = {};
   pool.forEach(l=>{ originCounts[l.originBU] = (originCounts[l.originBU]||0)+1; });
   const topOrigin = Object.entries(originCounts).sort((a,b)=>b[1]-a[1])[0];
   const originConcentration = topOrigin ? Math.round(100*topOrigin[1]/total) : 0;
   const originWarn = originConcentration>50
-    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${originConcentration}%</b>&nbsp;of Future Leaders built their career at <b>${topOrigin[0].replace("GMR ","")}</b> — a single-source cohort risks group-think and limits cross-BU perspective. Actively sponsor talent from other units into stretch roles.</div>`
+    ? `<div class="div-warn">${icon("warn")}<b style="margin-left:4px">${originConcentration}%</b>&nbsp;of ${poolLabel} built their career at <b>${topOrigin[0].replace("GMR ","")}</b> — a single-source cohort risks group-think and limits cross-BU perspective. Actively sponsor talent from other units into stretch roles.</div>`
     : "";
   c.innerHTML = `<div class="div-panel">
     <div style="margin-bottom:14px;font-size:12px;color:var(--ink-3)">
-      Based on <b style="color:var(--ink)">${total} Future Leader${total===1?"":"s"}</b> — leaders in the 9-box top-right (High Performance × High Potential). This is the pool that will shape GMR's leadership in 5–10 years.
+      Based on <b style="color:var(--ink)">${total} ${poolLabel}${total===1?"":""}</b> — ${poolDescriptor}. ${shapesTail}
     </div>
     <div class="div-grid">
       ${block("By Age Range", ageRanges, (n)=>ageColor[n]||"#6E6E6E")}
@@ -2677,16 +2906,38 @@ function renderExecVerdict(){
     roles.filter(r=>r.tier<=2).forEach(r=>{(r.slots||[]).forEach(sl=>set.add(sl.leaderId))});
     return STATE.leaders.filter(l=>set.has(l.id) && l.flightRisk==="High").length;
   })();
+  // Future Leaders — 9-box top-right
+  const flCount = getFutureLeaders().length;
+  const flPct = Math.round(100*flCount/STATE.leaders.length);
+  // Simple density read-out: <5% is thin, 8-15% is healthy, >20% may indicate rating inflation
+  const flComment = flPct>=8 && flPct<=15 ? "healthy density"
+                    : flPct<5 ? "thin — HiPo identification needs sharpening"
+                    : flPct>20 ? "high — check for rating inflation"
+                    : "adequate density";
   const chev = icon("chevron","vk-chev");
   c.innerHTML = `
     <div class="vk-lbl">Succession Pipeline</div>
     <div class="vk-headline">Pipeline is <b${statusClass?' class="'+statusClass+'"':''}>${statusLabel}</b></div>
     <ul class="vk-bullets">
       <li onclick="switchView('succession')" title="Go to Pipeline"><span><b>${pct}%</b> of critical roles have a Ready-Now successor <span class="vk-bench">${benchClause}</span></span>${chev}</li>
+      <li onclick="scrollToFutureLeaders()" title="See the Future Leaders"><span><b>${flCount}</b> Future Leaders identified — <b>${flPct}%</b> of the cohort <span class="vk-bench">${flComment}</span></span>${chev}</li>
       <li onclick="drillLaCritical()" title="See the LA Critical roles at risk"><span><b>${laCriticalWeak}</b> LA Critical role${laCriticalWeak===1?"":"s"} need${laCriticalWeak===1?"s":""} immediate action</span>${chev}</li>
       <li onclick="switchView('retention')" title="Go to Retention Watch"><span><b>${highRiskCrit}</b> high flight-risk leader${highRiskCrit===1?"":"s"} on critical succession slates</span>${chev}</li>
     </ul>
   `;
+}
+function scrollToFutureLeaders(){
+  if(!document.getElementById("view-executive").classList.contains("active")){
+    switchView("executive");
+  }
+  setTimeout(()=>{
+    const el = document.getElementById("exec-hipos-potential");
+    if(el){
+      // Scroll to the heading above it so context is visible
+      const heading = el.previousElementSibling;
+      (heading||el).scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  }, 100);
 }
 // LA Critical drill — roles at Career Level LA with Red or Amber pipeline
 function drillLaCritical(){
