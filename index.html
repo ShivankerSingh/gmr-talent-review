@@ -991,7 +991,39 @@ body.has-fullscreen .fs-nav-bar{display:flex}
 .ret-sponsor-input{border:1px solid var(--line);border-radius:3px;padding:6px 10px;font-size:12px;font-family:inherit;width:130px}
 
 /* ---------- Compare view ---------- */
-.cmp-controls{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.cmp-controls{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.cmp-mode-toggle{display:inline-flex;background:var(--bg-2);border:1px solid var(--line);
+  border-radius:99px;padding:3px;gap:2px}
+.cmp-mode-btn{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:500;
+  background:transparent;color:var(--ink-3);border:none;cursor:pointer;transition:all .15s;line-height:1}
+.cmp-mode-btn:hover:not(.active){color:var(--ink-2)}
+.cmp-mode-btn.active{background:var(--ink);color:#fff;font-weight:600}
+.cmp-mode-btn .ic-mode{width:12px;height:12px;stroke-width:2.2;margin-right:5px;vertical-align:-1px}
+
+.cmp-role-picker-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  background:var(--bg-2);padding:12px 14px;border-radius:8px;border:1px solid var(--line)}
+.cmp-role-picker-wrap.hide{display:none}
+.cmp-role-picker-wrap .lbl{font-size:11px;color:var(--ink-3);text-transform:uppercase;
+  letter-spacing:.06em;font-weight:600}
+
+/* Type-ahead search picker */
+.cmp-typeahead-wrap{position:relative;width:100%}
+.cmp-typeahead-input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:6px;
+  font-size:12px;font-family:inherit;background:#fff;color:var(--ink);transition:border-color .15s}
+.cmp-typeahead-input:focus{outline:none;border-color:var(--ink)}
+.cmp-typeahead-input::placeholder{color:var(--ink-4)}
+.cmp-typeahead-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;
+  border:1px solid var(--line);border-radius:6px;max-height:300px;overflow-y:auto;z-index:20;
+  box-shadow:0 8px 24px rgba(0,0,0,.1);display:none}
+.cmp-typeahead-suggestions.open{display:block}
+.cmp-typeahead-suggestion{padding:9px 12px;cursor:pointer;display:flex;align-items:center;gap:10px;
+  font-size:12px;border-bottom:1px solid var(--line-2)}
+.cmp-typeahead-suggestion:hover{background:var(--bg-2)}
+.cmp-typeahead-suggestion:last-child{border-bottom:none}
+.cmp-typeahead-suggestion .avatar{width:28px;height:28px;font-size:11px;flex-shrink:0}
+.cmp-typeahead-suggestion .tsn-name{font-weight:600;color:var(--ink);letter-spacing:-.005em}
+.cmp-typeahead-suggestion .tsn-meta{font-size:11px;color:var(--ink-3);margin-top:1px}
+.cmp-typeahead-empty{padding:12px 14px;color:var(--ink-3);font-style:italic;font-size:12px;text-align:center}
 .cmp-grid{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
 .cmp-grid.two{grid-template-columns:repeat(2,1fr)}
 .cmp-col{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-height:600px}
@@ -1513,14 +1545,21 @@ body.story-mode main{padding-bottom:110px}
 <section class="view" id="view-compare">
   <div class="page-hd">
     <h1>Compare Leaders</h1>
-    <div class="sub">Side-by-side view for succession-slate decisions. Up to 3 leaders at a time.</div>
+    <div class="sub">Side-by-side view for succession decisions and cross-role comparisons. Up to 3 leaders at a time.</div>
   </div>
   <div class="cmp-controls">
-    <span class="lbl" style="font-size:11px;color:var(--ink-3)">Compare slate for</span>
-    <select class="cmp-picker" style="width:280px" id="cmp-slate-picker" onchange="loadSlate(this.value)">
-      <option value="">— Pick a role —</option>
+    <div class="cmp-mode-toggle" id="cmp-mode-toggle">
+      <button class="cmp-mode-btn active" data-mode="role" onclick="setCompareMode('role')">Successors of a role</button>
+      <button class="cmp-mode-btn" data-mode="leaders" onclick="setCompareMode('leaders')">Any leaders</button>
+    </div>
+    <button class="btn" onclick="clearCompare()" style="margin-left:auto">Clear all slots</button>
+  </div>
+  <div class="cmp-role-picker-wrap" id="cmp-role-picker-wrap">
+    <span class="lbl">Successor pool for</span>
+    <select class="cmp-picker" style="width:340px" id="cmp-slate-picker" onchange="loadSlate(this.value)">
+      <option value="">— Pick a critical role —</option>
     </select>
-    <button class="btn" onclick="clearCompare()">Clear all slots</button>
+    <span style="font-size:11px;color:var(--ink-3);font-style:italic;margin-left:6px">Auto-fills the 3 named successors for that role</span>
   </div>
   <div class="cmp-grid" id="cmp-grid"></div>
 </section>
@@ -2279,6 +2318,7 @@ let STATE = {
   hfDimension: "family",
   viewMode: "ceo",
   compositionPool: "future",
+  compareMode: "role",
   roleSort: "health", roleHealthFilter: "all",
   currentRole: null, currentLeader: null,
   notes: {}, actions: {}, roleNotes: {},
@@ -4385,7 +4425,7 @@ function renderRoleDetail(rid){
         <div style="color:var(--ink-3);font-size:12px">Incumbent: ${r.incumbent} · ${succs.length} named successors</div>
       </div>
       <div style="display:flex;gap:8px;align-items:flex-start">
-        <button class="btn" onclick="compareRoleSlate('${rid}')">Compare slate</button>
+        <button class="btn" onclick="compareRoleSuccessors('${rid}')">Compare successors</button>
         <span class="h-badge ${hMap[h].tone}" style="padding:6px 12px;font-size:11px;border-radius:99px;font-weight:700">${hMap[h].lbl}</span>
       </div>
     </div>
@@ -4881,11 +4921,21 @@ function setRetentionAction(lid, field, value){
 }
 
 // ---------- Compare view ----------
+function setCompareMode(mode){
+  STATE.compareMode = mode;
+  document.querySelectorAll(".cmp-mode-btn").forEach(b=>b.classList.toggle("active", b.dataset.mode===mode));
+  const wrap = document.getElementById("cmp-role-picker-wrap");
+  if(wrap) wrap.classList.toggle("hide", mode!=="role");
+  // Switching to leaders mode clears the role selection but keeps the leaders
+  if(mode==="leaders"){
+    const p = document.getElementById("cmp-slate-picker");
+    if(p) p.value = "";
+  }
+}
 function renderCompare(){
-  // Populate slate picker
+  // Populate role picker
   const picker = document.getElementById("cmp-slate-picker");
   if(picker.options.length<=1){
-    // Group roles by family in optgroups
     FAMILIES.forEach(fam=>{
       const famRoles = STATE.roles.filter(r=>r.family===fam);
       if(!famRoles.length) return;
@@ -4899,6 +4949,10 @@ function renderCompare(){
       picker.appendChild(optGrp);
     });
   }
+  // Apply current mode to UI
+  document.querySelectorAll(".cmp-mode-btn").forEach(b=>b.classList.toggle("active", b.dataset.mode===STATE.compareMode));
+  const wrap = document.getElementById("cmp-role-picker-wrap");
+  if(wrap) wrap.classList.toggle("hide", STATE.compareMode!=="role");
   const grid = document.getElementById("cmp-grid");
   let html = "";
   for(let i=0;i<3;i++){
@@ -4908,16 +4962,66 @@ function renderCompare(){
   }
   grid.innerHTML = html;
 }
+// ---------- Type-ahead search for individual leader picker ----------
+function filterCompareLeaders(idx, query){
+  const q = (query||"").toLowerCase().trim();
+  const suggEl = document.getElementById("cmp-suggestions-"+idx);
+  if(!suggEl) return;
+  let matches;
+  if(!q){
+    // Show first 8 by name when input is empty and focused
+    matches = [...STATE.leaders].sort((a,b)=>a.name.localeCompare(b.name)).slice(0,8);
+  } else {
+    matches = STATE.leaders.filter(l=>{
+      const name = l.name.toLowerCase();
+      const role = (l.role||"").toLowerCase();
+      const bu = l.bu.toLowerCase();
+      const fn = (l.function||"").toLowerCase();
+      const level = l.level.toLowerCase();
+      const family = STATE.roles.find(r=>(r.slots||[]).some(sl=>sl.leaderId===l.id))?.family?.toLowerCase() || "";
+      return name.includes(q) || role.includes(q) || bu.includes(q) || fn.includes(q) || level===q || family.includes(q);
+    }).slice(0,10);
+  }
+  // Filter out leaders already selected in other slots
+  const selectedIds = STATE.cmpSlots.filter((sid,i)=>sid && i!==idx);
+  matches = matches.filter(l=>!selectedIds.includes(l.id));
+  if(!matches.length){
+    suggEl.innerHTML = `<div class="cmp-typeahead-empty">No matches — try another name, role, BU or level</div>`;
+  } else {
+    suggEl.innerHTML = matches.map(l=>`
+      <div class="cmp-typeahead-suggestion" onmousedown="setCompareSlot(${idx}, '${l.id}')">
+        <div class="avatar">${initials(l.name)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="tsn-name">${l.name}</div>
+          <div class="tsn-meta">${l.level} · ${l.bu.replace("GMR ","")} · ${l.function}</div>
+        </div>
+      </div>
+    `).join("");
+  }
+  suggEl.classList.add("open");
+}
+function closeCompareSuggestions(idx){
+  // Delay so click on suggestion registers first
+  setTimeout(()=>{
+    const el = document.getElementById("cmp-suggestions-"+idx);
+    if(el) el.classList.remove("open");
+  }, 200);
+}
 function renderCompareSlot(idx, l){
   if(!l){
     return `<div class="cmp-col">
       <div class="cmp-empty">
         <div class="cmp-plus">+</div>
-        <div>Slot ${idx+1} — empty</div>
-        <select class="cmp-picker" onchange="setCompareSlot(${idx}, this.value)">
-          <option value="">— Pick a leader —</option>
-          ${STATE.leaders.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(x=>`<option value="${x.id}">${x.name} (${x.level} · ${x.bu.replace('GMR ','')})</option>`).join("")}
-        </select>
+        <div style="margin-bottom:12px;color:var(--ink-3);font-size:12px">Slot ${idx+1} — empty</div>
+        <div class="cmp-typeahead-wrap">
+          <input type="text" class="cmp-typeahead-input" id="cmp-input-${idx}"
+                 placeholder="Type name, role, BU, function, or level (LA/LB/LC/LD)…"
+                 oninput="filterCompareLeaders(${idx}, this.value)"
+                 onfocus="filterCompareLeaders(${idx}, this.value)"
+                 onblur="closeCompareSuggestions(${idx})"
+                 autocomplete="off"/>
+          <div class="cmp-typeahead-suggestions" id="cmp-suggestions-${idx}"></div>
+        </div>
       </div>
     </div>`;
   }
@@ -5001,15 +5105,20 @@ function loadSlate(rid){
   renderCompare();
 }
 function openCompareForLeader(lid){
+  STATE.compareMode = "leaders";
   STATE.cmpSlots[0] = lid;
   STATE.cmpSlots[1] = null; STATE.cmpSlots[2] = null;
   switchView("compare");
 }
-function compareRoleSlate(rid){
+function compareRoleSuccessors(rid){
+  STATE.compareMode = "role";
   loadSlate(rid);
   switchView("compare");
-  document.getElementById("cmp-slate-picker").value = rid;
+  const picker = document.getElementById("cmp-slate-picker");
+  if(picker) picker.value = rid;
 }
+// Alias for backward compat with any existing onclick handlers
+function compareRoleSlate(rid){ compareRoleSuccessors(rid); }
 
 // ---------- What-if mode ----------
 function toggleWhatIf(){
