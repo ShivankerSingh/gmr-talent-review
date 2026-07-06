@@ -290,6 +290,24 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 .succ-tag.o{background:rgba(245,164,90,.15);color:#7A3F0F;border-color:rgba(245,164,90,.35)}
 .succ-tag.r{background:rgba(239,75,78,.12);color:#B32B2E;border-color:rgba(239,75,78,.35)}
 
+/* Mini-matrix on successor cards (replaces abbreviated tags) */
+.succ-minigrid{display:flex;align-items:center;gap:6px;margin-top:6px}
+.succ-minigrid .mg-svg{width:36px;height:36px;flex-shrink:0}
+.succ-minigrid .mg-cell{stroke:#fff;stroke-width:.8}
+.succ-minigrid .mg-cell.dim{opacity:.28}
+.succ-minigrid .mg-cell.active{stroke:#111;stroke-width:1.3}
+.succ-minigrid .mg-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.succ-minigrid .mg-txt .mg-zone{font-size:10px;font-weight:600;color:var(--ink);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.succ-minigrid .mg-txt .mg-frame{font-size:8px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+
+/* Pipeline view-mode toggle */
+.pv-toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px;gap:2px}
+.pv-toggle button{background:transparent;border:none;padding:6px 12px;font-size:11px;font-weight:500;
+  color:var(--ink-3);border-radius:4px;cursor:pointer;letter-spacing:.02em;transition:all .15s ease}
+.pv-toggle button:hover{color:var(--ink)}
+.pv-toggle button.active{background:var(--navy);color:#fff;font-weight:600}
+
 /* ---------- Succession Health ---------- */
 .sh-layout{display:grid;grid-template-columns:280px 1fr;gap:16px}
 .sh-side{display:flex;flex-direction:column;gap:12px}
@@ -565,6 +583,27 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 .exec-sig{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-2);font-size:11px;
   color:var(--ink-3);font-style:italic;position:relative;z-index:1}
 .exec-sig .sig-name{color:var(--ink-2);font-weight:600;font-style:normal}
+
+/* Target roles + per-role Succession Readiness */
+.lp-target-roles{background:#fff;border:1px solid var(--line);border-radius:6px;
+  padding:18px 20px;margin-bottom:24px}
+.lp-target-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.lp-target-title{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.lp-target-count{font-size:11px;color:var(--ink-3);font-weight:500}
+.lp-target-empty{font-size:12px;color:var(--ink-3);font-style:italic;
+  padding:14px 16px;background:var(--bg-2);border-radius:4px;text-align:center}
+.lp-target-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.lp-target-tbl th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-3);font-weight:600;padding:6px 12px 8px;border-bottom:1px solid var(--line-2)}
+.lp-target-tbl th.right,.lp-target-tbl td.right{text-align:right}
+.lp-target-tbl td{padding:10px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+.lp-target-tbl tr:last-child td{border-bottom:none}
+.lp-target-tbl td b{color:var(--ink);font-weight:600}
+.lp-target-tbl .pill{display:inline-block;padding:3px 10px;border-radius:11px;font-size:11px;font-weight:600}
+.lp-target-tbl .pill.rn-g{background:rgba(107,201,166,.18);color:#1F7A5C}
+.lp-target-tbl .pill.rn-y{background:rgba(245,206,62,.18);color:#8A6B00}
+.lp-target-tbl .pill.rn-o{background:rgba(245,164,90,.18);color:#7A3F0F}
+.lp-target-tbl .pill.rn-r{background:rgba(239,75,78,.15);color:#B32B2E}
 
 /* Snapshot */
 .lp-snapshot{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
@@ -1436,13 +1475,19 @@ body.story-mode main{padding-bottom:110px}
           <h3>Critical role pipeline · Readiness by role</h3>
           <div class="muted">Each row shows the named successors and their readiness horizon</div>
         </div>
-        <div class="pipeline-sort">
-          <span class="lbl">Sort by</span>
-          <button class="pipe-btn active" data-ps="default" onclick="setPipeSort('default')">Default</button>
-          <button class="pipe-btn" data-ps="r" onclick="setPipeSort('r')"><span class="dot-sm" style="background:var(--rn-r)"></span>Red first</button>
-          <button class="pipe-btn" data-ps="a" onclick="setPipeSort('a')"><span class="dot-sm" style="background:var(--rn-y)"></span>Amber first</button>
-          <button class="pipe-btn" data-ps="g" onclick="setPipeSort('g')"><span class="dot-sm" style="background:var(--rn-g)"></span>Green first</button>
-          <button class="pipe-btn" data-ps="family" onclick="setPipeSort('family')"><span class="dot-sm" style="background:var(--navy)"></span>Job Family</button>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <div class="pv-toggle" role="tablist" aria-label="Successor card view mode">
+            <button class="active" data-pvm="ninebox" onclick="setPipelineViewMode('ninebox')">9-box view</button>
+            <button data-pvm="ai" onclick="setPipelineViewMode('ai')">AI Readiness view</button>
+          </div>
+          <div class="pipeline-sort">
+            <span class="lbl">Sort by</span>
+            <button class="pipe-btn active" data-ps="default" onclick="setPipeSort('default')">Default</button>
+            <button class="pipe-btn" data-ps="r" onclick="setPipeSort('r')"><span class="dot-sm" style="background:var(--rn-r)"></span>Red first</button>
+            <button class="pipe-btn" data-ps="a" onclick="setPipeSort('a')"><span class="dot-sm" style="background:var(--rn-y)"></span>Amber first</button>
+            <button class="pipe-btn" data-ps="g" onclick="setPipeSort('g')"><span class="dot-sm" style="background:var(--rn-g)"></span>Green first</button>
+            <button class="pipe-btn" data-ps="family" onclick="setPipeSort('family')"><span class="dot-sm" style="background:var(--navy)"></span>Job Family</button>
+          </div>
         </div>
       </div>
       <div><table class="crt-table" id="succ-role-table"></table></div>
@@ -1474,7 +1519,7 @@ body.story-mode main{padding-bottom:110px}
   <div class="section">
     <div class="section-hd">
       <h2>Successor Readiness Matrix</h2>
-      <span class="info-i">i<span class="tip"><b>How to read this matrix</b>Each cell shows successors placed by their <b>Fit to the target role</b> and their <b>Potential</b>. The cell colour then implies their readiness horizon.<br><br><b>Axes</b><br>· X — Potential: avg Potential (PT) score from the Development Centre<br>· Y — Fit to Role: avg Perception (PC / 360°) score, weighted for role competencies<br><br>Click a cell to open the leaders in it.</span></span>
+      <span class="info-i">i<span class="tip"><b>How to read this matrix</b>Each cell shows successors placed by their <b>Functional Readiness / Fit</b> for the target role and their <b>Leadership Potential</b>. The cell colour then implies their readiness horizon.<br><br><b>Axes</b><br>· X — Leadership Potential: from Aon's GLIDE assessment (PT lens + ADEPT-15)<br>· Y — Functional Readiness / Fit: from a GMR line-leader survey for each target role<br><br>Click a cell to open the leaders in it.</span></span>
       <div class="mini-filter" style="margin-left:auto">
         <span class="lbl">Level</span>
         <div id="rd-level-filter"></div>
@@ -1637,12 +1682,12 @@ body.story-mode main{padding-bottom:110px}
     <div class="fw-card">
       <div class="fw-icon" style="background:linear-gradient(135deg,#6BC9A6,#4CB090)">SR</div>
       <div class="fw-title">Succession Readiness</div>
-      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Matrix: Fit × Potential Readiness Matrix</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Matrix: Functional Readiness / Fit × Leadership Potential</div>
       <div class="fw-body">
         <p><b>What it answers:</b> For each critical role, who is the named successor pool — and how ready is each successor for that specific seat?</p>
-        <p><b>The matrix:</b> A 3×3 grid plotting each successor by <b>Fit</b> for the target role and overall <b>Potential</b>. The cell maps directly to a readiness horizon — Ready Now (0–6 mo), Ready in 1 year, Ready in 2–3 years, or Ready in 4+ years.</p>
+        <p><b>The matrix:</b> A 3×3 grid plotting each successor by <b>Functional Readiness / Fit</b> for the target role and their overall <b>Leadership Potential</b>. The cell maps directly to a readiness horizon — Ready Now (0–6 mo), Ready in 1 year, Ready in 2–3 years, or Ready in 4+ years.</p>
         <p><b>What to look for:</b> Concentration of Ready-Now names (a healthy pipeline); over-concentration in Ready-in-2-3-years signals long-runway development needed at scale.</p>
-        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Populated from GMR's GLIDE assessment scores. For roles like BU CEO, high Fit alone isn't enough — high Potential is what allows a leader to scale as the BU grows.</div>
+        <div class="fw-gmr"><span class="fw-gmr-lbl">GMR context</span> Functional Fit is sourced from a GMR line-leader survey (leaders in or close to each target role); Leadership Potential comes from Aon's GLIDE assessment. High Functional Fit alone isn't enough for scale-up roles like BU CEO — high Leadership Potential is what enables growth.</div>
       </div>
     </div>
 
@@ -1659,12 +1704,15 @@ body.story-mode main{padding-bottom:110px}
     </div>
   </div>
 
-  <h2 class="fw-section-hd" style="margin-top:36px">Inputs that feed the three frameworks</h2>
+  <h2 class="fw-section-hd" style="margin-top:36px">Inputs that feed the frameworks</h2>
+  <div class="muted" style="margin:-8px 0 14px 0">Aon and GMR each provide different pieces of data. Both are required for a complete picture.</div>
+
+  <h3 style="font-size:15px;color:var(--teal);margin:12px 0 10px 0;letter-spacing:.02em">Inputs from Aon</h3>
   <div class="fw-grid">
     <div class="fw-card">
       <div class="fw-icon" style="background:linear-gradient(135deg,#001F3D,#0F2A4D)">GL</div>
       <div class="fw-title">GLIDE — Aon's 3-lens view</div>
-      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">An input to all three frameworks above</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Feeds all three primary frameworks</div>
       <div class="fw-body">
         <p><b>What it is:</b> Aon's proprietary framework combining three lenses on a leader:</p>
         <ul class="fw-list">
@@ -1672,7 +1720,7 @@ body.story-mode main{padding-bottom:110px}
           <li><b>Perception</b> — how others see them (360° feedback)</li>
           <li><b>Potential</b> — what they can grow into (Development Centre observations)</li>
         </ul>
-        <p><b>How it feeds:</b> Potential (PT) feeds the 9-box and the Readiness matrix. Personality (PN) inputs into AI Readiness (Change Readiness score). Triangulation across all three is more robust than any single source; divergence between lenses is itself informative.</p>
+        <p><b>How it feeds:</b> Potential (PT) feeds the 9-box and the Leadership Potential axis of the Readiness matrix. Personality (PN) inputs into AI Readiness (Change Readiness score). Triangulation across all three is more robust than any single source.</p>
       </div>
     </div>
 
@@ -1682,7 +1730,54 @@ body.story-mode main{padding-bottom:110px}
       <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">An input into GLIDE's Personality lens</div>
       <div class="fw-body">
         <p><b>What it is:</b> Aon's 15-dimension personality assessment measuring stable behavioural preferences across three domains — Adjustment (how you handle emotion), Ambition (how you drive), and Sociability (how you engage others).</p>
-        <p><b>How it feeds:</b> Anchors the Personality lens of GLIDE, which then flows into all three primary frameworks. Cohort-level tilts on specific dimensions (e.g. low Composure across the group) surface culture-level signals in Cohort Analysis.</p>
+        <p><b>How it feeds:</b> Anchors the Personality lens of GLIDE, which then flows into all three primary frameworks. Cohort-level tilts on specific dimensions surface culture-level signals in Cohort Analysis.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;color:var(--aon-red);margin:22px 0 10px 0;letter-spacing:.02em">Inputs from GMR</h3>
+  <div class="fw-grid">
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#EB0017,#F5A45A)">PR</div>
+      <div class="fw-title">Performance ratings</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Feeds the Future Leader framework</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> 2–3 years of consistent performance rating data across the Top-200, calibrated across BUs.</p>
+        <p><b>How it feeds:</b> Provides the Performance (X) axis of the 9-box. Without a consistent, comparable performance signal, the 9-box loses meaning.</p>
+        <p><b>GMR-side owner:</b> HR ops + BU HR heads for BU-level calibration.</p>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#0A3661,#2C7BE5)">CR</div>
+      <div class="fw-title">Critical role list + mapping</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Feeds the Succession Readiness framework</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> The list of critical roles (Tier 1 / 2 / 3) + mapping of DC participants to each critical role as their target role(s). A candidate can be mapped to multiple target roles.</p>
+        <p><b>How it feeds:</b> Defines which roles the Succession Readiness matrix covers, and populates the successor pool per role.</p>
+        <p><b>GMR-side owner:</b> BU CEOs nominate; TM curates the mapping.</p>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#6BC9A6,#4CB090)">FR</div>
+      <div class="fw-title">Functional Readiness / Fit survey</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Feeds the Succession Readiness framework</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> A structured survey (designed by Aon, completed by GMR line leaders who are in or close to each target role and familiar with the mapped candidates). Their view becomes the Functional Fit rating.</p>
+        <p><b>How it feeds:</b> Provides the Functional Readiness / Fit (Y) axis of the Succession Readiness matrix.</p>
+        <p><b>GMR-side owner:</b> BU CEOs + line leaders complete; TM administers.</p>
+      </div>
+    </div>
+
+    <div class="fw-card">
+      <div class="fw-icon" style="background:linear-gradient(135deg,#8B4B8F,#B369B8)">SP</div>
+      <div class="fw-title">Project Sparsh — AI use signals</div>
+      <div class="fw-sub" style="font-size:12px;color:var(--ink-3);margin:-6px 0 8px 0">Feeds the AI Readiness framework</div>
+      <div class="fw-body">
+        <p><b>What it is:</b> GMR's internal AI enablement initiative — the ideal source for AI training completion, tool usage frequency, and applied-AI signals per leader.</p>
+        <p><b>How it feeds:</b> Provides the AI Use & Application (X) axis of the AI Readiness matrix. Where Sparsh data is not yet available, manager-observed AI use is the fallback.</p>
+        <p><b>GMR-side owner:</b> Digital / AI team + LMS extract.</p>
       </div>
     </div>
   </div>
@@ -1736,7 +1831,7 @@ body.story-mode main{padding-bottom:110px}
       <div class="fw-ctx-icon" style="background:#6BC9A6">4</div>
       <div>
         <div class="fw-ctx-title">Decentralised BU structure with matrix moments</div>
-        <div class="fw-ctx-body">Most decisions live within BUs, but Group-level moves (cross-BU rotations, Group-role successions) require different capabilities. The Succession Readiness matrix explicitly distinguishes Fit (can they do this specific role today?) from Potential (can they scale into complexity?) — critical for distinguishing stretch vs safe promotions.</div>
+        <div class="fw-ctx-body">Most decisions live within BUs, but Group-level moves (cross-BU rotations, Group-role successions) require different capabilities. The Succession Readiness matrix explicitly distinguishes Functional Readiness / Fit (can they do this specific role today?) from Leadership Potential (can they scale into complexity?) — critical for distinguishing stretch vs safe promotions.</div>
       </div>
     </div>
   </div>
@@ -2144,7 +2239,19 @@ function generateDemo(){
     const func = FUNCTIONS[Math.floor(seeded(seed)*FUNCTIONS.length)];
     const country = seeded(seed+1)<0.85 ? "India" : COUNTRIES[Math.floor(seeded(seed+2)*COUNTRIES.length)];
     const nineBox = zonesDist[Math.floor(seeded(seed+3)*zonesDist.length)];
-    const readiness = level==="LA"||level==="LB" ? READINESS[Math.floor(seeded(seed+4)*3)] : READINESS[Math.floor(seeded(seed+4)*4)];
+    // Readiness must be consistent with 9-box placement — potential is a shared input.
+    // Row 0 = high potential; row 2 = low potential. Col 0 = low performance; col 2 = high.
+    // A Ready-Now leader must be top-right (Future Leader / High Impact); a Ready-in-4+ leader is bottom-left.
+    const readinessIdx = (function(row, col, r){
+      // Composite score: potential weighted more (drives readiness), performance secondary
+      const score = 4 - (row * 1.5 + col * 0.5);
+      const adj = score + (r - 0.5) * 0.6;
+      if(adj >= 2.6) return 0; // Ready Now
+      if(adj >= 1.9) return 1; // Ready in 1 year
+      if(adj >= 1.1) return 2; // Ready in 2-3 years
+      return 3;               // Ready in 4+ years
+    })(nineBox[0], nineBox[1], seeded(seed+4));
+    const readiness = READINESS[readinessIdx];
     const gender = seeded(seed+5)<0.28 ? "F" : "M";
     const traits = {};
     // Widen the differentiation with trait bias
@@ -2329,6 +2436,8 @@ let STATE = {
   piLevel: [], piBU: [],
   piOverlays: {gmrBench:true, indiaBench:false, LA:false, LB:false, LC:false, LD:false},
   pipelineSort: "default",
+  pipelineViewMode: "ninebox", // "ninebox" or "ai" — mini-matrix view on successor cards
+
   cmpSlots: [null, null, null],
   retentionActions: {}, // leaderId -> {action, sponsor}
   whatIf: false, whatIfScenario: null, // scenario: {roleId: [{leaderId, readiness}]}
@@ -3918,6 +4027,61 @@ function aiReadinessOf(l){
 function isFutureReady(l){ return futureReadinessOf(l).cls === "g"; }
 function isAiReady(l){ return aiReadinessOf(l).cls === "g"; }
 
+// Mini 3x3 matrix — SVG, highlights the leader's cell for the current pipeline view (9-box or AI Readiness)
+function renderMiniMatrix(l){
+  const mode = STATE.pipelineViewMode || "ninebox";
+  // Palette per cell (row, col) — matches the full-size matrix conventions
+  // 9-box: top-right (0,2) = Future Leader = green; bottom-left (2,0) = Underperformer = red
+  const paletteNB = [
+    ["#F5A45A","#F5CE3E","#6BC9A6"],   // row 0: high potential
+    ["#A0A0A0","#F5CE3E","#6BC9A6"],   // row 1: med potential
+    ["#EF4B4E","#A0A0A0","#F5CE3E"],   // row 2: low potential
+  ];
+  // AI matrix: cells match aiReadinessOf logic. row = 3-changeReadiness (0=high), col = aiUse-1 (2=high)
+  const paletteAI = [
+    ["#F5CE3E","#6BC9A6","#6BC9A6"],   // row 0: high change (Latent, Emerging, Champion)
+    ["#F5A45A","#A0A0A0","#6BC9A6"],   // row 1: med change (Willing follower, Steady adopter, Confident user)
+    ["#EF4B4E","#EF4B4E","#F5A45A"],   // row 2: low change (At risk, Reluctant, Skilled sceptic)
+  ];
+  let row, col, palette, zoneLbl, frameLbl;
+  if(mode === "ninebox"){
+    row = l.nineBoxRow != null ? l.nineBoxRow : 1;
+    col = l.nineBoxCol != null ? l.nineBoxCol : 1;
+    palette = paletteNB;
+    zoneLbl = futureReadinessOf(l).lbl;
+    frameLbl = "9-box";
+  } else {
+    row = 3 - (l.changeReadiness || 2);   // 3→0, 2→1, 1→2
+    col = (l.aiUse || 2) - 1;             // 1→0, 2→1, 3→2
+    palette = paletteAI;
+    zoneLbl = aiReadinessOf(l).lbl;
+    frameLbl = "AI Readiness";
+  }
+  const size = 10, gap = 1.5, pad = 1;
+  const total = pad*2 + size*3 + gap*2;
+  let cells = "";
+  for(let r=0;r<3;r++){
+    for(let c=0;c<3;c++){
+      const x = pad + c*(size+gap), y = pad + r*(size+gap);
+      const isActive = (r===row && c===col);
+      cells += `<rect class="mg-cell ${isActive?'active':'dim'}" x="${x}" y="${y}"
+        width="${size}" height="${size}" rx="1.5" fill="${palette[r][c]}"/>`;
+    }
+  }
+  return `<div class="succ-minigrid" title="${frameLbl}: ${zoneLbl}">
+    <svg class="mg-svg" viewBox="0 0 ${total} ${total}">${cells}</svg>
+    <div class="mg-txt"><div class="mg-zone">${zoneLbl}</div><div class="mg-frame">${frameLbl}</div></div>
+  </div>`;
+}
+
+function setPipelineViewMode(mode){
+  STATE.pipelineViewMode = mode;
+  document.querySelectorAll(".pv-toggle button[data-pvm]").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.pvm === mode);
+  });
+  renderSuccRoleTable();
+}
+
 // ---------- Succession Health ----------
 function renderSuccession(){
   const leaders = STATE.leaders;
@@ -4300,18 +4464,14 @@ function renderSuccRoleTable(){
       }
       const readiness = sl.readiness;
       const frClass = readiness===READINESS[1]?"dark":"";
-      const fr = futureReadinessOf(s);
-      const ai = aiReadinessOf(s);
+      const miniMatrix = renderMiniMatrix(s);
       html += `<td><div class="succ-card ${rClass(readiness)}">
         <div class="succ-top">
           <div class="succ-name" title="${s.name}">${s.name}</div>
           <div class="succ-lvl">${s.level}</div>
         </div>
         <div class="succ-ready">Ready · ${readyLabel(readiness)}</div>
-        <div class="succ-tags">
-          <span class="succ-tag ${fr.cls}" title="Future Readiness · ${fr.lbl} (from 9-box)">${fr.short}</span>
-          <span class="succ-tag ${ai.cls}" title="AI Readiness · ${ai.lbl}">${ai.short}</span>
-        </div>
+        ${miniMatrix}
         <div class="succ-meta">
           <span class="fr ${frClass}">Flight: ${s.flightRisk}</span>
           <span class="mob">${s.openRelocate?'✓ Mobile':'— Fixed'}</span>
@@ -4648,6 +4808,21 @@ function renderLeaderProfile(lid){
   const futureRead = futureReadinessOf(l);
   const aiRead = aiReadinessOf(l);
 
+  // Target roles + per-role Succession Readiness (leader can be mapped to multiple target roles)
+  const targetRoles = [];
+  STATE.roles.forEach(r=>{
+    const slots = r.slots || r.successors.map(sid=>({leaderId:sid, readiness:(STATE.leaders.find(x=>x.id===sid)||{}).readiness}));
+    slots.forEach(sl=>{ if(sl.leaderId===l.id) targetRoles.push({role:r, readiness:sl.readiness}); });
+  });
+  // Sort by tier then by readiness (Ready Now first)
+  const readinessRank = {[READINESS[0]]:0,[READINESS[1]]:1,[READINESS[2]]:2,[READINESS[3]]:3};
+  targetRoles.sort((a,b)=> a.role.tier - b.role.tier || readinessRank[a.readiness] - readinessRank[b.readiness]);
+  // Best readiness across all target roles for the top-block summary
+  const bestTargetRole = targetRoles[0];
+  const bestReadinessLabel = bestTargetRole ? bestTargetRole.readiness : "Not currently a named successor";
+  const bestReadinessSub = bestTargetRole ? `for ${bestTargetRole.role.title}` : "Not tagged to any target role";
+  const bestReadinessClass = bestTargetRole ? readClass(bestTargetRole.readiness) : "";
+
   // Overall experience — GMR tenure + a plausible pre-GMR band (deterministic per leader)
   const preGmr = Math.max(0, Math.floor((l.age||42) - 22 - l.tenure));
   const overallExp = l.tenure + preGmr;
@@ -4692,10 +4867,10 @@ function renderLeaderProfile(lid){
         <div class="lm-lbl">Level</div>
         <div class="lm-val">${l.level}</div>
       </div>
-      <div class="lp-metric rag-${readClass(l.readiness)}"><span class="lm-swatch"></span>
-        <div class="lm-lbl">Succession Readiness</div>
-        <div class="lm-val">${l.readiness}</div>
-        <div class="lm-sub">Fit × Potential</div>
+      <div class="lp-metric rag-${bestReadinessClass}"><span class="lm-swatch"></span>
+        <div class="lm-lbl">Succession Readiness (best)</div>
+        <div class="lm-val">${bestReadinessLabel}</div>
+        <div class="lm-sub">${bestReadinessSub}${targetRoles.length>1?` &middot; +${targetRoles.length-1} more target role${targetRoles.length>2?'s':''}`:""}</div>
       </div>
       <div class="lp-metric rag-${futureRead.cls}"><span class="lm-swatch"></span>
         <div class="lm-lbl">Future Readiness</div>
@@ -4717,6 +4892,28 @@ function renderLeaderProfile(lid){
           <span class="exec-attr">Aon Development Centre · March 2026</span>
         </div>
         <div class="exec-body">${summary}</div>
+      </div>
+
+      <div class="lp-target-roles">
+        <div class="lp-target-hd">
+          <div class="lp-target-title">Succession Readiness — by target role</div>
+          <div class="lp-target-count">${targetRoles.length===0?"Not mapped to any target role":targetRoles.length===1?"1 target role":`${targetRoles.length} target roles`}</div>
+        </div>
+        ${targetRoles.length===0
+          ? `<div class="lp-target-empty">This leader is not currently tagged as a successor for any critical role. Consider mapping to a target role during the review.</div>`
+          : `<table class="lp-target-tbl">
+              <thead><tr><th>Target role</th><th>Tier</th><th>Business Unit</th><th class="right">Readiness</th></tr></thead>
+              <tbody>
+                ${targetRoles.map(tr=>`
+                  <tr>
+                    <td><b>${tr.role.title}</b></td>
+                    <td>Tier ${tr.role.tier}</td>
+                    <td>${(tr.role.bu||"").replace("GMR ","")}</td>
+                    <td class="right"><span class="pill rn-${readClass(tr.readiness)}">${tr.readiness}</span></td>
+                  </tr>`).join("")}
+              </tbody>
+            </table>`
+        }
       </div>
 
       <div class="lp-snapshot">
