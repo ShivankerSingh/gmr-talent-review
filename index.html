@@ -1204,7 +1204,7 @@ body.story-mode main{padding-bottom:110px}
     <span class="aon-logo">AON</span>
     <div class="brand-divider"></div>
     <div class="brand-title">GMR Talent Review
-      <small>Top-200 Leadership Cohort · Workshop Prototype</small>
+      <small>Top-200 Leadership Cohort · Workshop Prototype · <span style="color:var(--aon-red);font-weight:600">v6-Jul-2026</span></small>
     </div>
   </div>
   <div class="spacer"></div>
@@ -2358,12 +2358,16 @@ function generateDemo(){
       });
     });
   });
-  // Bucket leaders by level, sorted by combined score
+  // Bucket leaders by level, sorted by combined score.
+  // CRITICAL: exclude Under-performers (bottom-left 9-box) from being named as successors —
+  // no talent-review discipline would slate a low-potential/low-performance leader to a critical role.
+  // Also exclude Dilemma (row 2, col 1) — too weak a bench for named succession.
   const scoreOf = l => l.potentialScore*0.6 + l.fitToRole*0.4;
+  const eligible = l => !(l.nineBoxRow === 2 && l.nineBoxCol <= 1); // exclude Under-performer + Effective floor
   const pools = {
-    LA: leaders.filter(l=>l.level==="LA").sort((a,b)=>scoreOf(b)-scoreOf(a)),
-    LB: leaders.filter(l=>l.level==="LB").sort((a,b)=>scoreOf(b)-scoreOf(a)),
-    LC: leaders.filter(l=>l.level==="LC").sort((a,b)=>scoreOf(b)-scoreOf(a))
+    LA: leaders.filter(l=>l.level==="LA" && eligible(l)).sort((a,b)=>scoreOf(b)-scoreOf(a)),
+    LB: leaders.filter(l=>l.level==="LB" && eligible(l)).sort((a,b)=>scoreOf(b)-scoreOf(a)),
+    LC: leaders.filter(l=>l.level==="LC" && eligible(l)).sort((a,b)=>scoreOf(b)-scoreOf(a))
   };
   const READY_NOW = READINESS[0], READY_1 = READINESS[1], READY_2 = READINESS[2], READY_4 = READINESS[3];
   // Target distribution for 100 roles:
