@@ -4177,7 +4177,19 @@ function renderPipelineLegend(){
         {color:"#F5A45A", label:"Enigma"},
         {color:"#EF4B4E", label:"Under-performer / Dilemma"},
       ];
-  el.innerHTML = `<span style="color:var(--ink-3);font-weight:500">Legend</span>`
+  const readinessItems = [
+    {color:"var(--rn-g)", label:"Ready Now"},
+    {color:"var(--rn-y)", label:"Ready 1yr"},
+    {color:"var(--rn-o)", label:"Ready 2-3yr"},
+    {color:"var(--rn-r)", label:"Ready 4+yr"},
+  ];
+  el.innerHTML =
+    `<span style="color:var(--ink-3);font-weight:500">Card colour</span>`
+    + readinessItems.map(it =>
+        `<span class="lg-item"><span class="lg-swatch" style="background:${it.color}"></span>${it.label}</span>`
+      ).join("")
+    + `<span style="color:var(--line);margin:0 4px">|</span>`
+    + `<span style="color:var(--ink-3);font-weight:500">Mini-grid</span>`
     + items.map(it =>
         `<span class="lg-item"><span class="lg-swatch" style="background:${it.color}"></span>${it.label}</span>`
       ).join("");
@@ -4567,12 +4579,11 @@ function renderSuccRoleTable(){
       const readiness = sl.readiness;
       const frClass = readiness===READINESS[1]?"dark":"";
       const miniMatrix = renderMiniMatrix(s);
-      html += `<td><div class="succ-card ${rClass(readiness)}">
+      html += `<td><div class="succ-card ${rClass(readiness)}" title="Readiness: ${readiness}">
         <div class="succ-top">
           <div class="succ-name" title="${s.name}">${s.name}</div>
           <div class="succ-lvl">${s.level}</div>
         </div>
-        <div class="succ-ready">Ready · ${readyLabel(readiness)}</div>
         ${miniMatrix}
         <div class="succ-meta">
           <span class="fr ${frClass}">Flight: ${s.flightRisk}</span>
