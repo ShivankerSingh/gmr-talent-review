@@ -1204,7 +1204,7 @@ body.story-mode main{padding-bottom:110px}
     <span class="aon-logo">AON</span>
     <div class="brand-divider"></div>
     <div class="brand-title">GMR Talent Review
-      <small>Top-200 Leadership Cohort · Workshop Prototype · <span style="color:var(--aon-red);font-weight:600">v6-Jul-2026</span></small>
+      <small>Top-200 Leadership Cohort · Workshop Prototype</small>
     </div>
   </div>
   <div class="spacer"></div>
@@ -4543,15 +4543,16 @@ function renderSuccRoleTable(){
     });
   }
   const maxSlots = Math.max(...roles.map(r=>r.slots?r.slots.length:r.successors.length));
-  const totalColSpan = 3 + maxSlots + 1; // role + family + level + successors + pipeline
+  const totalColSpan = 3 + maxSlots; // role + family + level + successors (pool-spread column removed — mini-grids on each card already show the spread)
+  const succW = Math.floor((100 - 24 - 12 - 8) / maxSlots); // even distribution across successor columns
   let html = `<thead><tr>
-    <th style="width:22%">Critical role</th>
-    <th style="width:11%">Job Family</th>
+    <th style="width:24%">Critical role</th>
+    <th style="width:12%">Job Family</th>
     <th class="center" style="width:8%">Level</th>`;
   for(let i=1;i<=maxSlots;i++){
-    html += `<th style="width:${17}%">Successor ${i}</th>`;
+    html += `<th style="width:${succW}%">Successor ${i}</th>`;
   }
-  html += `<th class="center" style="width:11%">Pool spread</th></tr></thead><tbody>`;
+  html += `</tr></thead><tbody>`;
   let lastFamily = null;
   roles.forEach(r=>{
     // Insert family header row when grouped by family
@@ -4595,7 +4596,7 @@ function renderSuccRoleTable(){
         </div>
       </div></td>`;
     }
-    html += `<td class="center">${renderRole9Box(r)}</td></tr>`;
+    html += `</tr>`;
   });
   html += "</tbody>";
   t.innerHTML = html;
