@@ -290,16 +290,31 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 .succ-tag.o{background:rgba(245,164,90,.15);color:#7A3F0F;border-color:rgba(245,164,90,.35)}
 .succ-tag.r{background:rgba(239,75,78,.12);color:#B32B2E;border-color:rgba(239,75,78,.35)}
 
-/* Mini-matrix on successor cards (replaces abbreviated tags) */
-.succ-minigrid{display:flex;align-items:center;gap:6px;margin-top:6px}
-.succ-minigrid .mg-svg{width:36px;height:36px;flex-shrink:0}
-.succ-minigrid .mg-cell{stroke:#fff;stroke-width:.8}
-.succ-minigrid .mg-cell.dim{opacity:.28}
-.succ-minigrid .mg-cell.active{stroke:#111;stroke-width:1.3}
-.succ-minigrid .mg-txt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
-.succ-minigrid .mg-txt .mg-zone{font-size:10px;font-weight:600;color:var(--ink);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.succ-minigrid .mg-txt .mg-frame{font-size:8px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+/* Mini-matrix on successor cards — label-free, sized for at-a-glance reading */
+.succ-minigrid{display:flex;align-items:center;justify-content:flex-start;margin-top:8px;cursor:help}
+.succ-minigrid .mg-svg{width:52px;height:52px;flex-shrink:0;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.08))}
+.succ-minigrid .mg-cell{stroke:#fff;stroke-width:1.2}
+.succ-minigrid .mg-cell.dim{opacity:.85}
+.succ-minigrid .mg-cell.active{stroke:#111;stroke-width:2.2}
+
+/* Role-level 9-box column (replaces the single Pipeline dot) */
+.role-9box{display:inline-block;padding:2px;background:#fff;border-radius:5px}
+.role-9box .rb-svg{width:72px;height:72px;display:block}
+.role-9box .rb-cell{stroke:#fff;stroke-width:1.2;opacity:.9}
+.role-9box .rb-dot{fill:var(--navy);stroke:#fff;stroke-width:1.4}
+.role-9box .rb-dot.tier1{fill:var(--aon-red)}
+.role-9box .rb-legend{font-size:9px;color:var(--ink-3);margin-top:2px;text-align:center;
+  letter-spacing:.03em;font-weight:500}
+
+/* Sticky pipeline toggle bar with colour legend */
+.pv-sticky{position:sticky;top:0;z-index:15;background:#fff;padding:10px 0 8px 0;
+  border-bottom:1px solid var(--line);margin-bottom:8px}
+.pv-legend{display:inline-flex;align-items:center;gap:8px;margin-left:18px;
+  font-size:10px;color:var(--ink-3);letter-spacing:.02em}
+.pv-legend .lg-item{display:inline-flex;align-items:center;gap:4px}
+.pv-legend .lg-swatch{width:11px;height:11px;border-radius:2px;display:inline-block;
+  border:1px solid rgba(0,0,0,.08)}
 
 /* Pipeline view-mode toggle */
 .pv-toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px;gap:2px}
@@ -1475,12 +1490,13 @@ body.story-mode main{padding-bottom:110px}
           <h3>Critical role pipeline · Readiness by role</h3>
           <div class="muted">Each row shows the named successors and their readiness horizon</div>
         </div>
-        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <div class="pv-sticky" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
           <div class="pv-toggle" role="tablist" aria-label="Successor card view mode">
             <button class="active" data-pvm="ninebox" onclick="setPipelineViewMode('ninebox')">9-box view</button>
             <button data-pvm="ai" onclick="setPipelineViewMode('ai')">AI Readiness view</button>
           </div>
-          <div class="pipeline-sort">
+          <div class="pv-legend" id="pv-legend"></div>
+          <div class="pipeline-sort" style="margin-left:auto">
             <span class="lbl">Sort by</span>
             <button class="pipe-btn active" data-ps="default" onclick="setPipeSort('default')">Default</button>
             <button class="pipe-btn" data-ps="r" onclick="setPipeSort('r')"><span class="dot-sm" style="background:var(--rn-r)"></span>Red first</button>
@@ -4027,37 +4043,44 @@ function aiReadinessOf(l){
 function isFutureReady(l){ return futureReadinessOf(l).cls === "g"; }
 function isAiReady(l){ return aiReadinessOf(l).cls === "g"; }
 
-// Mini 3x3 matrix — SVG, highlights the leader's cell for the current pipeline view (9-box or AI Readiness)
+// Shared palette definitions — used by mini-grid, role-level 9-box, and legend
+const _PALETTE_NB = [
+  ["#F5A45A","#F5CE3E","#6BC9A6"],   // row 0: high potential  (Enigma, Growth Employee, Future Leader)
+  ["#8AB4EE","#F5CE3E","#6BC9A6"],   // row 1: med potential   (Dilemma, Core, High Impact)
+  ["#EF4B4E","#8AB4EE","#F5CE3E"],   // row 2: low potential   (Underperformer, Effective, Trusted Professional)
+];
+const _PALETTE_AI = [
+  ["#F5CE3E","#6BC9A6","#6BC9A6"],   // row 0: high change  (Latent, Emerging, Champion)
+  ["#F5A45A","#8AB4EE","#6BC9A6"],   // row 1: med change   (Willing follower, Steady adopter, Confident user)
+  ["#EF4B4E","#EF4B4E","#F5A45A"],   // row 2: low change   (At risk, Reluctant, Skilled sceptic)
+];
+// Cell name matrix — used for hover tooltips
+const _NAMES_NB = [
+  ["Enigma","Growth Employee","Future Leader"],
+  ["Dilemma","Core Employee","High Impact"],
+  ["Under-performer","Effective","Trusted Professional"],
+];
+const _NAMES_AI = [
+  ["Latent Shaper","Emerging Shaper","AI Champion"],
+  ["Willing Follower","Steady Adopter","Confident User"],
+  ["At Risk","Reluctant User","Skilled Sceptic"],
+];
+
+function _leaderMatrixPos(l, mode){
+  if(mode === "ai"){
+    return { row: 3 - (l.changeReadiness || 2), col: (l.aiUse || 2) - 1 };
+  }
+  return { row: l.nineBoxRow != null ? l.nineBoxRow : 1, col: l.nineBoxCol != null ? l.nineBoxCol : 1 };
+}
+
+// Mini 3x3 matrix — label-free, SVG, highlights the leader's cell.
+// Hover tooltip carries the framework + zone name.
 function renderMiniMatrix(l){
   const mode = STATE.pipelineViewMode || "ninebox";
-  // Palette per cell (row, col) — matches the full-size matrix conventions
-  // 9-box: top-right (0,2) = Future Leader = green; bottom-left (2,0) = Underperformer = red
-  const paletteNB = [
-    ["#F5A45A","#F5CE3E","#6BC9A6"],   // row 0: high potential
-    ["#A0A0A0","#F5CE3E","#6BC9A6"],   // row 1: med potential
-    ["#EF4B4E","#A0A0A0","#F5CE3E"],   // row 2: low potential
-  ];
-  // AI matrix: cells match aiReadinessOf logic. row = 3-changeReadiness (0=high), col = aiUse-1 (2=high)
-  const paletteAI = [
-    ["#F5CE3E","#6BC9A6","#6BC9A6"],   // row 0: high change (Latent, Emerging, Champion)
-    ["#F5A45A","#A0A0A0","#6BC9A6"],   // row 1: med change (Willing follower, Steady adopter, Confident user)
-    ["#EF4B4E","#EF4B4E","#F5A45A"],   // row 2: low change (At risk, Reluctant, Skilled sceptic)
-  ];
-  let row, col, palette, zoneLbl, frameLbl;
-  if(mode === "ninebox"){
-    row = l.nineBoxRow != null ? l.nineBoxRow : 1;
-    col = l.nineBoxCol != null ? l.nineBoxCol : 1;
-    palette = paletteNB;
-    zoneLbl = futureReadinessOf(l).lbl;
-    frameLbl = "9-box";
-  } else {
-    row = 3 - (l.changeReadiness || 2);   // 3→0, 2→1, 1→2
-    col = (l.aiUse || 2) - 1;             // 1→0, 2→1, 3→2
-    palette = paletteAI;
-    zoneLbl = aiReadinessOf(l).lbl;
-    frameLbl = "AI Readiness";
-  }
-  const size = 10, gap = 1.5, pad = 1;
+  const palette = mode === "ai" ? _PALETTE_AI : _PALETTE_NB;
+  const names = mode === "ai" ? _NAMES_AI : _NAMES_NB;
+  const {row, col} = _leaderMatrixPos(l, mode);
+  const size = 14, gap = 1.4, pad = 1;
   const total = pad*2 + size*3 + gap*2;
   let cells = "";
   for(let r=0;r<3;r++){
@@ -4065,12 +4088,65 @@ function renderMiniMatrix(l){
       const x = pad + c*(size+gap), y = pad + r*(size+gap);
       const isActive = (r===row && c===col);
       cells += `<rect class="mg-cell ${isActive?'active':'dim'}" x="${x}" y="${y}"
-        width="${size}" height="${size}" rx="1.5" fill="${palette[r][c]}"/>`;
+        width="${size}" height="${size}" rx="1.6" fill="${palette[r][c]}"/>`;
     }
   }
+  const frameLbl = mode === "ai" ? "AI Readiness" : "9-box";
+  const zoneLbl = names[row][col];
   return `<div class="succ-minigrid" title="${frameLbl}: ${zoneLbl}">
     <svg class="mg-svg" viewBox="0 0 ${total} ${total}">${cells}</svg>
-    <div class="mg-txt"><div class="mg-zone">${zoneLbl}</div><div class="mg-frame">${frameLbl}</div></div>
+  </div>`;
+}
+
+// Role-level 9-box — one per role row, with all successors plotted as dots.
+// Replaces the single 'Pipeline' dot indicator.
+function renderRole9Box(role){
+  const mode = STATE.pipelineViewMode || "ninebox";
+  const palette = mode === "ai" ? _PALETTE_AI : _PALETTE_NB;
+  const leaders = STATE.leaders;
+  const leaderById = id => leaders.find(x=>x.id===id);
+  const size = 20, gap = 1.5, pad = 1.5;
+  const total = pad*2 + size*3 + gap*2;
+  let cells = "";
+  for(let r=0;r<3;r++){
+    for(let c=0;c<3;c++){
+      const x = pad + c*(size+gap), y = pad + r*(size+gap);
+      cells += `<rect class="rb-cell" x="${x}" y="${y}"
+        width="${size}" height="${size}" rx="2" fill="${palette[r][c]}"/>`;
+    }
+  }
+  // Collect successors and their placements
+  const slots = role.slots || (role.successors || []).map(sid => ({leaderId: sid}));
+  const grouped = {};  // key = "r,c" → count
+  const succList = [];
+  slots.forEach(sl=>{
+    const l = leaderById(sl.leaderId);
+    if(!l) return;
+    const {row, col} = _leaderMatrixPos(l, mode);
+    const key = row + "," + col;
+    grouped[key] = (grouped[key] || 0) + 1;
+    succList.push({name: l.name, row, col});
+  });
+  // Draw dots. If multiple successors share a cell, spread them.
+  const placed = {};
+  let dots = "";
+  succList.forEach((sc)=>{
+    const key = sc.row + "," + sc.col;
+    placed[key] = (placed[key] || 0);
+    const idx = placed[key]++;
+    const rowN = Math.floor(idx / 2);   // up to ~4 dots per cell
+    const colN = idx % 2;
+    const cx = pad + sc.col*(size+gap) + 6 + colN * 8;
+    const cy = pad + sc.row*(size+gap) + 6 + rowN * 8;
+    const dotCls = role.tier === 1 ? "rb-dot tier1" : "rb-dot";
+    dots += `<circle class="${dotCls}" cx="${cx}" cy="${cy}" r="3"/>`;
+  });
+  const namesArr = mode === "ai" ? _NAMES_AI : _NAMES_NB;
+  const tooltip = succList.map(sc =>
+    `${sc.name} - ${namesArr[sc.row][sc.col]}`
+  ).join(" | ") || "No successors mapped";
+  return `<div class="role-9box" title="${tooltip}">
+    <svg class="rb-svg" viewBox="0 0 ${total} ${total}">${cells}${dots}</svg>
   </div>`;
 }
 
@@ -4079,7 +4155,32 @@ function setPipelineViewMode(mode){
   document.querySelectorAll(".pv-toggle button[data-pvm]").forEach(btn=>{
     btn.classList.toggle("active", btn.dataset.pvm === mode);
   });
+  renderPipelineLegend();
   renderSuccRoleTable();
+}
+
+// Colour-key legend for the current view (shows the four palette buckets, not all 9 zones)
+function renderPipelineLegend(){
+  const el = document.getElementById("pv-legend");
+  if(!el) return;
+  const mode = STATE.pipelineViewMode || "ninebox";
+  const items = mode === "ai"
+    ? [
+        {color:"#6BC9A6", label:"AI Ready"},
+        {color:"#F5CE3E", label:"Emerging"},
+        {color:"#F5A45A", label:"Watch"},
+        {color:"#EF4B4E", label:"At risk"},
+      ]
+    : [
+        {color:"#6BC9A6", label:"Future Leader / High Impact"},
+        {color:"#F5CE3E", label:"Growth / Core / Trusted"},
+        {color:"#F5A45A", label:"Enigma"},
+        {color:"#EF4B4E", label:"Under-performer / Dilemma"},
+      ];
+  el.innerHTML = `<span style="color:var(--ink-3);font-weight:500">Legend</span>`
+    + items.map(it =>
+        `<span class="lg-item"><span class="lg-swatch" style="background:${it.color}"></span>${it.label}</span>`
+      ).join("");
 }
 
 // ---------- Succession Health ----------
@@ -4120,6 +4221,7 @@ function renderSuccession(){
 
   renderExecFocus();
   renderSuccessorQualityPanel();
+  renderPipelineLegend();
   renderSuccRoleTable();
   renderHealthByDim();
   renderReadinessMatrix();
@@ -4433,7 +4535,7 @@ function renderSuccRoleTable(){
   for(let i=1;i<=maxSlots;i++){
     html += `<th style="width:${17}%">Successor ${i}</th>`;
   }
-  html += `<th class="center" style="width:8%">Pipeline</th></tr></thead><tbody>`;
+  html += `<th class="center" style="width:11%">Pool spread</th></tr></thead><tbody>`;
   let lastFamily = null;
   roles.forEach(r=>{
     // Insert family header row when grouped by family
@@ -4478,7 +4580,7 @@ function renderSuccRoleTable(){
         </div>
       </div></td>`;
     }
-    html += `<td class="center"><span class="pipe-dot ${totalPipe}"></span></td></tr>`;
+    html += `<td class="center">${renderRole9Box(r)}</td></tr>`;
   });
   html += "</tbody>";
   t.innerHTML = html;
