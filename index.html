@@ -416,6 +416,94 @@ main{padding:24px 32px 60px;max-width:1600px;margin:0 auto}
 
 .rv-layout{display:grid;grid-template-columns:340px 1fr;gap:16px}
 
+/* ===================== SCENARIOS ===================== */
+.scen-header{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.scen-current{display:flex;align-items:center;gap:10px;flex:1;min-width:280px}
+.scen-lbl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.scen-name-input{border:none;background:#F7F8F9;border-radius:4px;padding:8px 12px;font-size:14px;
+  font-family:inherit;min-width:280px;flex:1;color:var(--ink)}
+.scen-name-input:focus{outline:2px solid var(--aon-red);background:#fff}
+.scen-count{font-size:11px;color:var(--ink-3);padding:4px 10px;background:#F1F2F3;border-radius:99px;font-weight:600}
+.scen-actions{display:flex;gap:8px}
+.scen-btn{background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:4px;
+  font-size:12px;font-weight:600;cursor:pointer;color:var(--ink);font-family:inherit}
+.scen-btn:hover{background:#F7F8F9}
+.scen-btn.primary{background:var(--aon-red);color:#fff;border-color:var(--aon-red)}
+.scen-btn.primary:hover{background:#C60014}
+.scen-btn.primary:disabled{background:#E8E9EA;color:#A0A0A0;border-color:#E8E9EA;cursor:not-allowed}
+.scen-workarea{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.scen-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.scen-panel-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px}
+.scen-panel-hd h2{font-size:14px;margin:0;color:var(--ink);letter-spacing:.02em}
+.scen-type-tabs{display:flex;gap:4px;background:#F1F2F3;padding:3px;border-radius:6px}
+.scen-type-tabs button{background:transparent;border:none;padding:6px 12px;font-size:12px;
+  font-weight:600;color:var(--ink-3);cursor:pointer;border-radius:4px;font-family:inherit}
+.scen-type-tabs button.active{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.scen-config{background:#F7F8F9;border-radius:6px;padding:14px 16px;margin-bottom:10px}
+.scen-config .cfg-row{margin-bottom:12px}
+.scen-config .cfg-row:last-child{margin-bottom:0}
+.scen-config label{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;
+  font-weight:600;display:block;margin-bottom:5px}
+.scen-config select,.scen-config input[type="text"]{width:100%;padding:8px 10px;border:1px solid var(--line);
+  border-radius:4px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+.scen-config select:focus,.scen-config input:focus{outline:1px solid var(--aon-red);border-color:var(--aon-red)}
+.scen-config .helper{font-size:11px;color:var(--ink-3);margin-top:4px;font-style:italic}
+.scen-add-btn{background:var(--aon-red);color:#fff;border:none;padding:8px 18px;border-radius:4px;
+  font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:10px}
+.scen-add-btn:hover{background:#C60014}
+.scen-add-btn:disabled{background:#E8E9EA;color:#A0A0A0;cursor:not-allowed}
+.scen-devbet-picker{display:flex;flex-wrap:wrap;gap:5px;max-height:150px;overflow-y:auto;
+  padding:8px;background:#fff;border:1px solid var(--line);border-radius:4px}
+.scen-devbet-chip{padding:4px 10px;background:#F1F2F3;border:1px solid transparent;border-radius:99px;
+  font-size:11px;cursor:pointer;user-select:none}
+.scen-devbet-chip.selected{background:#0A3661;color:#fff;border-color:#0A3661}
+.scen-slider{width:100%;margin:6px 0}
+.scen-slider-val{font-size:16px;font-weight:600;color:var(--aon-red)}
+.scen-changes-list{min-height:60px}
+.scen-change-row{background:#F7F8F9;border-left:3px solid var(--aon-red);padding:10px 14px;
+  border-radius:4px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.scen-change-row .ch-type{font-size:9px;font-weight:700;color:var(--aon-red);letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 8px;background:#fff;border-radius:99px}
+.scen-change-row .ch-body{flex:1;font-size:12px;color:var(--ink)}
+.scen-change-row .ch-body b{color:var(--ink)}
+.scen-change-row .ch-remove{background:transparent;border:none;color:var(--ink-3);cursor:pointer;
+  font-size:16px;padding:2px 6px;line-height:1}
+.scen-change-row .ch-remove:hover{color:var(--aon-red)}
+.scen-empty-state{padding:20px;text-align:center;color:var(--ink-4);font-size:12px;font-style:italic;
+  background:#F7F8F9;border-radius:4px}
+.scen-impact-tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.scen-impact-tile{background:#F7F8F9;border-radius:6px;padding:12px 14px}
+.scen-impact-tile .lbl{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;
+  font-weight:600;margin-bottom:6px}
+.scen-impact-tile .val{font-size:20px;font-weight:600;color:var(--ink);line-height:1.1}
+.scen-impact-tile .val .arrow{color:var(--ink-3);font-size:14px;margin:0 6px}
+.scen-impact-tile .delta{font-size:11px;font-weight:600;margin-top:4px}
+.scen-impact-tile .delta.up{color:#0F8759}
+.scen-impact-tile .delta.dn{color:#EB0017}
+.scen-impact-tile .delta.flat{color:var(--ink-3)}
+.scen-affected-hd{font-size:12px;font-weight:600;color:var(--ink);margin:10px 0 8px 0}
+.scen-affected-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#F7F8F9;
+  border-radius:4px;margin-bottom:5px;font-size:12px}
+.scen-affected-row .r-name{flex:1;color:var(--ink);font-weight:600}
+.scen-affected-row .r-shift{font-size:11px;color:var(--ink-2)}
+.scen-affected-row .r-badge{padding:2px 8px;border-radius:99px;font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em}
+.scen-affected-row .r-badge.dn{background:#FDE9E9;color:#B00019}
+.scen-affected-row .r-badge.up{background:#DFF3EA;color:#0F8759}
+.scen-affected-row .r-badge.flat{background:#F1F2F3;color:var(--ink-3)}
+.scen-saved-section{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.scen-saved-list{display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:12px}
+.scen-saved-card{border:1px solid var(--line);border-radius:6px;padding:14px 16px;position:relative}
+.scen-saved-card .s-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.scen-saved-card .s-meta{font-size:11px;color:var(--ink-3);margin-bottom:8px}
+.scen-saved-card .s-actions{display:flex;gap:6px;margin-top:8px}
+.scen-saved-card .s-actions button{background:#fff;border:1px solid var(--line);padding:5px 12px;
+  border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;color:var(--ink);font-family:inherit}
+.scen-saved-card .s-actions button:hover{background:#F7F8F9}
+.scen-saved-card .s-actions .s-load{color:var(--aon-red);border-color:var(--aon-red)}
+.scen-saved-card .s-actions .s-load:hover{background:var(--aon-red);color:#fff}
+
 /* Family accordion */
 .rv-sidebar-controls{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .rv-search{width:100%;border:1px solid var(--line);border-radius:4px;padding:8px 12px;font-size:12px;font-family:inherit}
@@ -1229,6 +1317,7 @@ body.story-mode main{padding-bottom:110px}
   <button class="tab" data-view="retention" onclick="switchView('retention')">Retention Watch</button>
   <button class="tab" data-view="compare" onclick="switchView('compare')">Compare</button>
   <button class="tab" data-view="group" onclick="switchView('group')">Cohort Analysis</button>
+  <button class="tab" data-view="scenarios" onclick="switchView('scenarios')">Scenarios</button>
   <button class="tab" data-view="actions" onclick="switchView('actions')">Notes & Actions</button>
   <button class="tab tab-ref" data-view="frameworks" onclick="switchView('frameworks')" style="margin-left:auto"><svg class="ico tab-icon" viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Frameworks</button>
   <div class="subnav-status">
@@ -1655,6 +1744,55 @@ body.story-mode main{padding-bottom:110px}
     <span style="font-size:11px;color:var(--ink-3);font-style:italic;margin-left:6px">Auto-fills the 3 named successors for that role</span>
   </div>
   <div class="cmp-grid" id="cmp-grid"></div>
+</section>
+
+<!-- =================== SCENARIOS =================== -->
+<section class="view" id="view-scenarios">
+  <div class="page-hd">
+    <h1>Scenario Planning</h1>
+    <div class="sub">Run what-if scenarios on the pipeline. Undo-able. Save with a name to keep for later.</div>
+  </div>
+
+  <div class="scen-header">
+    <div class="scen-current">
+      <span class="scen-lbl">Scenario name</span>
+      <input id="scen-name" class="scen-name-input" placeholder="Untitled scenario · type a name to save"/>
+      <span class="scen-count" id="scen-count">0 changes</span>
+    </div>
+    <div class="scen-actions">
+      <button class="scen-btn" onclick="resetScenario()">Reset</button>
+      <button class="scen-btn primary" id="scen-save-btn" onclick="saveScenario()">Save</button>
+    </div>
+  </div>
+
+  <div class="scen-workarea">
+    <div class="scen-panel scen-builder">
+      <div class="scen-panel-hd">
+        <h2>Add a change</h2>
+        <div class="scen-type-tabs">
+          <button class="active" data-type="departure" onclick="setScenType('departure')">Departure</button>
+          <button data-type="promotion" onclick="setScenType('promotion')">Promotion</button>
+          <button data-type="devbet" onclick="setScenType('devbet')">Dev bet</button>
+        </div>
+      </div>
+      <div id="scen-config" class="scen-config"></div>
+
+      <div class="scen-panel-hd" style="margin-top:22px">
+        <h2>Changes in this scenario</h2>
+      </div>
+      <div id="scen-changes-list" class="scen-changes-list"></div>
+    </div>
+
+    <div class="scen-panel scen-impact">
+      <div class="scen-panel-hd"><h2>Impact vs. base state</h2></div>
+      <div id="scen-impact-content"></div>
+    </div>
+  </div>
+
+  <div class="scen-saved-section">
+    <div class="scen-panel-hd"><h2>Saved scenarios</h2><span class="muted" id="scen-saved-count">0 saved</span></div>
+    <div id="scen-saved-list" class="scen-saved-list"></div>
+  </div>
 </section>
 
 <!-- =================== ACTIONS =================== -->
@@ -2477,7 +2615,13 @@ let STATE = {
   roleSort: "health", roleHealthFilter: "all",
   currentRole: null, currentLeader: null,
   notes: {}, actions: {}, roleNotes: {},
-  charts: {}, demo: true
+  charts: {}, demo: true,
+  // Scenarios
+  scenario: {name:"", changes:[]},
+  scenType: "departure",
+  scenDevBetSelection: [],
+  scenDevBetDelta: 0.5,
+  savedScenarios: []
 };
 
 function init(){
@@ -2485,6 +2629,7 @@ function init(){
   const demo = generateDemo();
   STATE.leaders = demo.leaders; STATE.roles = demo.roles;
   loadState();
+  loadSavedScenarios();
   buildFilters();
   // Default to CEO mode and Executive Summary
   document.body.classList.add("ceo-mode");
@@ -2830,6 +2975,7 @@ function switchView(view){
   if(view==="leaders") renderLeaderList();
   if(view==="retention") renderRetention();
   if(view==="compare") renderCompare();
+  if(view==="scenarios") renderScenarios();
   if(view==="actions") renderActionsView();
 }
 function renderAll(){
@@ -5250,6 +5396,375 @@ function updateActionStatus(lid, ts, newStatus){
 }
 
 // ---------- Actions consolidated ----------
+// ========== SCENARIOS ==========
+const SCEN_STORAGE_KEY = "gmr-tr-scenarios-v1";
+
+function loadSavedScenarios(){
+  try{
+    const raw = localStorage.getItem(SCEN_STORAGE_KEY);
+    STATE.savedScenarios = raw ? JSON.parse(raw) : [];
+  } catch(e){ STATE.savedScenarios = []; }
+}
+function persistSavedScenarios(){
+  try{ localStorage.setItem(SCEN_STORAGE_KEY, JSON.stringify(STATE.savedScenarios)); } catch(e){}
+}
+
+// Deep clone via JSON (fine for our data shape)
+function _cloneState(){
+  return {
+    leaders: JSON.parse(JSON.stringify(STATE.leaders)),
+    roles: JSON.parse(JSON.stringify(STATE.roles))
+  };
+}
+
+// Apply a scenario's changes to a deep-cloned base state.
+function applyScenario(scenario){
+  const {leaders, roles} = _cloneState();
+  const filledRoleIds = new Set();
+  const departedIds = new Set();
+  (scenario.changes||[]).forEach(ch=>{
+    if(ch.type === "departure"){
+      departedIds.add(ch.leaderId);
+    } else if(ch.type === "promotion"){
+      // Promoted leader is off the successor bench; target role is filled.
+      departedIds.add(ch.leaderId);
+      if(ch.toRoleId) filledRoleIds.add(ch.toRoleId);
+    } else if(ch.type === "devbet"){
+      (ch.leaderIds||[]).forEach(id=>{
+        const l = leaders.find(x=>x.id===id);
+        if(!l) return;
+        l.potentialScore = Math.min(5, (l.potentialScore || 0) + (ch.delta||0));
+        // Re-derive 9-box row from new potential score
+        l.nineBoxRow = l.potentialScore >= 3.8 ? 0 : l.potentialScore >= 3.0 ? 1 : 2;
+        // Rebuild nineBox cell name for consistency
+        const nb9 = _NAMES_NB[l.nineBoxRow] && _NAMES_NB[l.nineBoxRow][l.nineBoxCol||1];
+        if(nb9) l.nineBox = nb9;
+      });
+    }
+  });
+  // Remove departed/promoted leaders from all successor slots
+  roles.forEach(r=>{
+    r.slots = (r.slots||[]).filter(s=>!departedIds.has(s.leaderId));
+    r.successors = (r.successors||[]).filter(id=>!departedIds.has(id));
+  });
+  return {leaders, roles, filledRoleIds, departedIds};
+}
+
+// Compute impact tiles + affected roles list
+function computeImpact(scenario){
+  const READY_NOW = READINESS[0];
+  const scen = applyScenario(scenario);
+  // Base metrics
+  const totalRoles = STATE.roles.length;
+  const baseReadyNowRoles = STATE.roles.filter(r=>
+    (r.slots||[]).some(s=>s.readiness===READY_NOW)
+  ).length;
+  const baseHealthPct = Math.round(100*baseReadyNowRoles/totalRoles);
+  const baseFL = STATE.leaders.filter(l=>l.nineBoxRow===0 && l.nineBoxCol===2).length;
+  const baseRN = STATE.roles.reduce((s,r)=>
+    s + (r.slots||[]).filter(sl=>sl.readiness===READY_NOW).length, 0);
+  // Scenario metrics — exclude filled roles from denominator (they no longer need succession)
+  const activeRoles = scen.roles.filter(r=>!scen.filledRoleIds.has(r.id));
+  const scenTotalRoles = activeRoles.length;
+  const scenReadyNowRoles = activeRoles.filter(r=>
+    (r.slots||[]).some(s=>s.readiness===READY_NOW)
+  ).length;
+  const scenHealthPct = scenTotalRoles ? Math.round(100*scenReadyNowRoles/scenTotalRoles) : 100;
+  const scenFL = scen.leaders.filter(l=>l.nineBoxRow===0 && l.nineBoxCol===2).length;
+  const scenRN = scen.roles.reduce((s,r)=>
+    s + (r.slots||[]).filter(sl=>sl.readiness===READY_NOW).length, 0);
+  // Affected roles: where pipeline class changed OR slot count changed
+  const affected = [];
+  STATE.roles.forEach(br=>{
+    const sr = scen.roles.find(x=>x.id===br.id);
+    if(!sr) return;
+    if(scen.filledRoleIds.has(br.id)){
+      affected.push({role:br, from:"", to:"", note:"Filled by promotion", tone:"up"});
+      return;
+    }
+    const baseClass = pipeClassFor(br.slots||[]);
+    const scenClass = pipeClassFor(sr.slots||[]);
+    const baseBench = (br.slots||[]).length;
+    const scenBench = (sr.slots||[]).length;
+    if(baseClass !== scenClass){
+      const worse = ["g","a","o","r"].indexOf(scenClass) > ["g","a","o","r"].indexOf(baseClass);
+      affected.push({
+        role:br, from:baseClass, to:scenClass,
+        note:_labelPipeClass(baseClass)+" → "+_labelPipeClass(scenClass),
+        tone: worse ? "dn" : "up"
+      });
+    } else if(baseBench !== scenBench){
+      affected.push({
+        role:br, from:baseClass, to:scenClass,
+        note:"Bench depth "+baseBench+" → "+scenBench,
+        tone: scenBench < baseBench ? "dn" : "up"
+      });
+    }
+  });
+  return {
+    baseHealthPct, scenHealthPct,
+    baseRN, scenRN,
+    baseFL, scenFL,
+    affected
+  };
+}
+function _labelPipeClass(cls){
+  return {g:"Healthy",a:"Watch",o:"At-risk",r:"Exposed"}[cls] || cls;
+}
+
+// ---------- Scenario tab renderer ----------
+function renderScenarios(){
+  renderScenBuilder();
+  renderScenChangesList();
+  renderScenImpact();
+  renderScenSavedList();
+  updateScenSaveBtn();
+  document.getElementById("scen-name").value = STATE.scenario.name || "";
+  document.getElementById("scen-name").oninput = (e)=>{
+    STATE.scenario.name = e.target.value;
+    updateScenSaveBtn();
+  };
+}
+function updateScenSaveBtn(){
+  const btn = document.getElementById("scen-save-btn");
+  if(!btn) return;
+  const hasName = (STATE.scenario.name||"").trim().length > 0;
+  const hasChanges = (STATE.scenario.changes||[]).length > 0;
+  btn.disabled = !(hasName && hasChanges);
+}
+
+function setScenType(t){
+  STATE.scenType = t;
+  document.querySelectorAll(".scen-type-tabs button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.type===t);
+  });
+  renderScenBuilder();
+}
+function renderScenBuilder(){
+  const el = document.getElementById("scen-config");
+  if(!el) return;
+  const t = STATE.scenType;
+  if(t === "departure"){
+    const opts = STATE.leaders.slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .map(l=>`<option value="${l.id}">${l.name} · ${l.level} · ${l.bu.replace("GMR ","")}</option>`).join("");
+    el.innerHTML = `
+      <div class="cfg-row">
+        <label>Who leaves?</label>
+        <select id="scen-dep-leader"><option value="">— Pick a leader —</option>${opts}</select>
+        <div class="helper">Simulates the leader leaving. They're removed from every successor slot they're on.</div>
+      </div>
+      <button class="scen-add-btn" onclick="addDepartureChange()">Add departure</button>`;
+  } else if(t === "promotion"){
+    const leaderOpts = STATE.leaders.slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .map(l=>`<option value="${l.id}">${l.name} · ${l.level} · ${l.bu.replace("GMR ","")}</option>`).join("");
+    const roleOpts = STATE.roles.slice().sort((a,b)=>a.title.localeCompare(b.title))
+      .map(r=>`<option value="${r.id}">${r.title} · Tier ${r.tier} · ${r.bu.replace("GMR ","")}</option>`).join("");
+    el.innerHTML = `
+      <div class="cfg-row">
+        <label>Promote which leader?</label>
+        <select id="scen-prom-leader"><option value="">— Pick a leader —</option>${leaderOpts}</select>
+      </div>
+      <div class="cfg-row">
+        <label>Into which role?</label>
+        <select id="scen-prom-role"><option value="">— Pick a role —</option>${roleOpts}</select>
+        <div class="helper">Target role becomes filled — it's excluded from pipeline health. Promoted leader is off all other slots.</div>
+      </div>
+      <button class="scen-add-btn" onclick="addPromotionChange()">Add promotion</button>`;
+  } else if(t === "devbet"){
+    const chips = STATE.leaders.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(l=>{
+      const sel = STATE.scenDevBetSelection.includes(l.id) ? "selected" : "";
+      return `<span class="scen-devbet-chip ${sel}" onclick="toggleDevBetLeader('${l.id}')">${l.name}</span>`;
+    }).join("");
+    const delta = STATE.scenDevBetDelta;
+    el.innerHTML = `
+      <div class="cfg-row">
+        <label>Which leaders to develop?</label>
+        <div class="scen-devbet-picker">${chips}</div>
+        <div class="helper">Click to add/remove. Selected: <b>${STATE.scenDevBetSelection.length}</b> leaders</div>
+      </div>
+      <div class="cfg-row">
+        <label>Potential uplift after 12–18 months</label>
+        <input type="range" class="scen-slider" min="0.2" max="1.2" step="0.1" value="${delta}" oninput="setDevBetDelta(this.value)"/>
+        <div>Uplift: <span class="scen-slider-val">+${Number(delta).toFixed(1)}</span> on Potential score (out of 5)</div>
+      </div>
+      <button class="scen-add-btn" onclick="addDevBetChange()" ${STATE.scenDevBetSelection.length===0?"disabled":""}>Add dev bet</button>`;
+  }
+}
+
+function toggleDevBetLeader(id){
+  const arr = STATE.scenDevBetSelection;
+  const i = arr.indexOf(id);
+  if(i<0) arr.push(id); else arr.splice(i,1);
+  renderScenBuilder();
+}
+function setDevBetDelta(v){
+  STATE.scenDevBetDelta = parseFloat(v);
+  const label = document.querySelector(".scen-slider-val");
+  if(label) label.textContent = "+"+STATE.scenDevBetDelta.toFixed(1);
+}
+
+function addDepartureChange(){
+  const id = document.getElementById("scen-dep-leader").value;
+  if(!id){ toast("Pick a leader first","warn"); return; }
+  const l = STATE.leaders.find(x=>x.id===id);
+  if(!l) return;
+  STATE.scenario.changes.push({type:"departure", leaderId:id, leaderName:l.name});
+  onScenarioChanged();
+}
+function addPromotionChange(){
+  const id = document.getElementById("scen-prom-leader").value;
+  const roleId = document.getElementById("scen-prom-role").value;
+  if(!id || !roleId){ toast("Pick both a leader and a role","warn"); return; }
+  const l = STATE.leaders.find(x=>x.id===id);
+  const r = STATE.roles.find(x=>x.id===roleId);
+  if(!l || !r) return;
+  STATE.scenario.changes.push({type:"promotion", leaderId:id, leaderName:l.name, toRoleId:roleId, toRoleTitle:r.title});
+  onScenarioChanged();
+}
+function addDevBetChange(){
+  if(STATE.scenDevBetSelection.length===0){ toast("Pick at least one leader","warn"); return; }
+  const ids = [...STATE.scenDevBetSelection];
+  const names = ids.map(id=>STATE.leaders.find(x=>x.id===id)?.name).filter(Boolean);
+  STATE.scenario.changes.push({type:"devbet", leaderIds:ids, leaderNames:names, delta:STATE.scenDevBetDelta});
+  STATE.scenDevBetSelection = [];
+  onScenarioChanged();
+}
+function removeChange(idx){
+  STATE.scenario.changes.splice(idx,1);
+  onScenarioChanged();
+}
+function onScenarioChanged(){
+  renderScenChangesList();
+  renderScenImpact();
+  document.getElementById("scen-count").textContent =
+    STATE.scenario.changes.length + " change" + (STATE.scenario.changes.length===1?"":"s");
+  updateScenSaveBtn();
+  renderScenBuilder();
+}
+function resetScenario(){
+  STATE.scenario = {name:"", changes:[]};
+  STATE.scenDevBetSelection = [];
+  document.getElementById("scen-name").value = "";
+  onScenarioChanged();
+}
+function saveScenario(){
+  const name = (STATE.scenario.name||"").trim();
+  if(!name){ toast("Type a scenario name to save","warn"); return; }
+  if(STATE.scenario.changes.length===0){ toast("Add at least one change first","warn"); return; }
+  STATE.savedScenarios.push({
+    name,
+    changes: JSON.parse(JSON.stringify(STATE.scenario.changes)),
+    savedAt: new Date().toISOString()
+  });
+  persistSavedScenarios();
+  toast("Scenario saved","ok");
+  resetScenario();
+  renderScenSavedList();
+}
+function loadSavedScenario(idx){
+  const s = STATE.savedScenarios[idx];
+  if(!s) return;
+  STATE.scenario = {name:s.name, changes:JSON.parse(JSON.stringify(s.changes))};
+  renderScenarios();
+  toast("Scenario loaded — edit or reset","ok");
+}
+function deleteSavedScenario(idx){
+  if(!confirm("Delete this saved scenario?")) return;
+  STATE.savedScenarios.splice(idx,1);
+  persistSavedScenarios();
+  renderScenSavedList();
+}
+
+function renderScenChangesList(){
+  const el = document.getElementById("scen-changes-list");
+  if(!el) return;
+  const ch = STATE.scenario.changes || [];
+  if(!ch.length){
+    el.innerHTML = `<div class="scen-empty-state">No changes yet. Add a departure, promotion or dev bet above.</div>`;
+    return;
+  }
+  el.innerHTML = ch.map((c,i)=>{
+    let body = "";
+    if(c.type==="departure") body = `<b>${c.leaderName}</b> leaves`;
+    else if(c.type==="promotion") body = `<b>${c.leaderName}</b> promoted to <b>${c.toRoleTitle}</b>`;
+    else if(c.type==="devbet") body = `<b>${c.leaderNames.length}</b> leaders get <b>+${c.delta.toFixed(1)}</b> potential uplift`;
+    const typeLbl = c.type==="devbet"?"DEV BET":c.type.toUpperCase();
+    return `<div class="scen-change-row">
+      <span class="ch-type">${typeLbl}</span>
+      <div class="ch-body">${body}</div>
+      <button class="ch-remove" onclick="removeChange(${i})" title="Remove">×</button>
+    </div>`;
+  }).join("");
+}
+
+function renderScenImpact(){
+  const el = document.getElementById("scen-impact-content");
+  if(!el) return;
+  if(!STATE.scenario.changes.length){
+    el.innerHTML = `<div class="scen-empty-state">Add a change to see impact vs. base state.</div>`;
+    return;
+  }
+  const imp = computeImpact(STATE.scenario);
+  const tile = (lbl, base, scen, unit) => {
+    const d = scen - base;
+    const arrow = base===scen ? "→" : "→";
+    const tone = base===scen ? "flat" : (d>0 ? "up" : "dn");
+    const sign = d>0 ? "+" : "";
+    return `<div class="scen-impact-tile">
+      <div class="lbl">${lbl}</div>
+      <div class="val">${base}${unit||""}<span class="arrow">${arrow}</span>${scen}${unit||""}</div>
+      <div class="delta ${tone}">${base===scen?"no change":sign+d+(unit||"")}</div>
+    </div>`;
+  };
+  let html = `<div class="scen-impact-tiles">
+    ${tile("Pipeline Health", imp.baseHealthPct, imp.scenHealthPct, "%")}
+    ${tile("Ready-Now successors", imp.baseRN, imp.scenRN)}
+    ${tile("Future Leaders", imp.baseFL, imp.scenFL)}
+  </div>`;
+  if(imp.affected.length){
+    html += `<div class="scen-affected-hd">Roles affected (${imp.affected.length})</div>`;
+    html += imp.affected.slice(0,20).map(af=>{
+      return `<div class="scen-affected-row">
+        <div class="r-name">${af.role.title}</div>
+        <div class="r-shift">${af.role.bu.replace("GMR ","")} · Tier ${af.role.tier}</div>
+        <div class="r-badge ${af.tone}">${af.note}</div>
+      </div>`;
+    }).join("");
+    if(imp.affected.length>20) html += `<div class="scen-empty-state">+${imp.affected.length-20} more affected roles</div>`;
+  } else {
+    html += `<div class="scen-affected-hd">Roles affected (0)</div>
+      <div class="scen-empty-state">No roles change status under this scenario.</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function renderScenSavedList(){
+  const el = document.getElementById("scen-saved-list");
+  const cnt = document.getElementById("scen-saved-count");
+  if(!el) return;
+  const arr = STATE.savedScenarios || [];
+  if(cnt) cnt.textContent = arr.length + " saved";
+  if(!arr.length){
+    el.innerHTML = `<div class="scen-empty-state">No saved scenarios. Build a scenario above, give it a name, and click Save.</div>`;
+    return;
+  }
+  el.innerHTML = arr.map((s,i)=>{
+    const dt = s.savedAt ? new Date(s.savedAt).toLocaleDateString() : "";
+    const kinds = {};
+    (s.changes||[]).forEach(c=>{ kinds[c.type] = (kinds[c.type]||0)+1; });
+    const kindStr = Object.entries(kinds).map(([k,n])=>`${n} ${k==="devbet"?"dev bet":k}${n>1?"s":""}`).join(" · ");
+    return `<div class="scen-saved-card">
+      <div class="s-name">${s.name}</div>
+      <div class="s-meta">${(s.changes||[]).length} change${(s.changes||[]).length===1?"":"s"} · ${kindStr}</div>
+      <div class="s-meta">Saved ${dt}</div>
+      <div class="s-actions">
+        <button class="s-load" onclick="loadSavedScenario(${i})">Load</button>
+        <button onclick="deleteSavedScenario(${i})">Delete</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
 function renderActionsView(){
   const cc = document.getElementById("all-comments");
   const allNotes = [];
